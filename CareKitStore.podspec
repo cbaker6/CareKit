@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.license               = { :type => 'BSD', :file => 'LICENSE' }
   s.author                = { 'researchandcare.org' => 'https://www.researchandcare.org' }
   s.platform              = :ios
-  s.ios.deployment_target = '13.0'
+  s.ios.deployment_target = '11.0'
   #s.osx.deployment_target = '10.15'
   s.swift_versions = '5.0'
   s.source                = { :git => 'https://github.com/carekit-apple/carekit.git', :tag => s.version.to_s, :submodules => true }

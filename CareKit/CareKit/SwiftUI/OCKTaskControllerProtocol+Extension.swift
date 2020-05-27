@@ -39,6 +39,10 @@ extension OCKTaskControllerProtocol {
     var title: String { event?.task.title ?? "" }
 
     var instructions: String { event?.task.instructions ?? "" }
+    
+    var slider: Slider {
+        Slider(value: 0, in: 0...7, step: 1)
+    }
 
     var isFirstEventComplete: Bool { event?.outcome != nil }
 

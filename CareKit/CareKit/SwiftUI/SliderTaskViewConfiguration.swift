@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Default data used to map data from an `OCKInstructionsTaskController` to a `CareKitUI.InstructionsTaskView`.
+/// Default data used to map data from an `OCKSliderTaskController` to a `CareKitUI.InstructionsTaskView`.
 public struct SliderTaskViewConfiguration {
 
     /// The title text to display in the header.
@@ -24,12 +24,28 @@ public struct SliderTaskViewConfiguration {
 
     /// True if the labeled button is complete.
     public let isComplete: Bool
-
+    
+    public let minimumImage: Image?
+    
+    public let slider: Slider
+    
+    public let maximumImage: Image?
+    
+    public let minimumValueLabel: String?
+    
+    public let maximumValueLabel: String?
+    
     init(controller: OCKTaskControllerProtocol) {
         self.title = controller.title
         self.detail = controller.event.map { OCKScheduleUtility.scheduleLabel(for: $0) } ?? ""
         self.instructions = controller.instructions
         self.isComplete = controller.isFirstEventComplete
         self.action = controller.toggleActionForFirstEvent
+        self.minimumImage = controller.minimumImage
+        self.slider = controller.slider
+        self.maximumImage = controller.maximumImage
+        self.minimumValueLabel = controller.minimumValueLabel
+        self.maximumValueLabel = controller.maximumValueLabel
+        
     }
 }

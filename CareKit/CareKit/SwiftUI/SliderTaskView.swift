@@ -5,6 +5,10 @@
 //  Created by Dylan Li on 5/26/20.
 //
 
+import CareKitUI
+import Foundation
+import SwiftUI
+
 /// A card that updates when a controller changes. The view displays a header view, multi-line label, and a completion button.
 ///
 /// In CareKit, this view is intended to display a particular event for a task. The state of the button indicates the completion state of the event.

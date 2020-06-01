@@ -46,11 +46,13 @@ extension OCKTaskControllerProtocol {
     
     var minimumValue: Int { sliderTask?.minimumValue ?? 0 }
     
-    var defaultValue: Int { sliderTask?.defaultValue ?? Int(((minimumValue+maximumValue)*.5).round()) }
+    var defaultValue: Int { sliderTask?.defaultValue ?? Int(((minimumValue + maximumValue) * .5).round()) }
     
     var step: Int { sliderTask?.step ?? 1 }
     
-    var slider: Slider { Slider(value: defaultValue, in minimumValue...maximumValue, step: step) ?? Slider(value: 5, in 0...10, step: 1) }
+    var slider: Slider<Text, Text> {
+        Slider(value: defaultValue, in minimumValue...maximumValue, step: step) ?? Slider(value: 5, in 0...10, step: 1)
+    }
     
     var maximumValueLabel: String? { sliderTask?.maximumValueLabel }
     

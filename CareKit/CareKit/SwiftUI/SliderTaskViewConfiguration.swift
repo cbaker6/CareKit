@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 /// Default data used to map data from an `OCKSliderTaskController` to a `CareKitUI.InstructionsTaskView`.
 public struct SliderTaskViewConfiguration {

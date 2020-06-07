@@ -151,7 +151,7 @@ extension OCKStore {
         currentOutcomes.forEach {
             $0.deletedDate = Date()
             $0.values = Set()
-            $0.logicalClock = context.clockTime
+            $0.logicalClock = Int64(context.clockTime)
         }
 
         let newOutcomes = outcomes.map(self.createOutcome)

@@ -100,13 +100,13 @@ extension OCKStore {
                              completion: ((Result<[OCKOutcome], OCKStoreError>) -> Void)? = nil) {
         context.perform {
             do {
-                var deleted = outcomes.map { outcome -> OCKOutcome in
+                let deleted = outcomes.map { outcome -> OCKOutcome in
                     var delete = outcome
                     delete.deletedDate = Date()
                     return delete
                 }
 
-                deleted = try self.updateOutcomesLeavingTombstone(deleted)
+                _ = try self.updateOutcomesLeavingTombstone(deleted)
                 try self.context.save()
                 callbackQueue.async {
                     self.outcomeDelegate?.outcomeStore(self, didDeleteOutcomes: deleted)

@@ -53,7 +53,7 @@ public struct SliderTaskView<Header: View, Footer: View>: View {
     /// - Parameter content: Return a view to display whenever the controller changes.
     public init(controller: OCKSliderTaskController,
                 content: @escaping (_ configuration: SliderTaskViewConfiguration) ->
-                CareKitUI.SliderTaskView<Header, Footer>) {
+        CareKitUI.SliderTaskView<Header,Footer>) {
         self.controller = controller
         self.content = content
     }
@@ -73,7 +73,45 @@ private extension CareKitUI.SliderTaskView where Header == HeaderView, Footer ==
     init(configuration: SliderTaskViewConfiguration) {
         self.init(title: Text(configuration.title), detail: configuration.detail.map { Text($0) },
                   instructions: configuration.instructions.map { Text($0) },
-                  isComplete: configuration.isComplete, action: configuration.action)
+                  maximumImage: configuration.maximumImage,
+                  minimumImage: configuration.minimumImage,
+                  slider: Slider<EmptyView,EmptyView>(
+                    value: configuration.$value,
+                    in: configuration.minimumValue...configuration.maximumValue,
+                    step: configuration.step),
+                  vertical: configuration.vertical,
+                  isComplete: configuration.isComplete,
+                  action: configuration.action)
     }
 }
+
+//public struct SliderCardView<Header: View, Footer: View>: View {
+//
+//    private let header: Header
+//    private let footer: Footer
+//    private let instructionsTaskView: CareKitUI.InstructionsTaskView<Header, Footer>
+//    private let slider: Slider<EmptyView, EmptyView>
+//    private let maximumImage: Image?
+//    private let minimumImage: Image?
+//
+//    public var body: some View {
+//        CardView {
+//            instructionsTaskView
+//            HStack{
+//                minimumImage
+//                slider
+//                maximumImage
+//            }
+//
+//        }
+//    }
+//
+//    public init(taskView: CareKitUI.InstructionsTaskView<Header,Footer>, slider: Slider<EmptyView, EmptyView>, maximumImage: Image?, minimumImage: Image?) {
+//        self.instructionsTaskView = taskView
+//        self.slider = slider
+//        self.maximumImage = maximumImage
+//        self.minimumImage = minimumImage
+//    }
+//
+//}
 

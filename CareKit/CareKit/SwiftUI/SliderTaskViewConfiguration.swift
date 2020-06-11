@@ -28,13 +28,23 @@ public struct SliderTaskViewConfiguration {
     
     public let minimumImage: Image?
     
-    public let slider: Slider
+   // public var slider: Slider<EmptyView,EmptyView>
     
     public let maximumImage: Image?
     
-    public let minimumValueLabel: String?
+    public let minimumValue: Double
     
-    public let maximumValueLabel: String?
+    public let maximumValue: Double
+    
+    public let step: Double
+    
+    public let vertical: Bool
+    
+//    public let minimumValueLabel: String?
+//
+//    public let maximumValueLabel: String?
+    
+    @State public var value: Double = 0.0
     
     init(controller: OCKTaskControllerProtocol) {
         self.title = controller.title
@@ -43,10 +53,15 @@ public struct SliderTaskViewConfiguration {
         self.isComplete = controller.isFirstEventComplete
         self.action = controller.toggleActionForFirstEvent
         self.minimumImage = controller.minimumImage
-        self.slider = controller.slider
+        //self.slider = Slider<EmptyView,EmptyView>(value: $value, in: controller.minimumValue...controller.maximumValue, step: controller.step)
         self.maximumImage = controller.maximumImage
-        self.minimumValueLabel = controller.minimumValueLabel
-        self.maximumValueLabel = controller.maximumValueLabel
+        self.maximumValue = controller.maximumValue
+        self.minimumValue = controller.minimumValue
+        self.step = controller.step
+        self.vertical = controller.vertical
+        self.value = controller.defaultValue
+//        self.minimumValueLabel = controller.minimumValueLabel
+//        self.maximumValueLabel = controller.maximumValueLabel
         
     }
 }

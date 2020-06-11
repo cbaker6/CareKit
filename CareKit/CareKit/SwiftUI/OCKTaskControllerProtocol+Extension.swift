@@ -38,25 +38,27 @@ extension OCKTaskControllerProtocol {
     
     var sliderTask: OCKSliderTask? { event?.task as? OCKSliderTask }
 
-    var title: String { sliderTask?.title ?? "" }
+    var title: String { sliderTask?.title ?? event?.task.title ?? "" }
 
-    var instructions: String { sliderTask?.instructions ?? "" }
+    var instructions: String { sliderTask?.instructions ?? event?.task.instructions ?? "" }
     
-    var maximumValue: Int { sliderTask?.maximumValue ?? 10 }
+    var maximumValue: Double { sliderTask?.maximumValue ?? 10.0 }
     
-    var minimumValue: Int { sliderTask?.minimumValue ?? 0 }
+    var minimumValue: Double { sliderTask?.minimumValue ?? 0.0 }
     
-    var defaultValue: Int { sliderTask?.defaultValue ?? Int(((minimumValue + maximumValue) * .5).round()) }
+//    @State var value: Double
     
-    var step: Int { sliderTask?.step ?? 1 }
+    var step: Double { sliderTask?.step ?? 1.0 }
     
-    var slider: Slider<Text, Text> {
-        Slider(value: defaultValue, in minimumValue...maximumValue, step: step) ?? Slider(value: 5, in 0...10, step: 1)
-    }
+    var defaultValue: Double { sliderTask?.defaultValue ?? 0.0 }
     
-    var maximumValueLabel: String? { sliderTask?.maximumValueLabel }
+//    var slider: Slider<Text, Text> {
+//        Slider(value: defaultValue, in minimumValue...maximumValue, step: step, max) ?? Slider(value: 5, in 0...10, step: 1)
+//    }
     
-    var minimumValueLabel: String? { sliderTask?.minimumValueLabel }
+//    var maximumValueLabel: String? { sliderTask?.maximumValueLabel }
+    
+//    var minimumValueLabel: String? { sliderTask?.minimumValueLabel }
     
     var maximumImage: Image? { sliderTask?.maximumImage }
     
@@ -113,20 +115,20 @@ class OCKSliderTask: OCKAnyTask {
     var notes: [OCKNote]? { get{ self.notes } }
     
     func belongs(to plan: OCKAnyCarePlan) -> Bool {
-       
+        self.belongs(to: plan)
     }
 
-    var maximumValue: Int { get { self.maximumValue } }
+    var maximumValue: Double { get { self.maximumValue } }
     
-    var minimumValue: Int { get { self.minimumValue } }
+    var minimumValue: Double { get { self.minimumValue } }
     
-    var defaultValue: Int? { get { self.defaultValue } }
+    var step: Double { get { self.step } }
     
-    var step: Int { get { self.step } }
+    var defaultValue: Double { get { self.defaultValue }}
     
-    var maximumValueLabel: String? { get { self.maximumValueLabel } }
+//    var maximumValueLabel: String? { get { self.maximumValueLabel } }
     
-    var minimumValueLabel: String? { get { self.minimumValueLabel} }
+//    var minimumValueLabel: String? { get { self.minimumValueLabel} }
     
     var maximumImage: Image? { get { self.maximumImage } }
     
@@ -145,9 +147,9 @@ internal protocol OCKAnyMutableTask {
     var minimumValue: Int { get set }
     var defaultValue: Int? { get set }
     var step: Int { get set }
-    var maximumValueLabel: String? { get set }
-    var minimumValueLabel: String? { get set }
+//    var maximumValueLabel: String? { get set }
+//    var minimumValueLabel: String? { get set }
     var maximumImage: Image? { get set }
     var minimumImage: Image? { get set }
-    var vertical: Bool { get set }
+//    var vertical: Bool { get set }
 }

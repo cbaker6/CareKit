@@ -151,6 +151,7 @@ extension OCKStore {
         currentOutcomes.forEach {
             $0.deletedDate = Date()
             $0.values = Set()
+            $0.logicalClock = Int64(context.clockTime)
         }
 
         let newOutcomes = outcomes.map(self.createOutcome)
@@ -241,11 +242,6 @@ extension OCKStore {
             predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, afterPredicate, beforePredicate])
         }
         
-        if !query.uuids.isEmpty {
-            let versionPredicate = NSPredicate(format: "%K IN %@", #keyPath(OCKCDObject.uuid), query.uuids)
-            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, versionPredicate])
-        }
-
         if !query.uuids.isEmpty {
             let objectPredicate = NSPredicate(format: "%K IN %@", #keyPath(OCKCDObject.uuid), query.uuids)
             predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, objectPredicate])

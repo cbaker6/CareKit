@@ -120,7 +120,7 @@ class TestStoreSync: XCTestCase {
         XCTAssert(localTasks.count == 2)
         XCTAssert(localOutcomes.count == 2)
     }
-
+    
     func testKeepRemoteTaskWithFirstVersionOfTasks() throws {
         peer.automaticallySynchronizes = false
         peer.conflictPolicy = .keepRemote
@@ -267,6 +267,92 @@ class TestStoreSync: XCTestCase {
         XCTAssert(localOutcomes == remoteOutcomes)
         XCTAssert(localOutcomes.count == 1)
     }
+    
+    func testTombstoningOutcomePushedToRemote() throws {
+        let dummy2 = DummyEndpoint2()
+        let testStore = OCKStore(name: "test", type: .inMemory, remote: dummy2)
+        dummy2.automaticallySynchronizes = false
+        
+        let schedule = OCKSchedule.mealTimesEachDay(start: Date(), end: nil)
+        let task = try testStore.addTaskAndWait(OCKTask(id: "A", title: "A", carePlanUUID: nil, schedule: schedule))
+        let taskUUID = try task.getUUID()
+
+        let outcome = try testStore.addOutcomeAndWait(OCKOutcome(taskUUID: taskUUID, taskOccurrenceIndex: 0, values: [OCKOutcomeValue("test")]))
+        let outcomeUUID = try outcome.getUUID()
+        XCTAssertNoThrow(try testStore.syncAndWait()) //Sync original outcome
+        
+        try testStore.deleteOutcomeAndWait(outcome)
+        XCTAssertNoThrow(try testStore.syncAndWait()) //Sync tombstoned outcome
+        let latestRevisions = dummy2.revisionsPushedInLastSynch
+        XCTAssert(latestRevisions.count == 2)
+        
+        let tombstonedOutcomes = latestRevisions.compactMap{
+            entity -> OCKOutcome? in
+            switch entity{
+            case .outcome(let outcome):
+                return outcome
+            default:
+                return nil
+            }
+        }
+        XCTAssert(tombstonedOutcomes.count == 2)
+        
+        guard let tombstonedWithSameUUID = try tombstonedOutcomes.filter({try $0.getUUID() == outcomeUUID}).first else{
+            throw OCKStoreError.invalidValue(reason: "Filter doesn't contain UUID")
+        }
+        XCTAssert(tombstonedWithSameUUID.values.isEmpty)
+        XCTAssert(tombstonedWithSameUUID.deletedDate != nil)
+        
+        guard let tombstonedWithDifferentUUID = try tombstonedOutcomes.filter({try $0.getUUID() != outcomeUUID}).first else{
+            throw OCKStoreError.invalidValue(reason: "Filter doesn't contain UUID")
+        }
+        XCTAssert(tombstonedWithDifferentUUID.values.count == 1)
+        XCTAssert(tombstonedWithDifferentUUID.deletedDate != nil)
+    }
+    
+    func testUpdateTaskVersionPushedToRemote() throws {
+        let dummy2 = DummyEndpoint2()
+        let testStore = OCKStore(name: "test", type: .inMemory, remote: dummy2)
+        dummy2.automaticallySynchronizes = false
+        
+        let schedule = OCKSchedule.mealTimesEachDay(start: Date(), end: nil)
+        var task = try testStore.addTaskAndWait(OCKTask(id: "A", title: "A", carePlanUUID: nil, schedule: schedule))
+        let taskUUID = try task.getUUID()
+
+        XCTAssertNoThrow(try testStore.syncAndWait()) //Sync original outcome
+        
+        task.instructions = "Updated instructions"
+        try testStore.updateTaskAndWait(task)
+        XCTAssertNoThrow(try testStore.syncAndWait()) //Sync updated outcome
+        
+        let latestRevisions = dummy2.revisionsPushedInLastSynch
+        XCTAssert(latestRevisions.count == 2)
+        
+        let versionedTasks = latestRevisions.compactMap{
+            entity -> OCKTask? in
+            switch entity{
+            case .task(let task):
+                return task
+            default:
+                return nil
+            }
+        }
+        XCTAssert(versionedTasks.count == 2)
+        
+        guard let previousVersionTask = try versionedTasks.filter({try $0.getUUID() == taskUUID}).first else{
+            throw OCKStoreError.invalidValue(reason: "Filter doesn't contain UUID")
+        }
+        
+        guard let currentVersionTask = try versionedTasks.filter({try $0.getUUID() != taskUUID}).first else{
+            throw OCKStoreError.invalidValue(reason: "Filter doesn't contain UUID")
+        }
+        XCTAssert(previousVersionTask.instructions == nil)
+        XCTAssert(try previousVersionTask.getNextVersionUUID() == currentVersionTask.getUUID())
+        
+        XCTAssert(currentVersionTask.instructions != nil)
+        XCTAssert(try currentVersionTask.getPreviousVersionUUID() == taskUUID)
+        XCTAssertThrowsError(try currentVersionTask.getNextVersionUUID())
+    }
 }
 
 class DummyEndpoint: OCKRemoteSynchronizable {
@@ -351,6 +437,101 @@ class DummyEndpoint: OCKRemoteSynchronizable {
         ]
 
         let revision = OCKRevisionRecord(entities: entities, knowledgeVector: .init())
+        return revision
+    }
+}
+
+class DummyEndpoint2: OCKRemoteSynchronizable {
+
+    var automaticallySynchronizes = true
+    var shouldSucceed = true
+    var delay: TimeInterval = 0.0
+    weak var delegate: OCKRemoteSynchronizationDelegate?
+
+    private(set) var timesPullWasCalled = 0
+    private(set) var timesPushWasCalled = 0
+    private(set) var timesForcePushed = 0
+    private(set) var uuid = UUID()
+    private(set) var dummyKnowledgeVector:OCKRevisionRecord.KnowledgeVector? = nil
+    public internal(set) var revisionsPushedInLastSynch = [OCKEntity]()
+
+    var conflictPolicy = OCKMergeConflictResolutionPolicy.keepRemote
+
+    func pullRevisions(
+        since knowledgeVector: OCKRevisionRecord.KnowledgeVector,
+        mergeRevision: @escaping (OCKRevisionRecord, @escaping (Error?) -> Void) -> Void,
+        completion: @escaping (Error?) -> Void) {
+        
+        timesPullWasCalled += 1
+        DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + delay) {
+            if !self.shouldSucceed {
+                completion(OCKStoreError.remoteSynchronizationFailed(reason: "Failed on purpose"))
+                return
+            }
+            
+            let revision: OCKRevisionRecord!
+            if self.dummyKnowledgeVector == nil{
+                revision = OCKRevisionRecord(entities: [], knowledgeVector: .init())
+            }else{
+                revision = OCKRevisionRecord(entities: [], knowledgeVector: self.dummyKnowledgeVector!)
+            }
+            
+            mergeRevision(revision, completion)
+        }
+    }
+
+    func pushRevisions(
+        deviceRevision: OCKRevisionRecord,
+        overwriteRemote: Bool,
+        completion: @escaping (Error?) -> Void) {
+        
+        timesPushWasCalled += 1
+        timesForcePushed += overwriteRemote ? 1 : 0
+        
+        //Save latest revisions
+        revisionsPushedInLastSynch.removeAll()
+        revisionsPushedInLastSynch.append(contentsOf: deviceRevision.entities)
+        
+        //Update KnowledgeVector
+        if dummyKnowledgeVector == nil{
+            dummyKnowledgeVector = .init([uuid:0])
+        }
+        dummyKnowledgeVector?.increment(clockFor: uuid)
+        dummyKnowledgeVector?.merge(with: deviceRevision.knowledgeVector)
+        
+        completion(nil)
+    }
+
+    func chooseConflictResolutionPolicy(
+        _ conflict: OCKMergeConflictDescription,
+        completion: @escaping (OCKMergeConflictResolutionPolicy) -> Void) {
+        completion(conflictPolicy)
+    }
+
+    func dummyRevision() -> OCKRevisionRecord {
+        let schedule = OCKSchedule.mealTimesEachDay(start: Date(), end: nil)
+        var task = OCKTask(id: "a", title: "A", carePlanUUID: nil, schedule: schedule)
+        task.uuid = UUID()
+        task.createdDate = Date()
+        task.updatedDate = task.createdDate
+
+        var outcome = OCKOutcome(taskUUID: task.uuid!, taskOccurrenceIndex: 0, values: [])
+        outcome.uuid = UUID()
+        outcome.createdDate = Date()
+        outcome.updatedDate = outcome.createdDate
+
+        let entities: [OCKEntity] = [
+            .task(task),
+            .outcome(outcome)
+        ]
+        
+        let revision: OCKRevisionRecord!
+        if self.dummyKnowledgeVector == nil{
+            revision = OCKRevisionRecord(entities: entities, knowledgeVector: .init())
+        }else{
+            revision = OCKRevisionRecord(entities: entities, knowledgeVector: self.dummyKnowledgeVector!)
+        }
+
         return revision
     }
 }

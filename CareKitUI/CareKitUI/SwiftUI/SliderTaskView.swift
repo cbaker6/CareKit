@@ -44,6 +44,30 @@ public struct SliderTaskView<Header: View, Footer: View>: View {
     private let maximumImage: Image?
     private let minimumImage: Image?
     private let vertical: Bool
+    
+    //    var maximumValue: Double { sliderTask?.maximumValue ?? 10.0 }
+        
+     //   var minimumValue: Double { sliderTask?.minimumValue ?? 0.0 }
+        
+    //    @State var value: Double
+        
+    //    var step: Double { sliderTask?.step ?? 1.0 }
+        
+     //   var defaultValue: Double { sliderTask?.defaultValue ?? 0.0 }
+        
+    //    var slider: Slider<Text, Text> {
+    //        Slider(value: defaultValue, in minimumValue...maximumValue, step: step, max) ?? Slider(value: 5, in 0...10, step: 1)
+    //    }
+        
+    //    var maximumValueLabel: String? { sliderTask?.maximumValueLabel }
+        
+    //    var minimumValueLabel: String? { sliderTask?.minimumValueLabel }
+        
+    //    var maximumImage: Image? { sliderTask?.maximumImage }
+    //
+    //    var minimumImage: Image? { sliderTask?.minimumImage }
+    //
+    //    var vertical: Bool { sliderTask?.vertical ?? false }
 
     public var body: some View {
         CardView {
@@ -83,6 +107,16 @@ public struct SliderTaskView<Header: View, Footer: View>: View {
 
     // MARK: - Init
 
+    public init(instructions: Text?, slider: Slider<EmptyView,EmptyView>, vertical: Bool, @ViewBuilder header: () -> Header, @ViewBuilder footer: () -> Footer) {
+        self.instructions = instructions
+        self.slider = slider
+        self.maximumImage = nil
+        self.minimumImage = nil
+        self.vertical = vertical
+        self.header = header()
+        self.footer = footer()
+    }
+    
     /// Create an instance.
     /// - Parameter instructions: Instructions text to display under the header.
     /// - Parameter header: Header to inject at the top of the card. Specified content will be stacked vertically.
@@ -114,6 +148,12 @@ public extension SliderTaskView where Header == HeaderView {
 
 public extension SliderTaskView where Footer == _SliderTaskViewFooter {
 
+    init(isComplete: Bool, instructions: Text?, slider: Slider<EmptyView,EmptyView>, vertical: Bool, action: (() -> Void)?, @ViewBuilder header: () -> Header) {
+        self.init(instructions: instructions, slider: slider, vertical: vertical, header: header, footer: {
+            _SliderTaskViewFooter(isComplete: isComplete, action: action)
+        })
+    }
+    
     /// Create an instance.
     /// - Parameter isComplete: True if the button under the instructions is in the completed.
     /// - Parameter instructions: Instructions text to display under the header.
@@ -128,6 +168,13 @@ public extension SliderTaskView where Footer == _SliderTaskViewFooter {
 
 public extension SliderTaskView where Header == HeaderView, Footer == _SliderTaskViewFooter {
 
+    init(title: Text, detail: Text?, instructions: Text?, slider: Slider<EmptyView,EmptyView>, vertical: Bool, isComplete: Bool, action: (() -> Void)?) {
+        self.init(instructions: instructions, slider: slider, vertical: vertical, header: {
+            Header(title: title, detail: detail)
+        }, footer: {
+            _SliderTaskViewFooter(isComplete: isComplete, action: action)
+        })
+    }
     /// Create an instance.
     /// - Parameter title: Title text to display in the header.
     /// - Parameter detail: Detail text to display in the header.

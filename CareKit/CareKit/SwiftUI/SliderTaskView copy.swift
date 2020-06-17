@@ -45,7 +45,7 @@ public struct SliderTaskView<Header: View, Footer: View>: View {
     @ObservedObject public var controller: OCKSliderTaskController
 
     public var body: some View {
-        content(.init(controller: controller, minimumValue: 0.0, maximumValue: 10.0, step: 1.0))
+        content(.init(controller: controller))
     }
 
     /// Create an instance that updates the content view when the observed controller changes.

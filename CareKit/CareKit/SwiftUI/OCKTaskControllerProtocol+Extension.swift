@@ -36,21 +36,21 @@ extension OCKTaskControllerProtocol {
     
     var event: OCKAnyEvent? { objectWillChange.value?.firstEvent }
     
-    var sliderTask: OCKSliderTask? { event?.task as? OCKSliderTask }
+ //   var sliderTask: OCKSliderTask? { event?.task as? OCKSliderTask }
 
-    var title: String { sliderTask?.title ?? event?.task.title ?? "" }
+    var title: String { event?.task.title ?? "" }
 
-    var instructions: String { sliderTask?.instructions ?? event?.task.instructions ?? "" }
+    var instructions: String { event?.task.instructions ?? "" }
     
-    var maximumValue: Double { sliderTask?.maximumValue ?? 10.0 }
+//    var maximumValue: Double { sliderTask?.maximumValue ?? 10.0 }
     
-    var minimumValue: Double { sliderTask?.minimumValue ?? 0.0 }
+ //   var minimumValue: Double { sliderTask?.minimumValue ?? 0.0 }
     
 //    @State var value: Double
     
-    var step: Double { sliderTask?.step ?? 1.0 }
+//    var step: Double { sliderTask?.step ?? 1.0 }
     
-    var defaultValue: Double { sliderTask?.defaultValue ?? 0.0 }
+ //   var defaultValue: Double { sliderTask?.defaultValue ?? 0.0 }
     
 //    var slider: Slider<Text, Text> {
 //        Slider(value: defaultValue, in minimumValue...maximumValue, step: step, max) ?? Slider(value: 5, in 0...10, step: 1)
@@ -60,11 +60,11 @@ extension OCKTaskControllerProtocol {
     
 //    var minimumValueLabel: String? { sliderTask?.minimumValueLabel }
     
-    var maximumImage: Image? { sliderTask?.maximumImage }
-    
-    var minimumImage: Image? { sliderTask?.minimumImage }
-    
-    var vertical: Bool { sliderTask?.vertical ?? false }
+//    var maximumImage: Image? { sliderTask?.maximumImage }
+//
+//    var minimumImage: Image? { sliderTask?.minimumImage }
+//
+//    var vertical: Bool { sliderTask?.vertical ?? false }
     
     var isFirstEventComplete: Bool { event?.outcome != nil }
 
@@ -88,68 +88,68 @@ extension OCKTaskControllerProtocol {
     }
 }
 
-class OCKSliderTask: OCKAnyTask {
-    
-    var id: String { get { self.id  } }
-
-    /// A title that will be used to represent this care plan to the patient.
-    var title: String? { get{ self.title } }
-
-    /// Instructions about how this task should be performed.
-    var instructions: String? { get { self.instructions} }
-
-    /// If true, completion of this task will be factored into the patient's overall adherence. True by default.
-    var impactsAdherence: Bool { get { self.impactsAdherence } }
-
-    /// A schedule that specifies how often this task occurs.
-    var schedule: OCKSchedule { get { self.schedule } }
-
-    /// A user-defined group identifer that can be used both for querying and sorting results.
-    /// Examples may include: "medications", "exercises", "family", "males", "diabetics", etc.
-    var groupIdentifier: String? { get{ self.groupIdentifier } }
-
-    /// An identifier for this patient in a remote store.
-    var remoteID: String? { get{ self.remoteID } }
-
-    /// Any array of notes associated with this object.
-    var notes: [OCKNote]? { get{ self.notes } }
-    
-    func belongs(to plan: OCKAnyCarePlan) -> Bool {
-        self.belongs(to: plan)
-    }
-
-    var maximumValue: Double { get { self.maximumValue } }
-    
-    var minimumValue: Double { get { self.minimumValue } }
-    
-    var step: Double { get { self.step } }
-    
-    var defaultValue: Double { get { self.defaultValue }}
-    
-//    var maximumValueLabel: String? { get { self.maximumValueLabel } }
-    
-//    var minimumValueLabel: String? { get { self.minimumValueLabel} }
-    
-    var maximumImage: Image? { get { self.maximumImage } }
-    
-    var minimumImage: Image? { get { self.minimumImage } }
-    
-    var vertical: Bool { get { self.vertical } }
-
-}
-
-internal protocol OCKAnyMutableTask {
-    var title: String? { get set }
-    var instructions: String? { get set }
-    var impactsAdherence: Bool { get set }
-    var schedule: OCKSchedule { get set }
-    var maximumValue: Int { get set }
-    var minimumValue: Int { get set }
-    var defaultValue: Int? { get set }
-    var step: Int { get set }
-//    var maximumValueLabel: String? { get set }
-//    var minimumValueLabel: String? { get set }
-    var maximumImage: Image? { get set }
-    var minimumImage: Image? { get set }
-//    var vertical: Bool { get set }
-}
+//class OCKSliderTask: OCKAnyTask {
+//
+//    var id: String { get }
+//
+//    /// A title that will be used to represent this care plan to the patient.
+//    var title: String? { get }
+//
+//    /// Instructions about how this task should be performed.
+//    var instructions: String? { get { self.instructions} }
+//
+//    /// If true, completion of this task will be factored into the patient's overall adherence. True by default.
+//    var impactsAdherence: Bool { get { self.impactsAdherence } }
+//
+//    /// A schedule that specifies how often this task occurs.
+//    var schedule: OCKSchedule { get { self.schedule } }
+//
+//    /// A user-defined group identifer that can be used both for querying and sorting results.
+//    /// Examples may include: "medications", "exercises", "family", "males", "diabetics", etc.
+//    var groupIdentifier: String? { get{ self.groupIdentifier } }
+//
+//    /// An identifier for this patient in a remote store.
+//    var remoteID: String? { get{ self.remoteID } }
+//
+//    /// Any array of notes associated with this object.
+//    var notes: [OCKNote]? { get{ self.notes } }
+//    */
+//    func belongs(to plan: OCKAnyCarePlan) -> Bool {
+//        self.belongs(to: plan)
+//    }
+//
+//    var maximumValue: Double { get { self.maximumValue } }
+//
+//    var minimumValue: Double { get { self.minimumValue } }
+//
+//    var step: Double { get { self.step } }
+//
+//    var defaultValue: Double { get { self.defaultValue }}
+//
+////    var maximumValueLabel: String? { get { self.maximumValueLabel } }
+//
+////    var minimumValueLabel: String? { get { self.minimumValueLabel} }
+//
+//    var maximumImage: Image? { get { self.maximumImage } }
+//
+//    var minimumImage: Image? { get { self.minimumImage } }
+//
+//    var vertical: Bool { get { self.vertical } }
+//
+//}
+//
+//internal protocol OCKAnyMutableTask {
+//    var title: String? { get set }
+//    var instructions: String? { get set }
+//    var impactsAdherence: Bool { get set }
+//    var schedule: OCKSchedule { get set }
+//    var maximumValue: Int { get set }
+//    var minimumValue: Int { get set }
+//    var defaultValue: Int? { get set }
+//    var step: Int { get set }
+////    var maximumValueLabel: String? { get set }
+////    var minimumValueLabel: String? { get set }
+//    var maximumImage: Image? { get set }
+//    var minimumImage: Image? { get set }
+////    var vertical: Bool { get set }
+//}

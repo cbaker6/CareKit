@@ -27,25 +27,25 @@ public struct SliderTaskViewConfiguration {
     public let isComplete: Bool
     
     public let minimumImage: Image?
-    
-   // public var slider: Slider<EmptyView,EmptyView>
-    
-    public let maximumImage: Image?
-    
-    public let minimumValue: Double
-    
-    public let maximumValue: Double
-    
-    public let step: Double
-    
-    public let vertical: Bool
-    
-//    public let minimumValueLabel: String?
 //
-//    public let maximumValueLabel: String?
-    
+    public var slider: Slider<EmptyView,EmptyView>?=nil
+//
+    public let maximumImage: Image?
+//
+    public let minimumValue: Double = 0.0
+//
+    public let maximumValue: Double = 0.0
+//
+    public let step: Double = 1.0
+//
+    public let vertical: Bool = false
+//
+////    public let minimumValueLabel: String?
+////
+////    public let maximumValueLabel: String?
+//
     @State public var value: Double = 0.0
-    
+    /*
     init(controller: OCKTaskControllerProtocol) {
         self.title = controller.title
         self.detail = controller.event.map { OCKScheduleUtility.scheduleLabel(for: $0) } ?? ""
@@ -53,15 +53,34 @@ public struct SliderTaskViewConfiguration {
         self.isComplete = controller.isFirstEventComplete
         self.action = controller.toggleActionForFirstEvent
         self.minimumImage = controller.minimumImage
-        //self.slider = Slider<EmptyView,EmptyView>(value: $value, in: controller.minimumValue...controller.maximumValue, step: controller.step)
         self.maximumImage = controller.maximumImage
         self.maximumValue = controller.maximumValue
         self.minimumValue = controller.minimumValue
         self.step = controller.step
         self.vertical = controller.vertical
         self.value = controller.defaultValue
-//        self.minimumValueLabel = controller.minimumValueLabel
-//        self.maximumValueLabel = controller.maximumValueLabel
+        self.minimumValueLabel = controller.minimumValueLabel
+        self.maximumValueLabel = controller.maximumValueLabel
+    }*/
+    
+    init(controller: OCKTaskControllerProtocol, minimumValue: Double, maximumValue:Double, step: Double){
+        //self.init(controller: controller)
+        self.title = controller.title
+        self.detail = controller.event.map { OCKScheduleUtility.scheduleLabel(for: $0) } ?? ""
+        self.instructions = controller.instructions
+        self.isComplete = controller.isFirstEventComplete
+        self.action = controller.toggleActionForFirstEvent
+        self.minimumImage = nil
+        self.maximumImage = nil
+        
+        self.slider = Slider<EmptyView,EmptyView>(value: $value, in: minimumValue...maximumValue, step: step)
+        
+        
+        
+
+
+
+
         
     }
 }

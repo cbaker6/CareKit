@@ -40,34 +40,13 @@ public struct SliderTaskView<Header: View, Footer: View>: View {
     private let header: Header
     private let footer: Footer
     private let instructions: Text?
-    private let slider: Slider<EmptyView,EmptyView>
     private let maximumImage: Image?
     private let minimumImage: Image?
     private let vertical: Bool
-    
-    //    var maximumValue: Double { sliderTask?.maximumValue ?? 10.0 }
-        
-     //   var minimumValue: Double { sliderTask?.minimumValue ?? 0.0 }
-        
-    //    @State var value: Double
-        
-    //    var step: Double { sliderTask?.step ?? 1.0 }
-        
-     //   var defaultValue: Double { sliderTask?.defaultValue ?? 0.0 }
-        
-    //    var slider: Slider<Text, Text> {
-    //        Slider(value: defaultValue, in minimumValue...maximumValue, step: step, max) ?? Slider(value: 5, in 0...10, step: 1)
-    //    }
-        
-    //    var maximumValueLabel: String? { sliderTask?.maximumValueLabel }
-        
-    //    var minimumValueLabel: String? { sliderTask?.minimumValueLabel }
-        
-    //    var maximumImage: Image? { sliderTask?.maximumImage }
-    //
-    //    var minimumImage: Image? { sliderTask?.minimumImage }
-    //
-    //    var vertical: Bool { sliderTask?.vertical ?? false }
+    private let minimumValue: CGFloat
+    private let maximumValue: CGFloat
+    private let step: CGFloat
+    @State private var value: CGFloat = 0
 
     public var body: some View {
         CardView {
@@ -84,7 +63,7 @@ public struct SliderTaskView<Header: View, Footer: View>: View {
                 VStack {
                     maximumImage
                     GeometryReader { geo in
-                        self.slider
+                        Slider<EmptyView,EmptyView>(value: self.$value, in: self.minimumValue...self.maximumValue, step: self.step)
                             .rotationEffect(.degrees(-90.0), anchor: .topLeading)
                             .frame(width: geo.size.height)
                             .offset(y: geo.size.height)
@@ -94,7 +73,7 @@ public struct SliderTaskView<Header: View, Footer: View>: View {
             } else {
                 HStack {
                     minimumImage
-                    slider
+                    Slider<EmptyView,EmptyView>(value: $value, in: minimumValue...maximumValue, step: step)
                     maximumImage
                 }
             }
@@ -107,28 +86,34 @@ public struct SliderTaskView<Header: View, Footer: View>: View {
 
     // MARK: - Init
 
-    public init(instructions: Text?, slider: Slider<EmptyView,EmptyView>, vertical: Bool, @ViewBuilder header: () -> Header, @ViewBuilder footer: () -> Footer) {
+    public init(instructions: Text?, initialValue: CGFloat, minimumValue: CGFloat, maximumValue: CGFloat, step: CGFloat, vertical: Bool, @ViewBuilder header: () -> Header, @ViewBuilder footer: () -> Footer) {
         self.instructions = instructions
-        self.slider = slider
+        self.header = header()
+        self.footer = footer()
         self.maximumImage = nil
         self.minimumImage = nil
         self.vertical = vertical
-        self.header = header()
-        self.footer = footer()
+        self.minimumValue = minimumValue
+        self.maximumValue = maximumValue
+        self.step = step
+        self.value = initialValue
     }
     
     /// Create an instance.
     /// - Parameter instructions: Instructions text to display under the header.
     /// - Parameter header: Header to inject at the top of the card. Specified content will be stacked vertically.
     /// - Parameter footer: View to inject under the instructions. Specified content will be stacked vertically.
-    public init(instructions: Text?, maximumImage: Image?, minimumImage: Image?, slider: Slider<EmptyView,EmptyView>, vertical: Bool, @ViewBuilder header: () -> Header, @ViewBuilder footer: () -> Footer) {
+    public init(instructions: Text?, maximumImage: Image?, minimumImage: Image?, initialValue: CGFloat, minimumValue: CGFloat, maximumValue: CGFloat, step: CGFloat, vertical: Bool, @ViewBuilder header: () -> Header, @ViewBuilder footer: () -> Footer) {
         self.instructions = instructions
-        self.maximumImage = maximumImage
-        self.minimumImage = minimumImage
-        self.slider = slider
-        self.vertical = vertical
         self.header = header()
         self.footer = footer()
+        self.maximumImage = maximumImage
+        self.minimumImage = minimumImage
+        self.vertical = vertical
+        self.minimumValue = minimumValue
+        self.maximumValue = maximumValue
+        self.step = step
+        self.value = initialValue
     }
 }
 
@@ -139,8 +124,8 @@ public extension SliderTaskView where Header == HeaderView {
     /// - Parameter detail: Detail text to display in the header.
     /// - Parameter instructions: Instructions text to display under the header.
     /// - Parameter footer: View to inject under the instructions. Specified content will be stacked vertically.
-    init(title: Text, detail: Text?, instructions: Text?, maximumImage: Image?, minimumImage: Image?, slider: Slider<EmptyView,EmptyView>, vertical: Bool, @ViewBuilder footer: () -> Footer) {
-        self.init(instructions: instructions, maximumImage: maximumImage, minimumImage: minimumImage, slider: slider, vertical: vertical, header: {
+    init(title: Text, detail: Text?, instructions: Text?, maximumImage: Image?, minimumImage: Image?, initialValue: CGFloat, minimumValue: CGFloat, maximumValue: CGFloat, step: CGFloat, vertical: Bool, @ViewBuilder footer: () -> Footer) {
+        self.init(instructions: instructions, maximumImage: maximumImage, minimumImage: minimumImage, initialValue: initialValue, minimumValue: minimumValue, maximumValue: maximumValue, step: step, vertical: vertical, header: {
             Header(title: title, detail: detail)
         }, footer: footer)
     }
@@ -148,8 +133,8 @@ public extension SliderTaskView where Header == HeaderView {
 
 public extension SliderTaskView where Footer == _SliderTaskViewFooter {
 
-    init(isComplete: Bool, instructions: Text?, slider: Slider<EmptyView,EmptyView>, vertical: Bool, action: (() -> Void)?, @ViewBuilder header: () -> Header) {
-        self.init(instructions: instructions, slider: slider, vertical: vertical, header: header, footer: {
+    init(isComplete: Bool, instructions: Text?, initialValue: CGFloat, minimumValue: CGFloat, maximumValue: CGFloat, step: CGFloat, vertical: Bool, action: (() -> Void)?, @ViewBuilder header: () -> Header) {
+        self.init(instructions: instructions, initialValue: initialValue, minimumValue: minimumValue, maximumValue: maximumValue, step: step, vertical: vertical, header: header, footer: {
             _SliderTaskViewFooter(isComplete: isComplete, action: action)
         })
     }
@@ -159,8 +144,8 @@ public extension SliderTaskView where Footer == _SliderTaskViewFooter {
     /// - Parameter instructions: Instructions text to display under the header.
     /// - Parameter action: Action to perform when the button is tapped.
     /// - Parameter header: Header to inject at the top of the card. Specified content will be stacked vertically.
-    init(isComplete: Bool, instructions: Text?, maximumImage: Image?, minimumImage: Image?, slider: Slider<EmptyView,EmptyView>, vertical: Bool, action: (() -> Void)?, @ViewBuilder header: () -> Header) {
-        self.init(instructions: instructions, maximumImage: maximumImage, minimumImage: minimumImage, slider: slider, vertical: vertical, header: header, footer: {
+    init(isComplete: Bool, instructions: Text?, maximumImage: Image?, minimumImage: Image?, initialValue: CGFloat, minimumValue: CGFloat, maximumValue: CGFloat, step: CGFloat, vertical: Bool, action: (() -> Void)?, @ViewBuilder header: () -> Header) {
+        self.init(instructions: instructions, maximumImage: maximumImage, minimumImage: minimumImage, initialValue: initialValue, minimumValue: minimumValue, maximumValue: maximumValue, step: step, vertical: vertical, header: header, footer: {
             _SliderTaskViewFooter(isComplete: isComplete, action: action)
         })
     }
@@ -168,8 +153,8 @@ public extension SliderTaskView where Footer == _SliderTaskViewFooter {
 
 public extension SliderTaskView where Header == HeaderView, Footer == _SliderTaskViewFooter {
 
-    init(title: Text, detail: Text?, instructions: Text?, slider: Slider<EmptyView,EmptyView>, vertical: Bool, isComplete: Bool, action: (() -> Void)?) {
-        self.init(instructions: instructions, slider: slider, vertical: vertical, header: {
+    init(title: Text, detail: Text?, instructions: Text?, initialValue: CGFloat, minimumValue: CGFloat, maximumValue: CGFloat, step: CGFloat, vertical: Bool, isComplete: Bool, action: (() -> Void)?) {
+        self.init(instructions: instructions, initialValue: initialValue, minimumValue: minimumValue, maximumValue: maximumValue, step: step, vertical: vertical, header: {
             Header(title: title, detail: detail)
         }, footer: {
             _SliderTaskViewFooter(isComplete: isComplete, action: action)
@@ -181,8 +166,8 @@ public extension SliderTaskView where Header == HeaderView, Footer == _SliderTas
     /// - Parameter instructions: Instructions text to display under the header.
     /// - Parameter isComplete: True if the button under the instructions is in the completed state.
     /// - Parameter action: Action to perform when the button is tapped.
-    init(title: Text, detail: Text?, instructions: Text?, maximumImage: Image?, minimumImage: Image?, slider: Slider<EmptyView,EmptyView>, vertical: Bool, isComplete: Bool, action: (() -> Void)?) {
-        self.init(instructions: instructions, maximumImage: maximumImage, minimumImage: minimumImage, slider: slider, vertical: vertical, header: {
+    init(title: Text, detail: Text?, instructions: Text?, maximumImage: Image?, minimumImage: Image?, initialValue: CGFloat, minimumValue: CGFloat, maximumValue: CGFloat, step: CGFloat, vertical: Bool, isComplete: Bool, action: (() -> Void)?) {
+        self.init(instructions: instructions, maximumImage: maximumImage, minimumImage: minimumImage, initialValue: initialValue, minimumValue: minimumValue, maximumValue: maximumValue, step: step, vertical: vertical, header: {
             Header(title: title, detail: detail)
         }, footer: {
             _SliderTaskViewFooter(isComplete: isComplete, action: action)

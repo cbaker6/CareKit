@@ -27,24 +27,20 @@ public struct SliderTaskViewConfiguration {
     public let isComplete: Bool
     
     public let minimumImage: Image?
-//
-    public var slider: Slider<EmptyView,EmptyView>?=nil
-//
+
+    //public var slider: Slider<EmptyView,EmptyView>
+
     public let maximumImage: Image?
-//
-    public let minimumValue: Double = 0.0
-//
-    public let maximumValue: Double = 0.0
-//
-    public let step: Double = 1.0
-//
-    public let vertical: Bool = false
-//
-////    public let minimumValueLabel: String?
-////
-////    public let maximumValueLabel: String?
-//
-    @State public var value: Double = 0.0
+
+    public let minimumValue: CGFloat
+
+    public let maximumValue: CGFloat
+
+    public let step: CGFloat
+
+    public let vertical: Bool
+
+    @State public var value: CGFloat = 0
     /*
     init(controller: OCKTaskControllerProtocol) {
         self.title = controller.title
@@ -63,8 +59,7 @@ public struct SliderTaskViewConfiguration {
         self.maximumValueLabel = controller.maximumValueLabel
     }*/
     
-    init(controller: OCKTaskControllerProtocol, minimumValue: Double, maximumValue:Double, step: Double){
-        //self.init(controller: controller)
+    init(controller: OCKTaskControllerProtocol, initialValue: CGFloat, minimumValue: CGFloat, maximumValue:CGFloat, step: CGFloat, vertical: Bool){
         self.title = controller.title
         self.detail = controller.event.map { OCKScheduleUtility.scheduleLabel(for: $0) } ?? ""
         self.instructions = controller.instructions
@@ -72,15 +67,11 @@ public struct SliderTaskViewConfiguration {
         self.action = controller.toggleActionForFirstEvent
         self.minimumImage = nil
         self.maximumImage = nil
-        
-        self.slider = Slider<EmptyView,EmptyView>(value: $value, in: minimumValue...maximumValue, step: step)
-        
-        
-        
-
-
-
-
-        
+        self.minimumValue = minimumValue
+        self.maximumValue = maximumValue
+        self.step = step
+        self.vertical = vertical
+        self.value = initialValue
+        //self.slider = Slider<EmptyView,EmptyView>(value: $value, in: minimumValue...maximumValue, step: step)
     }
 }

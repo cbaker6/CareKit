@@ -43,9 +43,10 @@ public struct SliderTaskView<Header: View, Footer: View>: View {
 
     /// Owns the view model that drives the view.
     @ObservedObject public var controller: OCKSliderTaskController
+    @State private var value: CGFloat = 5
 
     public var body: some View {
-        content(.init(controller: controller, initialValue: 5, minimumValue: 0, maximumValue: 10, step: 1, vertical: false))
+        content(.init(controller: controller, value: $value, range: 0...10, step: 1))
     }
 
     /// Create an instance that updates the content view when the observed controller changes.
@@ -72,15 +73,12 @@ public extension SliderTaskView where Header == HeaderView, Footer == _SliderTas
 private extension CareKitUI.SliderTaskView where Header == HeaderView, Footer == _SliderTaskViewFooter {
     init(configuration: SliderTaskViewConfiguration) {
         self.init(title: Text(configuration.title), detail: configuration.detail.map { Text($0) },
-                  instructions: configuration.instructions.map { Text($0) },
+                  isComplete: configuration.isComplete, instructions: configuration.instructions.map { Text($0) },
                   maximumImage: configuration.maximumImage,
                   minimumImage: configuration.minimumImage,
-                  initialValue: configuration.value,
-                  minimumValue: configuration.minimumValue,
-                  maximumValue: configuration.maximumValue,
+                  value: configuration.$value,
+                  range: configuration.range,
                   step: configuration.step,
-                  vertical: configuration.vertical,
-                  isComplete: configuration.isComplete,
                   action: configuration.action)
     }
 }

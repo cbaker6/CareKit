@@ -94,22 +94,7 @@ public struct SliderTaskView<Header: View, Footer: View>: View {
         self.step = step
         _value = value
     }
-    //
-    //    public init(instructions: Text?, maximumImage: Image?, minimumImage: Image?, @ViewBuilder header: () -> Header, @ViewBuilder footer: () -> Footer){
-    //        self.instructions = instructions
-    //        self.header = header()
-    //        self.footer = footer()
-    //        self.maximumImage = maximumImage
-    //        self.minimumImage = minimumImage
-    //    }
-    //
-    //    public init(instructions: Text?, @ViewBuilder header: () -> Header, @ViewBuilder footer: () -> Footer){
-    //        self.instructions = instructions
-    //        self.header = header()
-    //        self.footer = footer()
-    //        self.maximumImage = nil
-    //        self.minimumImage = nil
-    //    }
+    
 }
 
 public extension SliderTaskView where Header == HeaderView {
@@ -203,75 +188,6 @@ public struct _SliderTaskViewFooter: View {
     @Binding var value: CGFloat
     
     public var body: some View {
-        Button(action: self.action ?? {}) {
-            DefaultSliderCompletionView(value: self.$value, isComplete: self.isComplete, action: self.action)
-        }
-        
+        DefaultSliderCompletionView(value: self.$value, isComplete: self.isComplete, action: self.action)
     }
 }
-
-//struct SliderCompletionButton: View {
-//
-//    @Binding var value: CGFloat
-//    let geometry: GeometryProxy
-//    let themeColor: Color = Color(red: 0.8, green: 0.8, blue: 1)
-//    let action: (() -> Void)?
-//    let isComplete: Bool
-//
-//    private var diameter: CGFloat {
-//        geometry.size.width * 0.18
-//    }
-//
-//    private var foregroundColor: Color {
-//        isComplete ? Color.white : themeColor
-//
-//    }
-//
-//    private var backgroundColor: Color {
-//        isComplete ? themeColor : Color.white
-//    }
-//
-//    private var text: String {
-//        isComplete ? "Done" : ""
-//    }
-//
-//    var body: some View {
-//        Button(action: action ?? {}) {
-//            ZStack {
-//                Circle()
-//                    .overlay(Circle().stroke(self.themeColor, lineWidth: self.geometry.size.width * 0.006))
-//                    .foregroundColor(backgroundColor)
-//                    .frame(width: diameter, height: diameter, alignment: .center)
-//                Group {
-//                    Text(String(format: "%g", self.value))
-//                        .font(.system(size: self.geometry.size.width * 0.07))
-//                        .fontWeight(.semibold)
-//                    Text(text)
-//                        .font(.system(size: self.geometry.size.width * 0.03))
-//                        .fontWeight(.semibold)
-//                        .offset(y: diameter * 0.3)
-//                }
-//                .foregroundColor(foregroundColor)
-//                .frame(width: diameter, height: diameter)
-//            }
-//        }
-//        .padding(.all)
-//        //.buttonStyle(SliderCompletionButtonStyle(color: themeColor))
-//    }
-//}
-//
-//struct SliderCompletionButtonStyle: ButtonStyle {
-//
-//    let color: Color
-//
-//    init(color: Color) {
-//        self.color = color
-//    }
-//
-//    func makeBody(configuration: Configuration) -> some View {
-//        configuration.label
-//            .background(configuration.isPressed ? color : Color.white)
-//            .clipShape(Circle())
-//    }
-//}
-

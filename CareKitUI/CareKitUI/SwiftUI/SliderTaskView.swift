@@ -203,13 +203,10 @@ public struct _SliderTaskViewFooter: View {
     @Binding var value: CGFloat
     
     public var body: some View {
-        GeometryReader { geometry in
-            HStack {
-                Button(action: self.action ?? {}) {
-                    DefaultSliderCompletionView(value: self.$value, isComplete: self.isComplete, action: self.action)
-                }
-            }
+        Button(action: self.action ?? {}) {
+            DefaultSliderCompletionView(value: self.$value, isComplete: self.isComplete, action: self.action)
         }
+        
     }
 }
 

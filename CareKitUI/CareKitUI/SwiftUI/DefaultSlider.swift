@@ -10,86 +10,109 @@ import SwiftUI
 struct DefaultSlider: View {
     
     @Environment(\.careKitStyle) private var style
-    @Binding var value: CGFloat
-    var range: (CGFloat, CGFloat)
-    let step: CGFloat
-    let leftBarColor = Color(red: 0.8, green: 0.8, blue: 1)
-    let rightBarColor = Color.white
-    let geometry: GeometryProxy
-    let isComplete: Bool
+    @Binding private var value: CGFloat
+    private var range: (CGFloat, CGFloat)
+    private let step: CGFloat
+    private let leftBarColor: Color = Color(red: 0.8, green: 0.8, blue: 1)
+    private let rightBarColor: Color = Color.white
+    private let borderColor: Color = Color.gray
+    private let isComplete: Bool
+    private let minimumImage: Image?
+    private let maximumImage: Image?
     
-    init(value: Binding<CGFloat>, range: ClosedRange<CGFloat>, step: CGFloat, geometry: GeometryProxy, isComplete: Bool) {
+    private var containsImages: Bool {
+        if minimumImage == nil, maximumImage == nil {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    private let frameWidth: CGFloat = 350
+    private var imageWidth: CGFloat { frameWidth / 7 }
+    private var sliderWidth: CGFloat { containsImages ? frameWidth - imageWidth * 2 : frameWidth }
+    private var sliderHeight: CGFloat { sliderWidth * 0.139 }
+    private var knobWidth: CGFloat { sliderWidth * 0.139 }
+    private var borderWidth: CGFloat = 1
+    
+    init(value: Binding<CGFloat>, range: ClosedRange<CGFloat>, step: CGFloat, isComplete: Bool, minimumImage: Image?, maximumImage: Image?) {
         _value = value
         self.range = (range.lowerBound, range.upperBound)
         self.step = step
-        self.geometry = geometry
         self.isComplete = isComplete
+        self.minimumImage = minimumImage
+        self.maximumImage = maximumImage
     }
     
     var body: some View {
-        view(geometry: geometry)
+        self.view()
+            .frame(height: sliderHeight * 1.5)
+            .padding(.top)
     }
     
-    private func view(geometry: GeometryProxy) -> some View {
-        GeometryReader { geometry in
-            self.addTicks(geometry: geometry, range: self.range, step: self.step)
-            self.sliderView(geometry: geometry)
-        }.frame(width: geometry.size.width * 0.8, height: geometry.size.width * 0.1)
+    private func view() -> some View {
+        return HStack {
+            self.minimumImage?
+                .sliderImageModifier(width: imageWidth, height: sliderHeight)
+            
+            ZStack {
+                self.addTicks(range: self.range, step: self.step, sliderWidth: sliderWidth, sliderHeight: sliderHeight, knobWidth: knobWidth)
+                self.sliderView(width: sliderWidth, height: sliderHeight, knobWidth: knobWidth)
+            }.frame(width: sliderWidth, height: sliderHeight)
+            
+            self.maximumImage?
+                .sliderImageModifier(width: imageWidth, height: sliderHeight)
+        }
     }
     
-    private func sliderView(geometry: GeometryProxy) -> some View {
-        let knobWidth = geometry.size.width / 8
-        let frame = geometry.frame(in: .global)
+    private func sliderView(width: CGFloat, height: CGFloat, knobWidth: CGFloat) -> some View {
         let drag = isComplete ? nil : DragGesture(minimumDistance: 0)
         
-        let offsetX = self.getOffsetX(frame: frame)
-        let barLeftSize = CGSize(width: CGFloat(offsetX + knobWidth / 2), height:  frame.height)
-        let barRightSize = CGSize(width: frame.width - barLeftSize.width, height: frame.height)
+        let offsetX = self.getOffsetX(sliderWidth: width, knobWidth: knobWidth)
+        let barLeftSize = CGSize(width: CGFloat(offsetX + knobWidth / 2), height: height)
+        let barRightSize = CGSize(width: width - barLeftSize.width, height: height)
         
         let components = DefaultSliderComponents(
             barLeft: DefaultSliderModifier(name: .barLeft, size: barLeftSize, offset: 0),
             barRight: DefaultSliderModifier(name: .barRight, size: barRightSize, offset: barLeftSize.width)
         )
         
-        return ZStack {
-            self.rightBarColor
-                .modifier(components.barRight)
-                .cornerRadius(knobWidth)
-            self.leftBarColor
-                .modifier(components.barLeft)
-                .cornerRadius(knobWidth)
-            RoundedRectangle(cornerRadius: knobWidth)
-                .stroke(Color.black, lineWidth: geometry.size.width / 400)
-        }.gesture(
-            drag.onChanged( { drag in
-                self.onDragChange(drag, in: frame)
-                }
-            )
-        )
+        return
+            ZStack {
+                self.rightBarColor
+                    .modifier(components.barRight)
+                    .cornerRadius(knobWidth)
+                self.leftBarColor
+                    .modifier(components.barLeft)
+                    .cornerRadius(knobWidth)
+                RoundedRectangle(cornerRadius: knobWidth)
+                    .stroke(borderColor, lineWidth: borderWidth)
+            }.gesture(drag.onChanged( { drag in
+                self.onDragChange(drag, sliderWidth: width, knobWidth: knobWidth) } ))
     }
     
-    private func addTicks(geometry: GeometryProxy, range: (CGFloat, CGFloat), step: CGFloat) -> some View {
-        let knobWidth = geometry.size.width / 8
+    private func addTicks(range: (CGFloat, CGFloat), step: CGFloat, sliderWidth: CGFloat, sliderHeight: CGFloat, knobWidth: CGFloat) -> some View {
         var values = [CGFloat]()
         var possibleValue = range.0
+        
         while possibleValue <= range.1 {
             values.append(possibleValue)
             possibleValue += step
         }
+        
         let tickLocations = values.map {
-            CGFloat(values.firstIndex(of: $0)!) * (geometry.size.width - knobWidth) / CGFloat(values.count - 1)
+            CGFloat(values.firstIndex(of: $0)!) * (sliderWidth - knobWidth) / CGFloat(values.count - 1)
         }
         
-        return Group {
+        return ZStack {
             ForEach(tickLocations, id: \.self) { location in
-                DefaultSliderTickMark(possibleLocations: tickLocations, location: location, geometry: geometry, values: values)
+                DefaultSliderTickMark(possibleLocations: tickLocations, location: location, sliderHeight: sliderHeight, values: values, color: self.borderColor)
             }
         }.offset(x: knobWidth / 2)
     }
     
-    private func onDragChange(_ drag: DragGesture.Value, in frame: CGRect) {
-        let knobWidth = frame.size.width / 8
-        let width = (knob: CGFloat(knobWidth), view: CGFloat(frame.size.width))
+    private func onDragChange(_ drag: DragGesture.Value, sliderWidth: CGFloat, knobWidth: CGFloat) {
+        let width = (knob: CGFloat(knobWidth), view: CGFloat(sliderWidth))
         let xrange = (min: CGFloat(0), max: CGFloat(width.view - width.knob))
         var value = CGFloat(drag.startLocation.x + drag.translation.width)
         value -= 0.5 * width.knob
@@ -100,9 +123,8 @@ struct DefaultSlider: View {
         self.value = value
     }
     
-    private func getOffsetX(frame: CGRect) -> CGFloat {
-        let knobWidth = frame.size.width / 8
-        let width = (knob: knobWidth, view: frame.size.width)
+    private func getOffsetX(sliderWidth: CGFloat, knobWidth: CGFloat) -> CGFloat {
+        let width = (knob: knobWidth, view: sliderWidth)
         let xrange: (CGFloat, CGFloat) = (0, CGFloat(width.view - width.knob))
         let result = CGFloat(self.value).convert(fromRange: (CGFloat(range.0), CGFloat(range.1)), toRange: xrange)
         return result
@@ -110,40 +132,45 @@ struct DefaultSlider: View {
 }
 
 struct DefaultSliderTickMark: View {
-    let color: Color = Color.black
-    let geometry: GeometryProxy
-    let location: CGFloat
-    let value: CGFloat
-    enum PositionalHeight: CGFloat {
+    private let color: Color
+    private let location: CGFloat
+    private let value: CGFloat
+    private enum PositionalHeight: CGFloat {
         case middle = 1.5
         case end = 1.7
     }
-    let position: PositionalHeight
+    private let position: PositionalHeight
+    private let sliderHeight: CGFloat
+    private let width: CGFloat = 1
+    private var length: CGFloat { sliderHeight * position.rawValue }
     
-    init(geometry: GeometryProxy, location: CGFloat, position: PositionalHeight, value: CGFloat) {
-        self.geometry = geometry
+    private init(sliderHeight: CGFloat, location: CGFloat, position: PositionalHeight, value: CGFloat, color: Color) {
         self.location = location
         self.value = value
+        self.sliderHeight = sliderHeight
         self.position = position
+        self.color = color
     }
     
-    init(possibleLocations: [CGFloat], location: CGFloat, geometry: GeometryProxy, values: [CGFloat]) {
+    public init(possibleLocations: [CGFloat], location: CGFloat, sliderHeight: CGFloat, values: [CGFloat], color: Color) {
         let value = values[possibleLocations.firstIndex(of: location)!]
         if possibleLocations.firstIndex(of: location) != 0, possibleLocations.firstIndex(of: location) != possibleLocations.count - 1 {
-            self.init(geometry: geometry, location: location, position: .middle, value: value)
+            self.init(sliderHeight: sliderHeight, location: location, position: .middle, value: value, color: color)
         } else {
-            self.init(geometry: geometry, location: location, position: .end, value: value)
+            self.init(sliderHeight: sliderHeight, location: location, position: .end, value: value, color: color)
         }
     }
     
     var body: some View {
+        
         let tickMark = Rectangle()
             .fill(color)
-            .frame(width: geometry.size.width / 400, height: geometry.size.height * position.rawValue)
-            .position(x: location, y: geometry.size.height / 2)
+            .frame(width: width, height: length)
+            .position(x: location, y: sliderHeight / 2)
         let label = Text(position == .end ? String(format: "%g", value) : "")
             .font(.footnote)
-            .position(x: location, y: -geometry.size.height / 5 - (geometry.size.height * position.rawValue - geometry.size.height) / 2)
+            .foregroundColor(color)
+            .position(x: location, y: -sliderHeight / 4 - (length - sliderHeight) / 2)
         
         return ZStack {
             label
@@ -171,6 +198,15 @@ struct DefaultSliderModifier: ViewModifier {
             .frame(width: size.width)
             .position(x: size.width * 0.5, y: size.height * 0.5)
             .offset(x: offset)
+    }
+}
+
+extension Image {
+    func sliderImageModifier(width: CGFloat, height: CGFloat) -> some View {
+        self
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: width, height: height)
     }
 }
 

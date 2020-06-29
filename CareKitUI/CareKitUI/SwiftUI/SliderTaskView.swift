@@ -53,16 +53,12 @@ public struct SliderTaskView<Header: View, Footer: View>: View {
                 header
             }
             Divider()
-            instructions?
-                .font(.subheadline)
-                .fontWeight(.medium)
-                .lineLimit(nil)
-            HStack {
-                minimumImage
-                GeometryReader { geometry in
-                    DefaultSlider(value: self.$value, range: self.range, step: self.step, geometry: geometry, isComplete: self.isComplete)
-                }
-                maximumImage
+            VStack(alignment: .leading) {
+                instructions?
+                    .font(.subheadline)
+                    .fontWeight(.medium)
+                    .lineLimit(nil)
+                DefaultSlider(value: self.$value, range: self.range, step: self.step, isComplete: self.isComplete, minimumImage: self.minimumImage, maximumImage: self.maximumImage)
             }
             VStack {
                 footer
@@ -209,11 +205,9 @@ public struct _SliderTaskViewFooter: View {
     public var body: some View {
         GeometryReader { geometry in
             HStack {
-                Spacer()
                 Button(action: self.action ?? {}) {
-                    DefaultSliderCompletionButton(value: self.$value, geometry: geometry, isComplete: self.isComplete)
+                    DefaultSliderCompletionView(value: self.$value, isComplete: self.isComplete, action: self.action)
                 }
-                Spacer()
             }
         }
     }

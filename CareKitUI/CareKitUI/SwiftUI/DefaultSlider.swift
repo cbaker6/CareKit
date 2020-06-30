@@ -10,10 +10,11 @@ import SwiftUI
 struct DefaultSlider: View {
     
     @Environment(\.careKitStyle) private var style
+    
     @Binding private var value: CGFloat
     private var range: (CGFloat, CGFloat)
     private let step: CGFloat
-    private let leftBarColor: Color = Color(red: 0.8, green: 0.8, blue: 1)
+    private let leftBarColor: Color = Color.accentColor
     private let rightBarColor: Color = Color.white
     private let borderColor: Color = Color.gray
     private let isComplete: Bool
@@ -28,12 +29,8 @@ struct DefaultSlider: View {
         }
     }
     
-    private let frameWidth: CGFloat = 350
-    private var imageWidth: CGFloat { frameWidth / 7 }
-    private var sliderWidth: CGFloat { containsImages ? frameWidth - imageWidth * 2 : frameWidth }
-    private var sliderHeight: CGFloat { sliderWidth * 0.139 }
-    private var knobWidth: CGFloat { sliderWidth * 0.139 }
-    private var borderWidth: CGFloat = 1
+    private let sliderHeight: CGFloat = 40
+    private let borderWidth: CGFloat = 1
     
     init(value: Binding<CGFloat>, range: ClosedRange<CGFloat>, step: CGFloat, isComplete: Bool, minimumImage: Image?, maximumImage: Image?) {
         _value = value
@@ -44,13 +41,21 @@ struct DefaultSlider: View {
         self.maximumImage = maximumImage
     }
     
-    var body: some View {
-        self.view()
-            .frame(height: sliderHeight * 1.5)
-            .padding(.top)
+    public var body: some View {
+        GeometryReader { geometry in
+            self.view(geometry: geometry)
+        }
+        .frame(height: sliderHeight * 1.5)
+        .padding(.top)
     }
     
-    private func view() -> some View {
+    private func view(geometry: GeometryProxy) -> some View {
+        
+        let frameWidth: CGFloat = geometry.size.width
+        let imageWidth: CGFloat = frameWidth / 7
+        var sliderWidth: CGFloat { containsImages ? frameWidth - imageWidth * 2 : frameWidth }
+        var knobWidth: CGFloat { sliderWidth * 0.1 }
+        
         return HStack {
             self.minimumImage?
                 .sliderImageModifier(width: imageWidth, height: sliderHeight)
@@ -81,11 +86,11 @@ struct DefaultSlider: View {
             ZStack {
                 self.rightBarColor
                     .modifier(components.barRight)
-                    .cornerRadius(knobWidth)
+                    .cornerRadius(knobWidth / 2)
                 self.leftBarColor
                     .modifier(components.barLeft)
-                    .cornerRadius(knobWidth)
-                RoundedRectangle(cornerRadius: knobWidth)
+                    .cornerRadius(knobWidth / 2)
+                RoundedRectangle(cornerRadius: knobWidth / 2)
                     .stroke(borderColor, lineWidth: borderWidth)
             }.gesture(drag.onChanged( { drag in
                 self.onDragChange(drag, sliderWidth: width, knobWidth: knobWidth) } ))
@@ -94,12 +99,10 @@ struct DefaultSlider: View {
     private func addTicks(range: (CGFloat, CGFloat), step: CGFloat, sliderWidth: CGFloat, sliderHeight: CGFloat, knobWidth: CGFloat) -> some View {
         var values = [CGFloat]()
         var possibleValue = range.0
-        
         while possibleValue <= range.1 {
             values.append(possibleValue)
             possibleValue += step
         }
-        
         let tickLocations = values.map {
             CGFloat(values.firstIndex(of: $0)!) * (sliderWidth - knobWidth) / CGFloat(values.count - 1)
         }
@@ -131,7 +134,7 @@ struct DefaultSlider: View {
     }
 }
 
-struct DefaultSliderTickMark: View {
+private struct DefaultSliderTickMark: View {
     private let color: Color
     private let location: CGFloat
     private let value: CGFloat
@@ -179,12 +182,12 @@ struct DefaultSliderTickMark: View {
     }
 }
 
-struct DefaultSliderComponents {
+private struct DefaultSliderComponents {
     let barLeft: DefaultSliderModifier
     let barRight: DefaultSliderModifier
 }
 
-struct DefaultSliderModifier: ViewModifier {
+private struct DefaultSliderModifier: ViewModifier {
     enum Name {
         case barLeft
         case barRight
@@ -201,7 +204,7 @@ struct DefaultSliderModifier: ViewModifier {
     }
 }
 
-extension Image {
+private extension Image {
     func sliderImageModifier(width: CGFloat, height: CGFloat) -> some View {
         self
             .resizable()
@@ -210,7 +213,7 @@ extension Image {
     }
 }
 
-extension CGFloat {
+private extension CGFloat {
     func convert(fromRange: (CGFloat, CGFloat), toRange: (CGFloat, CGFloat)) -> CGFloat {
         var value = self
         value -= fromRange.0
@@ -220,3 +223,4 @@ extension CGFloat {
         return value
     }
 }
+

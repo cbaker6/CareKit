@@ -64,6 +64,8 @@ public struct SliderTaskView<Header: View, Footer: View>: View {
                 footer
             }
         }
+        .padding(.leading)
+        .padding(.trailing)
     }
     // MARK: - Init
     

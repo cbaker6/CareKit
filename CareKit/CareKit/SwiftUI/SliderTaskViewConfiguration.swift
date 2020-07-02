@@ -53,7 +53,7 @@ public struct SliderTaskViewConfiguration {
         self.maximumValueLabel = controller.maximumValueLabel
     }*/
     
-    init(controller: OCKTaskControllerProtocol, value: Binding<CGFloat>, range: ClosedRange<CGFloat>, step: CGFloat){
+    public init(controller: OCKTaskControllerProtocol, value: Binding<CGFloat>, range: ClosedRange<CGFloat>, step: CGFloat){
         self.title = controller.title
         self.detail = controller.event.map { OCKScheduleUtility.scheduleLabel(for: $0) } ?? ""
         self.instructions = controller.instructions
@@ -66,7 +66,7 @@ public struct SliderTaskViewConfiguration {
         _value = value
     }
     
-    init(controller: OCKTaskControllerProtocol, value: Binding<CGFloat>, range: ClosedRange<CGFloat>, step: CGFloat, maximumImage: Image, minimumImage: Image){
+    public init(controller: OCKTaskControllerProtocol, value: Binding<CGFloat>, range: ClosedRange<CGFloat>, step: CGFloat, maximumImage: Image, minimumImage: Image){
         self.title = controller.title
         self.detail = controller.event.map { OCKScheduleUtility.scheduleLabel(for: $0) } ?? ""
         self.instructions = controller.instructions

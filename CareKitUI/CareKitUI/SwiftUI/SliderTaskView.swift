@@ -81,7 +81,7 @@ public struct SliderTaskView<Header: View, Footer: View>: View {
         self.range = range
         self.step = step
         self.action = nil
-        _value = State(initialValue: initialValue)
+        _value = initialValue > range.upperBound ? State(initialValue: range.upperBound) : (initialValue < range.lowerBound ? State(initialValue: range.lowerBound) : State(initialValue: initialValue))
     }
     
 //    public init(isComplete: Bool, instructions: Text?, value: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, @ViewBuilder header: () -> Header, action: (() -> Void)?) {
@@ -111,7 +111,7 @@ public struct SliderTaskView<Header: View, Footer: View>: View {
         self.range = range
         self.step = step
         self.action = nil
-        _value = State(initialValue: initialValue)
+        _value = initialValue > range.upperBound ? State(initialValue: range.upperBound) : (initialValue < range.lowerBound ? State(initialValue: range.lowerBound) : State(initialValue: initialValue))
     }
     
 //    public init(isComplete: Bool, instructions: Text?, maximumImage: Image?, minimumImage: Image?, value: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, @ViewBuilder header: () -> Header, action: (() -> Void)?) {
@@ -174,7 +174,7 @@ public extension SliderTaskView where Footer == _SliderTaskViewFooter {
         self.range = range
         self.step = step
         self.action = action
-        _value = State(initialValue: initialValue)
+        _value = initialValue > range.upperBound ? State(initialValue: range.upperBound) : (initialValue < range.lowerBound ? State(initialValue: range.lowerBound) : State(initialValue: initialValue))
     }
     
     /// Create an instance.
@@ -199,7 +199,7 @@ public extension SliderTaskView where Footer == _SliderTaskViewFooter {
         self.range = range
         self.step = step
         self.action = action
-        _value = State(initialValue: initialValue)
+        _value = initialValue > range.upperBound ? State(initialValue: range.upperBound) : (initialValue < range.lowerBound ? State(initialValue: range.lowerBound) : State(initialValue: initialValue))
     }
 }
 

@@ -71,7 +71,7 @@ public struct SliderTaskView<Header: View, Footer: View>: View {
     }
     // MARK: - Init
     
-    public init(isComplete: Bool, instructions: Text?, value: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, @ViewBuilder header: () -> Header, @ViewBuilder footer: () -> Footer) {
+    public init(isComplete: Bool, instructions: Text?, initialValue: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, @ViewBuilder header: () -> Header, @ViewBuilder footer: () -> Footer) {
         self.isComplete = isComplete
         self.instructions = instructions
         self.header = header()
@@ -81,7 +81,7 @@ public struct SliderTaskView<Header: View, Footer: View>: View {
         self.range = range
         self.step = step
         self.action = nil
-        self.value = value
+        _value = State(initialValue: value)
     }
     
 //    public init(isComplete: Bool, instructions: Text?, value: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, @ViewBuilder header: () -> Header, action: (() -> Void)?) {
@@ -101,7 +101,7 @@ public struct SliderTaskView<Header: View, Footer: View>: View {
     /// - Parameter instructions: Instructions text to display under the header.
     /// - Parameter header: Header to inject at the top of the card. Specified content will be stacked vertically.
     /// - Parameter footer: View to inject under the instructions. Specified content will be stacked vertically.
-    public init(isComplete: Bool, instructions: Text?, maximumImage: Image?, minimumImage: Image?, value: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, @ViewBuilder header: () -> Header, @ViewBuilder footer: () -> Footer) {
+    public init(isComplete: Bool, instructions: Text?, maximumImage: Image?, minimumImage: Image?, initialValue: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, @ViewBuilder header: () -> Header, @ViewBuilder footer: () -> Footer) {
         self.isComplete = isComplete
         self.instructions = instructions
         self.header = header()
@@ -111,7 +111,7 @@ public struct SliderTaskView<Header: View, Footer: View>: View {
         self.range = range
         self.step = step
         self.action = nil
-        self.value = value
+        _value = State(initialValue: value)
     }
     
 //    public init(isComplete: Bool, instructions: Text?, maximumImage: Image?, minimumImage: Image?, value: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, @ViewBuilder header: () -> Header, action: (() -> Void)?) {
@@ -136,12 +136,12 @@ public extension SliderTaskView where Header == HeaderView {
     /// - Parameter detail: Detail text to display in the header.
     /// - Parameter instructions: Instructions text to display under the header.
     /// - Parameter footer: View to inject under the instructions. Specified content will be stacked vertically.
-    init(title: Text, detail: Text?, isComplete: Bool, instructions: Text?, maximumImage: Image?, minimumImage: Image?, value: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, @ViewBuilder footer: () -> Footer) {
+    init(title: Text, detail: Text?, isComplete: Bool, instructions: Text?, maximumImage: Image?, minimumImage: Image?, initialValue: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, @ViewBuilder footer: () -> Footer) {
         self.init(
             isComplete: isComplete,
             instructions: instructions,
             maximumImage: maximumImage, minimumImage: minimumImage,
-            value: value, range: range, step: step,
+            initialValue: initialValue, range: range, step: step,
             header: { Header(title: title, detail: detail) },
             footer: footer)
     }
@@ -150,7 +150,7 @@ public extension SliderTaskView where Header == HeaderView {
         self.init(
             isComplete: isComplete,
             instructions: instructions,
-            value: value, range: range, step: step,
+            initialValue: initialValue, range: range, step: step,
             header: { Header(title: title, detail: detail) },
             footer: footer)
     }
@@ -158,7 +158,7 @@ public extension SliderTaskView where Header == HeaderView {
 
 public extension SliderTaskView where Footer == _SliderTaskViewFooter {
     
-    init(isComplete: Bool, instructions: Text?, value: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, @ViewBuilder header: () -> Header, action: (() -> Void)?) {
+    init(isComplete: Bool, instructions: Text?, initialValue: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, @ViewBuilder header: () -> Header, action: (() -> Void)?) {
 //        self.init(
 //            isComplete: isComplete,
 //            instructions: instructions,
@@ -174,7 +174,7 @@ public extension SliderTaskView where Footer == _SliderTaskViewFooter {
         self.range = range
         self.step = step
         self.action = action
-        self.value = value
+        _value = State(initialValue: value)
     }
     
     /// Create an instance.
@@ -182,7 +182,7 @@ public extension SliderTaskView where Footer == _SliderTaskViewFooter {
     /// - Parameter instructions: Instructions text to display under the header.
     /// - Parameter action: Action to perform when the button is tapped.
     /// - Parameter header: Header to inject at the top of the card. Specified content will be stacked vertically.
-    init(isComplete: Bool, instructions: Text?, maximumImage: Image?, minimumImage: Image?, value: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, @ViewBuilder header: () -> Header, action: (() -> Void)?) {
+    init(isComplete: Bool, instructions: Text?, maximumImage: Image?, minimumImage: Image?, initialValue: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, @ViewBuilder header: () -> Header, action: (() -> Void)?) {
 //        self.init(
 //            isComplete: isComplete,
 //            instructions: instructions,
@@ -199,17 +199,17 @@ public extension SliderTaskView where Footer == _SliderTaskViewFooter {
         self.range = range
         self.step = step
         self.action = action
-        self.value = value
+        _value = State(initialValue: value)
     }
 }
 
 public extension SliderTaskView where Header == HeaderView, Footer == _SliderTaskViewFooter {
     
-    init(title: Text, detail: Text?, isComplete: Bool, instructions: Text?, value: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, action: (() -> Void)?) {
+    init(title: Text, detail: Text?, isComplete: Bool, instructions: Text?, initialValue: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, action: (() -> Void)?) {
         self.init(
             isComplete: isComplete,
             instructions: instructions,
-            value: value, range: range, step: step,
+            initialValue: initialValue, range: range, step: step,
             header: { Header(title: title, detail: detail) },
             action: action)
     }
@@ -219,12 +219,12 @@ public extension SliderTaskView where Header == HeaderView, Footer == _SliderTas
     /// - Parameter instructions: Instructions text to display under the header.
     /// - Parameter isComplete: True if the button under the instructions is in the completed state.
     /// - Parameter action: Action to perform when the button is tapped.
-    init(title: Text, detail: Text?, isComplete: Bool, instructions: Text?, maximumImage: Image?, minimumImage: Image?, value: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, action: (() -> Void)?) {
+    init(title: Text, detail: Text?, isComplete: Bool, instructions: Text?, maximumImage: Image?, minimumImage: Image?, initialValue: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, action: (() -> Void)?) {
         self.init(
             isComplete: isComplete,
             instructions: instructions,
             maximumImage: maximumImage, minimumImage: minimumImage,
-            value: value, range: range, step: step,
+            initialValue: initialValue, range: range, step: step,
             header: { Header(title: title, detail: detail) },
             action: action)
     }

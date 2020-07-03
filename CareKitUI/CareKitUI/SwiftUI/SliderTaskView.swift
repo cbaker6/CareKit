@@ -146,7 +146,7 @@ public extension SliderTaskView where Header == HeaderView {
             footer: footer)
     }
     
-    init(title: Text, detail: Text?, isComplete: Bool, instructions: Text?, value: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, @ViewBuilder footer: () -> Footer) {
+    init(title: Text, detail: Text?, isComplete: Bool, instructions: Text?, initialValue: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, @ViewBuilder footer: () -> Footer) {
         self.init(
             isComplete: isComplete,
             instructions: instructions,

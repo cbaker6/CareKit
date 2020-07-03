@@ -76,7 +76,7 @@ private extension CareKitUI.SliderTaskView where Header == HeaderView, Footer ==
                   isComplete: configuration.isComplete, instructions: configuration.instructions.map { Text($0) },
                   maximumImage: configuration.maximumImage,
                   minimumImage: configuration.minimumImage,
-                  value: configuration.value,
+                  initialValue: configuration.value,
                   range: configuration.range,
                   step: configuration.step,
                   action: configuration.action)

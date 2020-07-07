@@ -26,15 +26,17 @@ public struct SliderTaskViewConfiguration {
     /// True if the labeled button is complete.
     public let isComplete: Bool
     
-    public let minimumImage: Image?
+    public let minimumImage: Image? = nil
 
-    public let maximumImage: Image?
+    public let maximumImage: Image? = nil
+    
+    public let initialValue: CGFloat = 5
 
-    public let range: ClosedRange<CGFloat>
+    public let range: ClosedRange<CGFloat> = 0...10
 
-    public let step: CGFloat
+    public let step: CGFloat = 1
 
-    @Binding public var value: CGFloat
+    @State public var value: CGFloat = 5
     /*
     init(controller: OCKTaskControllerProtocol) {
         self.title = controller.title
@@ -53,17 +55,12 @@ public struct SliderTaskViewConfiguration {
         self.maximumValueLabel = controller.maximumValueLabel
     }*/
     
-    init(controller: OCKTaskControllerProtocol, value: Binding<CGFloat>, range: ClosedRange<CGFloat>, step: CGFloat){
+    init(controller: OCKTaskControllerProtocol){
         self.title = controller.title
         self.detail = controller.event.map { OCKScheduleUtility.scheduleLabel(for: $0) } ?? ""
         self.instructions = controller.instructions
         self.isComplete = controller.isFirstEventComplete
         self.action = controller.toggleActionForFirstEvent
-        self.minimumImage = nil
-        self.maximumImage = nil
-        self.range = range
-        self.step = step
-        _value = value
     }
     /*
     init(controller: OCKTaskControllerProtocol, value: Binding<CGFloat>, range: ClosedRange<CGFloat>, step: CGFloat){
@@ -78,18 +75,5 @@ public struct SliderTaskViewConfiguration {
         self.step = step
         _value = value
     }*/
-    
-    init(controller: OCKTaskControllerProtocol, value: Binding<CGFloat>, range: ClosedRange<CGFloat>, step: CGFloat, maximumImage: Image, minimumImage: Image){
-        self.title = controller.title
-        self.detail = controller.event.map { OCKScheduleUtility.scheduleLabel(for: $0) } ?? ""
-        self.instructions = controller.instructions
-        self.isComplete = controller.isFirstEventComplete
-        self.action = controller.toggleActionForFirstEvent
-        self.minimumImage = minimumImage
-        self.maximumImage = maximumImage
-        self.range = range
-        self.step = step
-        _value = value
-    }
-    
+
 }

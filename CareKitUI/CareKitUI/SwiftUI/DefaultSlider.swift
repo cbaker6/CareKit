@@ -30,6 +30,7 @@ struct DefaultSlider: View {
     }
     
     private let sliderHeight: CGFloat = 40
+    private var frameHeight: CGFloat { sliderHeight * 1.5 }
     private let borderWidth: CGFloat = 1
     
     init(value: Binding<CGFloat>, range: ClosedRange<CGFloat>, step: CGFloat, isComplete: Bool, minimumImage: Image?, maximumImage: Image?) {
@@ -45,7 +46,7 @@ struct DefaultSlider: View {
         GeometryReader { geometry in
             self.view(geometry: geometry)
         }
-        .frame(height: sliderHeight * 1.5)
+        .frame(height: frameHeight)
         .padding(.top)
     }
     

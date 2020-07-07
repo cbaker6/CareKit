@@ -62,7 +62,7 @@ public struct SliderTaskView<Header: View, Footer: View>: View {
                     .font(.subheadline)
                     .fontWeight(.medium)
                     .lineLimit(nil)
-                DefaultSlider(value: self.$value, range: self.range, step: self.step, isComplete: self.isComplete, minimumImage: self.minimumImage, maximumImage: self.maximumImage, sliderHeight: self.sliderHeight, frameHeightMultiplier: self.frameHeightMultiplier)
+                OCKSlider(value: self.$value, range: self.range, step: self.step, isComplete: self.isComplete, minimumImage: self.minimumImage, maximumImage: self.maximumImage, sliderHeight: self.sliderHeight, frameHeightMultiplier: self.frameHeightMultiplier, useDefaultSlider: true)
             }
             VStack {
                 footer ?? _SliderTaskViewFooter(value: self.$value, isComplete: self.isComplete, action: self.action) as! Footer

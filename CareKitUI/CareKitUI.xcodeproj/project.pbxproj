@@ -83,6 +83,9 @@
 		64E1BD4E2309FCF200DFFE52 /* OCKResponsiveLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E1BD4D2309FCF200DFFE52 /* OCKResponsiveLayout.swift */; };
 		64EEC2382318253B00B1012F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 64EEC2362318253B00B1012F /* Localizable.strings */; };
 		64EEC23B231825DD00B1012F /* OCKLocalization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EEC23A231825DD00B1012F /* OCKLocalization.swift */; };
+		E88E002224B51344009A7AC8 /* SliderCompletionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88E001F24B51343009A7AC8 /* SliderCompletionView.swift */; };
+		E88E002324B51344009A7AC8 /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88E002024B51343009A7AC8 /* Slider.swift */; };
+		E88E002424B51344009A7AC8 /* SliderTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88E002124B51343009A7AC8 /* SliderTaskView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -176,6 +179,9 @@
 		64E1BD4D2309FCF200DFFE52 /* OCKResponsiveLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OCKResponsiveLayout.swift; sourceTree = "<group>"; };
 		64EEC2372318253B00B1012F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		64EEC23A231825DD00B1012F /* OCKLocalization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCKLocalization.swift; sourceTree = "<group>"; };
+		E88E001F24B51343009A7AC8 /* SliderCompletionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderCompletionView.swift; sourceTree = "<group>"; };
+		E88E002024B51343009A7AC8 /* Slider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Slider.swift; sourceTree = "<group>"; };
+		E88E002124B51343009A7AC8 /* SliderTaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderTaskView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +211,9 @@
 				510A4D862444DE96009D7FC2 /* InstructionsTaskView.swift */,
 				510A4D872444DE97009D7FC2 /* NoHighlightStyle.swift */,
 				510A4D882444DE97009D7FC2 /* RectangularCompletionView.swift */,
+				E88E002024B51343009A7AC8 /* Slider.swift */,
+				E88E001F24B51343009A7AC8 /* SliderCompletionView.swift */,
+				E88E002124B51343009A7AC8 /* SliderTaskView.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -677,6 +686,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				518F9D9E22961BF5009CAA48 /* OCKBarLayer.swift in Sources */,
+				E88E002424B51344009A7AC8 /* SliderTaskView.swift in Sources */,
 				518F9DA922961BF6009CAA48 /* OCKRingView.swift in Sources */,
 				518F9D9C22961BF5009CAA48 /* OCKGridLayer.swift in Sources */,
 				51F78FEE22D7C7C100058858 /* OCKCalendarDisplayable.swift in Sources */,
@@ -721,6 +731,7 @@
 				03089D7F231ED7AF0054EA23 /* Calendar+Extensions.swift in Sources */,
 				518F9D9822961BF5009CAA48 /* OCKGraphLegendView.swift in Sources */,
 				518F9DC022961BF6009CAA48 /* OCKStackView.swift in Sources */,
+				E88E002224B51344009A7AC8 /* SliderCompletionView.swift in Sources */,
 				518F9D9922961BF5009CAA48 /* OCKScatterPlotView.swift in Sources */,
 				5196B54322D5872C00800706 /* OCKTaskDisplayable.swift in Sources */,
 				518F9DA722961BF6009CAA48 /* OCKCompletionRingView.swift in Sources */,
@@ -733,6 +744,7 @@
 				518F9DB422961BF6009CAA48 /* OCKHeaderView.swift in Sources */,
 				518F9D9222961BF5009CAA48 /* OCKSelfSizingCollectionView.swift in Sources */,
 				518F9D8E22961BF5009CAA48 /* OCKSimpleTaskView.swift in Sources */,
+				E88E002324B51344009A7AC8 /* Slider.swift in Sources */,
 				51637EA322F3A68400BAF65C /* OCKLogTaskView.swift in Sources */,
 				5178FBDA22E253FC00794353 /* OCKChartDisplayable.swift in Sources */,
 				510A4D8B2444DE97009D7FC2 /* InstructionsTaskView.swift in Sources */,

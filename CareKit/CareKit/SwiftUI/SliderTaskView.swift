@@ -3,6 +3,7 @@
 //  
 //
 //  Created by Dylan Li on 5/26/20.
+//  Copyright © 2020 NetReconLab. All rights reserved.
 //
 
 import CareKitUI
@@ -83,34 +84,3 @@ private extension CareKitUI.SliderTaskView where Header == HeaderView, Footer ==
                   action: configuration.action)
     }
 }
-
-//public struct SliderCardView<Header: View, Footer: View>: View {
-//
-//    private let header: Header
-//    private let footer: Footer
-//    private let instructionsTaskView: CareKitUI.InstructionsTaskView<Header, Footer>
-//    private let slider: Slider<EmptyView, EmptyView>
-//    private let maximumImage: Image?
-//    private let minimumImage: Image?
-//
-//    public var body: some View {
-//        CardView {
-//            instructionsTaskView
-//            HStack{
-//                minimumImage
-//                slider
-//                maximumImage
-//            }
-//
-//        }
-//    }
-//
-//    public init(taskView: CareKitUI.InstructionsTaskView<Header,Footer>, slider: Slider<EmptyView, EmptyView>, maximumImage: Image?, minimumImage: Image?) {
-//        self.instructionsTaskView = taskView
-//        self.slider = slider
-//        self.maximumImage = maximumImage
-//        self.minimumImage = minimumImage
-//    }
-//
-//}
-

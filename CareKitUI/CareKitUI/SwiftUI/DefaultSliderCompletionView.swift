@@ -1,16 +1,18 @@
 //
-//  File.swift
+//  DefaultSliderCompletionView.swift
 //  
 //
 //  Created by Dylan Li on 6/27/20.
+//  Copyright © 2020 NetReconLab. All rights reserved.
 //
 
 import SwiftUI
 
 public struct DefaultSliderCompletionView: View {
     
+    @Environment(\.careKitStyle) private var style
+    
     @Binding var value: CGFloat
-    private let themeColor: Color = Color.accentColor
     let isComplete: Bool
     let action: (() -> Void)?
     private let diameter: CGFloat = 60
@@ -18,32 +20,32 @@ public struct DefaultSliderCompletionView: View {
     private let fontSize: CGFloat = 25
     
     private var foregroundColor: Color {
-        isComplete ? Color.white : themeColor
+        isComplete ? Color(style.color.white) : .accentColor
     }
     
     private var backgroundColor: Color {
-        isComplete ? themeColor : Color.white
+        isComplete ? .accentColor : Color(style.color.white)
     }
     
-//    private var text: Text? {
-//        isComplete ? Text("Done") : nil
-//    }
+    private var text: Text? {
+        isComplete ? Text(loc("DONE")) : nil
+    }
     
     public var body: some View {
         GeometryReader { geometry in
             Button(action: self.action ?? {}) {
                 ZStack {
                     Circle()
-                        .overlay(Circle().stroke(self.themeColor, lineWidth: self.borderWidth))
+                        .overlay(Circle().stroke(Color.accentColor, lineWidth: self.borderWidth))
                         .foregroundColor(self.backgroundColor)
                     Group {
                         Text(String(format: "%g", self.value))
                             .font(.system(size: self.fontSize))
                             .fontWeight(.semibold)
-//                        self.text?
-//                            .font(.system(size: self.diameter * 0.2))
-//                            .fontWeight(.semibold)
-//                            .offset(y: self.diameter * 0.3)
+                        self.text?
+                            .font(.system(size: self.diameter * 0.2))
+                            .fontWeight(.semibold)
+                            .offset(y: self.diameter * 0.3)
                     }.foregroundColor(self.foregroundColor)
                 }
             }
@@ -51,6 +53,4 @@ public struct DefaultSliderCompletionView: View {
             .buttonStyle(NoHighlightStyle())
         }.frame(height: diameter).padding(.top)
     }
-    
 }
-

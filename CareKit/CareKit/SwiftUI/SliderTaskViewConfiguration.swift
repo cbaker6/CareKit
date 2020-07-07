@@ -3,6 +3,7 @@
 //  
 //
 //  Created by Dylan Li on 5/26/20.
+//  Copyright © 2020 NetReconLab. All rights reserved.
 //
 
 import Foundation
@@ -26,34 +27,23 @@ public struct SliderTaskViewConfiguration {
     /// True if the labeled button is complete.
     public let isComplete: Bool
     
+    /// Image to display to the left of the slider.
     public let minimumImage: Image? = nil
-
+    
+    /// Image to display to the right of the slider.
     public let maximumImage: Image? = nil
     
+    /// Value that the slider begins on.
     public let initialValue: CGFloat = 5
 
+    /// The range that includes all possible values.
     public let range: ClosedRange<CGFloat> = 0...10
-
+    
+    /// Value of the increment that the slider takes.
     public let step: CGFloat = 1
-
+    
+    /// The source of truth for the current value of the slider
     @State public var value: CGFloat = 5
-    /*
-    init(controller: OCKTaskControllerProtocol) {
-        self.title = controller.title
-        self.detail = controller.event.map { OCKScheduleUtility.scheduleLabel(for: $0) } ?? ""
-        self.instructions = controller.instructions
-        self.isComplete = controller.isFirstEventComplete
-        self.action = controller.toggleActionForFirstEvent
-        self.minimumImage = controller.minimumImage
-        self.maximumImage = controller.maximumImage
-        self.maximumValue = controller.maximumValue
-        self.minimumValue = controller.minimumValue
-        self.step = controller.step
-        self.vertical = controller.vertical
-        self.value = controller.defaultValue
-        self.minimumValueLabel = controller.minimumValueLabel
-        self.maximumValueLabel = controller.maximumValueLabel
-    }*/
     
     init(controller: OCKTaskControllerProtocol){
         self.title = controller.title
@@ -62,18 +52,4 @@ public struct SliderTaskViewConfiguration {
         self.isComplete = controller.isFirstEventComplete
         self.action = controller.toggleActionForFirstEvent
     }
-    /*
-    init(controller: OCKTaskControllerProtocol, value: Binding<CGFloat>, range: ClosedRange<CGFloat>, step: CGFloat){
-        self.title = controller.title
-        self.detail = controller.event.map { OCKScheduleUtility.scheduleLabel(for: $0) } ?? ""
-        self.instructions = controller.instructions
-        self.isComplete = controller.isFirstEventComplete
-        self.action = controller.toggleActionForFirstEvent
-        self.minimumImage = nil
-        self.maximumImage = nil
-        self.range = range
-        self.step = step
-        _value = value
-    }*/
-
 }

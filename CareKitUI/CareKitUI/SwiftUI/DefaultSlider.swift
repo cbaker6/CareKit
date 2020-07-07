@@ -3,6 +3,7 @@
 //  
 //
 //  Created by Dylan Li on 6/22/20.
+//  Copyright © 2020 NetReconLab. All rights reserved.
 //
 
 import SwiftUI
@@ -14,13 +15,15 @@ struct DefaultSlider: View {
     @Binding private var value: CGFloat
     private var range: (CGFloat, CGFloat)
     private let step: CGFloat
-    private let leftBarColor: Color = Color.accentColor
-    private let rightBarColor: Color = Color.white
-    private let borderColor: Color = Color.gray
+    private let leftBarColor: Color = .accentColor
+    private var rightBarColor: Color = Color.white
+    private var borderColor: Color = Color.gray
     private let isComplete: Bool
     private let minimumImage: Image?
     private let maximumImage: Image?
-    
+    private var sliderHeight: CGFloat
+    private var frameHeight: CGFloat
+    private var borderWidth: CGFloat = 1
     private var containsImages: Bool {
         if minimumImage == nil, maximumImage == nil {
             return false
@@ -29,17 +32,18 @@ struct DefaultSlider: View {
         }
     }
     
-    private let sliderHeight: CGFloat = 40
-    private var frameHeight: CGFloat { sliderHeight * 1.5 }
-    private let borderWidth: CGFloat = 1
-    
-    init(value: Binding<CGFloat>, range: ClosedRange<CGFloat>, step: CGFloat, isComplete: Bool, minimumImage: Image?, maximumImage: Image?) {
+    init(value: Binding<CGFloat>, range: ClosedRange<CGFloat>, step: CGFloat, isComplete: Bool, minimumImage: Image?, maximumImage: Image?, sliderHeight: CGFloat, frameHeightMultiplier: CGFloat) {
         _value = value
         self.range = (range.lowerBound, range.upperBound)
         self.step = step
         self.isComplete = isComplete
         self.minimumImage = minimumImage
         self.maximumImage = maximumImage
+        self.sliderHeight = sliderHeight
+        self.frameHeight = sliderHeight * frameHeightMultiplier
+        self.rightBarColor = Color(style.color.white)
+        self.borderColor = Color(style.color.customGray)
+        self.borderWidth = style.appearance.borderWidth2
     }
     
     public var body: some View {
@@ -87,11 +91,11 @@ struct DefaultSlider: View {
             ZStack {
                 self.rightBarColor
                     .modifier(components.barRight)
-                    .cornerRadius(knobWidth / 2)
+                    .cornerRadius(style.appearance.cornerRadius1)
                 self.leftBarColor
                     .modifier(components.barLeft)
-                    .cornerRadius(knobWidth / 2)
-                RoundedRectangle(cornerRadius: knobWidth / 2)
+                    .cornerRadius(style.appearance.cornerRadius1)
+                RoundedRectangle(cornerRadius: style.appearance.cornerRadius1)
                     .stroke(borderColor, lineWidth: borderWidth)
             }.gesture(drag.onChanged( { drag in
                 self.onDragChange(drag, sliderWidth: width, knobWidth: knobWidth) } ))
@@ -224,4 +228,3 @@ private extension CGFloat {
         return value
     }
 }
-

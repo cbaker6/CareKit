@@ -49,6 +49,7 @@ public struct SliderTaskView<Header: View, Footer: View>: View {
     private let action: (() -> Void)?
     private let sliderHeight: CGFloat
     private let frameHeightMultiplier: CGFloat
+    private let useDefaultSlider: Bool
     @State private var value: CGFloat = 0
     
     public var body: some View {
@@ -62,7 +63,7 @@ public struct SliderTaskView<Header: View, Footer: View>: View {
                     .font(.subheadline)
                     .fontWeight(.medium)
                     .lineLimit(nil)
-                OCKSlider(value: self.$value, range: self.range, step: self.step, isComplete: self.isComplete, minimumImage: self.minimumImage, maximumImage: self.maximumImage, sliderHeight: self.sliderHeight, frameHeightMultiplier: self.frameHeightMultiplier, useDefaultSlider: true)
+                OCKSlider(value: self.$value, range: self.range, step: self.step, isComplete: self.isComplete, minimumImage: self.minimumImage, maximumImage: self.maximumImage, sliderHeight: self.sliderHeight, frameHeightMultiplier: self.frameHeightMultiplier, useDefaultSlider: self.useDefaultSlider)
             }
             VStack {
                 footer ?? _SliderTaskViewFooter(value: self.$value, isComplete: self.isComplete, action: self.action) as! Footer
@@ -90,7 +91,7 @@ public struct SliderTaskView<Header: View, Footer: View>: View {
     /// - Parameter action: Action to perform when the button is tapped. Default value is nil
     /// - Parameter header: Header to inject at the top of the card. Specified content will be stacked vertically.
     /// - Parameter footer: View to inject under the instructions. Specified content will be stacked vertically.
-    public init(isComplete: Bool, instructions: Text?, maximumImage: Image?=nil, minimumImage: Image?=nil, initialValue: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, sliderHeight: CGFloat=40, frameHeightMultiplier: CGFloat=1.7, action: (() -> Void)?=nil, @ViewBuilder header: () -> Header, @ViewBuilder footer: () -> Footer?) {
+    public init(isComplete: Bool, instructions: Text?, maximumImage: Image?=nil, minimumImage: Image?=nil, initialValue: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, sliderHeight: CGFloat=40, frameHeightMultiplier: CGFloat=1.7, action: (() -> Void)?=nil, @ViewBuilder header: () -> Header, @ViewBuilder footer: () -> Footer?, useDefaultSlider: Bool) {
         self.isComplete = isComplete
         self.instructions = instructions
         self.header = header()
@@ -102,6 +103,7 @@ public struct SliderTaskView<Header: View, Footer: View>: View {
         self.sliderHeight = sliderHeight
         self.frameHeightMultiplier = frameHeightMultiplier
         self.action = action
+        self.useDefaultSlider = useDefaultSlider
         _value = initialValueInRange(initialValue: initialValue, range: range)
     }
 }
@@ -121,7 +123,7 @@ public extension SliderTaskView where Header == HeaderView {
     /// - Parameter sliderHeight: Height of the bar of the slider.
     /// - Parameter frameHeightMultiplier: Value to multiply the slider height by to attain the hieght of the frame enclosing the slider. Default value is 1.7
     /// - Parameter footer: View to inject under the instructions. Specified content will be stacked vertically.
-    init(title: Text, detail: Text?, isComplete: Bool, instructions: Text?, maximumImage: Image?=nil, minimumImage: Image?=nil, initialValue: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, sliderHeight: CGFloat=40, frameHeightMultiplier: CGFloat=1.7, @ViewBuilder footer: () -> Footer) {
+    init(title: Text, detail: Text?, isComplete: Bool, instructions: Text?, maximumImage: Image?=nil, minimumImage: Image?=nil, initialValue: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, sliderHeight: CGFloat=40, frameHeightMultiplier: CGFloat=1.7, @ViewBuilder footer: () -> Footer, useDefaultSlider: Bool) {
         self.init(
             isComplete: isComplete,
             instructions: instructions,
@@ -130,7 +132,8 @@ public extension SliderTaskView where Header == HeaderView {
             sliderHeight: sliderHeight,
             frameHeightMultiplier: frameHeightMultiplier,
             header: { Header(title: title, detail: detail) },
-            footer: footer)
+            footer: footer,
+            useDefaultSlider: useDefaultSlider)
     }
 }
 
@@ -148,7 +151,7 @@ public extension SliderTaskView where Footer == _SliderTaskViewFooter {
     /// - Parameter frameHeightMultiplier: Value to multiply the slider height by to attain the hieght of the frame enclosing the slider. Default value is 1.7
     /// - Parameter action: Action to perform when the button is tapped. Default value is nil
     /// - Parameter header: Header to inject at the top of the card. Specified content will be stacked vertically.
-    init(isComplete: Bool, instructions: Text?, maximumImage: Image?=nil, minimumImage: Image?=nil, initialValue: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, sliderHeight: CGFloat=40, frameHeightMultiplier: CGFloat=1.7, action: (() -> Void)?, @ViewBuilder header: () -> Header) {
+    init(isComplete: Bool, instructions: Text?, maximumImage: Image?=nil, minimumImage: Image?=nil, initialValue: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, sliderHeight: CGFloat=40, frameHeightMultiplier: CGFloat=1.7, action: (() -> Void)?, @ViewBuilder header: () -> Header, useDefaultSlider: Bool) {
         self.init(
             isComplete: isComplete,
             instructions: instructions,
@@ -158,7 +161,8 @@ public extension SliderTaskView where Footer == _SliderTaskViewFooter {
             frameHeightMultiplier: frameHeightMultiplier,
             action: action,
             header: header,
-            footer: { nil } )
+            footer: { nil },
+            useDefaultSlider: useDefaultSlider)
     }
 }
 
@@ -177,7 +181,7 @@ public extension SliderTaskView where Header == HeaderView, Footer == _SliderTas
     /// - Parameter sliderHeight: Height of the bar of the slider.
     /// - Parameter frameHeightMultiplier: Value to multiply the slider height by to attain the hieght of the frame enclosing the slider. Default value is 1.7
     /// - Parameter action: Action to perform when the button is tapped. Default value is nil
-    init(title: Text, detail: Text?, isComplete: Bool, instructions: Text?, maximumImage: Image?=nil, minimumImage: Image?=nil, initialValue: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, sliderHeight: CGFloat=40, frameHeightMultiplier: CGFloat=1.7, action: (() -> Void)?) {
+    init(title: Text, detail: Text?, isComplete: Bool, instructions: Text?, maximumImage: Image?=nil, minimumImage: Image?=nil, initialValue: CGFloat, range: ClosedRange<CGFloat>, step: CGFloat, sliderHeight: CGFloat=40, frameHeightMultiplier: CGFloat=1.7, action: (() -> Void)?, useDefaultSlider: Bool) {
         self.init(
             isComplete: isComplete,
             instructions: instructions,
@@ -186,7 +190,8 @@ public extension SliderTaskView where Header == HeaderView, Footer == _SliderTas
             sliderHeight: sliderHeight,
             frameHeightMultiplier: frameHeightMultiplier,
             action: action,
-            header: { Header(title: title, detail: detail) })
+            header: { Header(title: title, detail: detail) },
+            useDefaultSlider: useDefaultSlider)
     }
 }
 

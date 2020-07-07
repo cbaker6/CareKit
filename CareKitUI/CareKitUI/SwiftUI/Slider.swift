@@ -69,7 +69,6 @@ struct OCKSlider: View {
                 .sliderImageModifier(width: imageWidth, height: sliderHeight)
             
             if self.useDefaultSlider {
-                
                 Slider(value: self.$value, in: self.range.0...self.range.1)
                     .gesture(drag.onChanged( { drag in
                         self.onDragChange(drag, sliderWidth: sliderWidth, knobWidth: knobWidth) } ))

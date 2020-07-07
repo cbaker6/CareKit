@@ -42,6 +42,8 @@ public struct SliderTaskViewConfiguration {
     /// Value of the increment that the slider takes.
     public let step: CGFloat = 1
     
+    public let useDefaultSlider: Bool = true
+    
     /// The source of truth for the current value of the slider
     @State public var value: CGFloat = 5
     

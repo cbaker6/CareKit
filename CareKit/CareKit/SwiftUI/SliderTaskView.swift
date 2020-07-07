@@ -81,6 +81,7 @@ private extension CareKitUI.SliderTaskView where Header == HeaderView, Footer ==
                   initialValue: configuration.initialValue,
                   range: configuration.range,
                   step: configuration.step,
-                  action: configuration.action)
+                  action: configuration.action,
+                  useDefaultSlider: configuration.useDefaultSlider)
     }
 }

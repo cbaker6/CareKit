@@ -51,11 +51,15 @@ class TestStoreOutcomes: XCTestCase {
         let task = try store.addTaskAndWait(OCKTask(id: "A", title: "A", carePlanUUID: nil, schedule: schedule))
         let taskUUID = try task.getUUID()
 
-        let value = OCKOutcomeValue(42)
+        var value = OCKOutcomeValue(42)
+        value.kind = "number"
+
         var outcome = OCKOutcome(taskUUID: taskUUID, taskOccurrenceIndex: 0, values: [value])
         outcome = try store.addOutcomeAndWait(outcome)
+
         let outcomes = try store.fetchOutcomesAndWait()
         XCTAssert(outcomes == [outcome])
+        XCTAssert(outcomes.first?.values.first?.kind == "number")
         XCTAssertNotNil(outcomes.first?.taskUUID)
         XCTAssertNotNil(outcomes.first?.schemaVersion)
     }
@@ -217,7 +221,7 @@ class TestStoreOutcomes: XCTestCase {
         let fetched = try store.fetchOutcomesAndWait(query: query).first
         XCTAssert(fetched == outcome)
     }
- 
+
     func testQueryOutcomeByUUID() throws {
         var task = OCKTask(id: "A", title: nil, carePlanUUID: nil, schedule: .mealTimesEachDay(start: Date(), end: nil))
         task = try store.addTaskAndWait(task)
@@ -227,7 +231,7 @@ class TestStoreOutcomes: XCTestCase {
 
         var query = OCKOutcomeQuery(for: Date())
         query.uuids = [try outcome.getUUID()]
-        
+
         let fetched = try store.fetchOutcomesAndWait(query: query).first
         XCTAssert(fetched == outcome)
     }

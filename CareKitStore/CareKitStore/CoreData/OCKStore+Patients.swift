@@ -1,21 +1,21 @@
 /*
  Copyright (c) 2019, Apple Inc. All rights reserved.
- 
+
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
- 
+
  1.  Redistributions of source code must retain the above copyright notice, this
  list of conditions and the following disclaimer.
- 
+
  2.  Redistributions in binary form must reproduce the above copyright notice,
  this list of conditions and the following disclaimer in the documentation and/or
  other materials provided with the distribution.
- 
+
  3. Neither the name of the copyright holder(s) nor the names of any contributors
  may be used to endorse or promote products derived from this software without
  specific prior written permission. No license is granted to the trademarks of
  the copyright holders even if such marks are included in this software.
- 
+
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -61,14 +61,12 @@ extension OCKStore {
         context.perform {
             do {
                 try self.validateNumberOfPatients()
-                try self.validateNew(OCKCDPatient.self, patients)
-                let persistablePatients = patients.map(self.createPatient)
+                let addedPatients = try self.createPatientsWithoutCommitting(patients)
                 try self.context.save()
-                let updatedPatients = persistablePatients.map(self.makePatient)
                 callbackQueue.async {
-                    self.patientDelegate?.patientStore(self, didAddPatients: updatedPatients)
+                    self.patientDelegate?.patientStore(self, didAddPatients: addedPatients)
                     self.autoSynchronizeIfRequired()
-                    completion?(.success(updatedPatients))
+                    completion?(.success(addedPatients))
                 }
             } catch {
                 self.context.rollback()
@@ -83,14 +81,12 @@ extension OCKStore {
                              completion: ((Result<[OCKPatient], OCKStoreError>) -> Void)? = nil) {
         context.perform {
             do {
-                try self.validateUpdateIdentifiers(patients.map { $0.id })
-                let updatedPatients = try self.performVersionedUpdate(values: patients, addNewVersion: self.createPatient)
+                let updated = try self.updatePatientsWithoutCommitting(patients, copyUUIDs: false)
                 try self.context.save()
-                let patients = updatedPatients.map(self.makePatient)
                 callbackQueue.async {
-                    self.patientDelegate?.patientStore(self, didUpdatePatients: patients)
+                    self.patientDelegate?.patientStore(self, didUpdatePatients: updated)
                     self.autoSynchronizeIfRequired()
-                    completion?(.success(patients))
+                    completion?(.success(updated))
                 }
             } catch {
                 self.context.rollback()
@@ -108,7 +104,7 @@ extension OCKStore {
                 let markedDeleted: [OCKCDPatient] = try self.performDeletion(
                     values: patients,
                     addNewVersion: self.createPatient)
-                
+
                 try self.context.save()
                 let deletedPatients = markedDeleted.map(self.makePatient)
                 callbackQueue.async {
@@ -123,6 +119,36 @@ extension OCKStore {
                 }
             }
         }
+    }
+
+    // MARK: Internal
+    // These methods are called from elsewhere in CareKit, but must always be called
+    // from the `contexts`'s thread.
+
+    func createPatientsWithoutCommitting(_ patients: [Patient]) throws -> [Patient] {
+        try self.validateNew(OCKCDPatient.self, patients)
+        let persistablePatients = patients.map(self.createPatient)
+        let addedPatients = persistablePatients.map(self.makePatient)
+        return addedPatients
+    }
+
+    /// Updates existing patients to the versions passed in.
+    ///
+    /// The copyUUIDs argument should be true when ingesting patients from a remote to ensure
+    /// the UUIDs match on all devices, and false when creating a new version of a patient locally
+    /// to ensure that the new version has a different UUID than its parent version.
+    ///
+    /// - Parameters:
+    ///   - patients: The new versions of the patients.
+    ///   - copyUUIDs: If true, the UUIDs of the patients will be copied to the new versions
+    func updatePatientsWithoutCommitting(_ patients: [Patient], copyUUIDs: Bool) throws -> [Patient] {
+        try validateUpdateIdentifiers(patients.map { $0.id })
+        let updatedPatients = try self.performVersionedUpdate(values: patients, addNewVersion: self.createPatient)
+        if copyUUIDs {
+            updatedPatients.enumerated().forEach { $1.uuid = patients[$0].uuid! }
+        }
+        let updated = updatedPatients.map(self.makePatient)
+        return updated
     }
 
     // MARK: Private
@@ -144,8 +170,7 @@ extension OCKStore {
 
     /// - Remark: This method is intended to create a value type struct from a *persisted* NSManagedObject. Calling this method with an
     /// object that is not yet commited is a programmer error.
-    private func makePatient(from object: OCKCDPatient) -> OCKPatient {
-        assert(!object.objectID.isTemporaryID, "Do not create a patient from an object that isn't persisted yet!")
+    internal func makePatient(from object: OCKCDPatient) -> OCKPatient {
         var patient = OCKPatient(id: object.id, name: object.name.makeComponents())
         patient.sex = object.sex == nil ? nil : OCKBiologicalSex(rawValue: object.sex!)
         patient.birthday = object.birthday

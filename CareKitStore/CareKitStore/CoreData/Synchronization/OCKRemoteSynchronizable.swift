@@ -1,21 +1,21 @@
 /*
  Copyright (c) 2020, Apple Inc. All rights reserved.
- 
+
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
- 
+
  1.  Redistributions of source code must retain the above copyright notice, this
  list of conditions and the following disclaimer.
- 
+
  2.  Redistributions in binary form must reproduce the above copyright notice,
  this list of conditions and the following disclaimer in the documentation and/or
  other materials provided with the distribution.
- 
+
  3. Neither the name of the copyright holder(s) nor the names of any contributors
  may be used to endorse or promote products derived from this software without
  specific prior written permission. No license is granted to the trademarks of
  the copyright holders even if such marks are included in this software.
- 
+
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -124,6 +124,9 @@ public struct OCKMergeConflictDescription: Equatable, Codable {
     public enum EntityPair: Equatable, Codable {
         case outcomes(deviceVersion: OCKOutcome, remoteVersion: OCKOutcome)
         case tasks(deviceVersion: OCKTask, remoteVersion: OCKTask)
+        case carePlans(deviceVersion: OCKCarePlan, remoteVersion: OCKCarePlan)
+        case contacts(deviceVersion: OCKContact, remoteVersion: OCKContact)
+        case patients(deviceVersion: OCKPatient, remoteVersion: OCKPatient)
 
         private enum Keys: CodingKey {
             case device
@@ -135,14 +138,15 @@ public struct OCKMergeConflictDescription: Equatable, Codable {
             switch self {
             case .outcomes: return .outcome
             case .tasks: return .task
+            case .carePlans: return .carePlan
+            case .contacts: return .contact
+            case .patients: return .patient
             }
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: Keys.self)
             switch try container.decode(OCKEntity.EntityType.self, forKey: .entity) {
-            case .patient, .carePlan, .contact:
-                fatalError("Not implemented yet")
             case .outcome:
                 self = .outcomes(
                     deviceVersion: try container.decode(OCKOutcome.self, forKey: .device),
@@ -151,6 +155,18 @@ public struct OCKMergeConflictDescription: Equatable, Codable {
                 self = .tasks(
                     deviceVersion: try container.decode(OCKTask.self, forKey: .device),
                     remoteVersion: try container.decode(OCKTask.self, forKey: .remote))
+            case .carePlan:
+                self = .carePlans(
+                    deviceVersion: try container.decode(OCKCarePlan.self, forKey: .device),
+                    remoteVersion: try container.decode(OCKCarePlan.self, forKey: .remote))
+            case .contact:
+                self = .contacts(
+                    deviceVersion: try container.decode(OCKContact.self, forKey: .device),
+                    remoteVersion: try container.decode(OCKContact.self, forKey: .remote))
+            case .patient:
+                self = .patients(
+                    deviceVersion: try container.decode(OCKPatient.self, forKey: .device),
+                    remoteVersion: try container.decode(OCKPatient.self, forKey: .remote))
             }
         }
 
@@ -162,6 +178,15 @@ public struct OCKMergeConflictDescription: Equatable, Codable {
                 try container.encode(deviceVersion, forKey: .device)
                 try container.encode(remoteVersion, forKey: .remote)
             case let .tasks(deviceVersion, remoteVersion):
+                try container.encode(deviceVersion, forKey: .device)
+                try container.encode(remoteVersion, forKey: .remote)
+            case let .carePlans(deviceVersion, remoteVersion):
+                try container.encode(deviceVersion, forKey: .device)
+                try container.encode(remoteVersion, forKey: .remote)
+            case let .contacts(deviceVersion, remoteVersion):
+                try container.encode(deviceVersion, forKey: .device)
+                try container.encode(remoteVersion, forKey: .remote)
+            case let .patients(deviceVersion, remoteVersion):
                 try container.encode(deviceVersion, forKey: .device)
                 try container.encode(remoteVersion, forKey: .remote)
             }

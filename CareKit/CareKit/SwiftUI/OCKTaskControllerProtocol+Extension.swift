@@ -33,13 +33,13 @@ import Foundation
 import SwiftUI
 
 extension OCKTaskControllerProtocol {
-
+    
     var event: OCKAnyEvent? { objectWillChange.value?.firstEvent }
-
+    
     var title: String { event?.task.title ?? "" }
 
     var instructions: String { event?.task.instructions ?? "" }
-
+    
     var isFirstEventComplete: Bool { event?.outcome != nil }
 
     var toggleActionForFirstEvent: () -> Void { { self.toggleFirstEvent() } }

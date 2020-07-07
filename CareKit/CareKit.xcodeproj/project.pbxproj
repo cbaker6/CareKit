@@ -103,6 +103,9 @@
 		64EABE022321B1AF00CFBB9F /* OCKSynchronizedStoreManager+Publishers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EABDBF2321B1AF00CFBB9F /* OCKSynchronizedStoreManager+Publishers.swift */; };
 		64EABE0B2321B1AF00CFBB9F /* OCKContactUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EABDCB2321B1AF00CFBB9F /* OCKContactUtility.swift */; };
 		64EABE202321B1AF00CFBB9F /* locversion.plist in Resources */ = {isa = PBXBuildFile; fileRef = 64EABDE72321B1AF00CFBB9F /* locversion.plist */; };
+		E88E002B24B51361009A7AC8 /* SliderTaskViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88E002524B51361009A7AC8 /* SliderTaskViewConfiguration.swift */; };
+		E88E002C24B51361009A7AC8 /* SliderTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88E002A24B51361009A7AC8 /* SliderTaskView.swift */; };
+		E88E002E24B513F0009A7AC8 /* OCKSliderTaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88E002D24B513F0009A7AC8 /* OCKSliderTaskController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -247,6 +250,9 @@
 		64EABDE52321B1AF00CFBB9F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		64EABDE82321B1AF00CFBB9F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/locversion.plist; sourceTree = "<group>"; };
 		8605A5BA1C4F04EC00DD65FF /* CareKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CareKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E88E002524B51361009A7AC8 /* SliderTaskViewConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderTaskViewConfiguration.swift; sourceTree = "<group>"; };
+		E88E002A24B51361009A7AC8 /* SliderTaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderTaskView.swift; sourceTree = "<group>"; };
+		E88E002D24B513F0009A7AC8 /* OCKSliderTaskController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OCKSliderTaskController.swift; path = "../../../../../../Assuage/Pods/CareKit/CareKit/CareKit/Synchronized View Controllers/Task/Controllers/OCKSliderTaskController.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -304,6 +310,8 @@
 				510A4D972444DF52009D7FC2 /* OCKTaskControllerProtocol+Extension.swift */,
 				510A4D952444DF52009D7FC2 /* InstructionsTaskView.swift */,
 				510A4D962444DF52009D7FC2 /* InstructionsTaskViewConfiguration.swift */,
+				E88E002A24B51361009A7AC8 /* SliderTaskView.swift */,
+				E88E002524B51361009A7AC8 /* SliderTaskViewConfiguration.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -329,6 +337,7 @@
 				515E17D12351262100637153 /* OCKTaskEvents.swift */,
 				51094D93234F8E3E00B4BFFB /* OCKTaskController.swift */,
 				5112731B235E58B2007B18DF /* OCKGridTaskController.swift */,
+				E88E002D24B513F0009A7AC8 /* OCKSliderTaskController.swift */,
 				5112731D235E58C4007B18DF /* OCKChecklistTaskController.swift */,
 				5112731F235E58D5007B18DF /* OCKSimpleTaskController.swift */,
 				51127321235E58E8007B18DF /* OCKInstructionsTaskController.swift */,
@@ -883,6 +892,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E88E002C24B51361009A7AC8 /* SliderTaskView.swift in Sources */,
 				5167B925233418AA002BC69C /* Updatable.swift in Sources */,
 				51E88828234CE61300763B97 /* OCKContactViewController.swift in Sources */,
 				510EA10B234EA218005D6793 /* OCKGridTaskViewSynchronizer.swift in Sources */,
@@ -891,6 +901,7 @@
 				518F3D3923553CB500E00902 /* OCKChartViewController.swift in Sources */,
 				51127312235E3B62007B18DF /* OCKDetailedContactController.swift in Sources */,
 				5167B92923341C00002BC69C /* OCKLogTaskView+Updatable.swift in Sources */,
+				E88E002E24B513F0009A7AC8 /* OCKSliderTaskController.swift in Sources */,
 				517F3E4823345A39004FE251 /* OCKSimpleContactView+Updatable.swift in Sources */,
 				516433C023539C3B00999B64 /* OCKSimpleTaskViewController.swift in Sources */,
 				510EA10D234EA381005D6793 /* OCKChecklistTaskViewSynchronizer.swift in Sources */,
@@ -947,6 +958,7 @@
 				64EABDEE2321B1AF00CFBB9F /* OCKHeaderBodyView.swift in Sources */,
 				51A52A0823566D240056150D /* OCKDailyTasksPageViewController.swift in Sources */,
 				51094D94234F8E3E00B4BFFB /* OCKTaskController.swift in Sources */,
+				E88E002B24B51361009A7AC8 /* SliderTaskViewConfiguration.swift in Sources */,
 				64EABDEA2321B1AF00CFBB9F /* OCKListViewController.swift in Sources */,
 				64EABE012321B1AF00CFBB9F /* OCKSynchronizedStoreManager.swift in Sources */,
 				514FDE392356362B0044E3B8 /* OCKCalendarController.swift in Sources */,

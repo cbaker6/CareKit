@@ -62,13 +62,17 @@ struct OCKSlider: View {
         let imageWidth: CGFloat = frameWidth / 7
         var sliderWidth: CGFloat { containsImages ? frameWidth - imageWidth * 2 : frameWidth }
         var knobWidth: CGFloat { sliderWidth * 0.1 }
+        let drag = self.isComplete ? nil : DragGesture(minimumDistance: 0)
         
         return HStack {
             self.minimumImage?
                 .sliderImageModifier(width: imageWidth, height: sliderHeight)
             
             if self.useDefaultSlider {
+                
                 Slider(value: self.$value, in: self.range.0...self.range.1)
+                    .gesture(drag.onChanged( { drag in
+                        self.onDragChange(drag, sliderWidth: sliderWidth, knobWidth: knobWidth) } ))
                     .frame(width: sliderWidth, height: sliderHeight)
             } else {
                 ZStack {

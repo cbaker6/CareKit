@@ -18,6 +18,7 @@ open class OCKSliderTaskController: OCKTaskController {
     /// Data used to create a `CareKitUI.SliderTaskTaskView`.
     @Published public private(set) var viewModel: SliderTaskViewModel? {
         willSet { objectWillChange.send() }
+        didSet { objectWillChange.send() }
     }
     
     private var cancellable: AnyCancellable?

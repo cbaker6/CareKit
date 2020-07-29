@@ -17,7 +17,7 @@ import SwiftUI
 public struct SynchronizedSliderTaskView<Controller: OCKSliderTaskController, SliderTaskView: View>: View {
 
     @StateObject private var controller: OCKSliderTaskController
-    @State private var value: CGFloat = 5
+    @State private var value: CGFloat = 0
 
     private let errorHandler: ((Error) -> Void)?
     private let content: (_ controller: OCKSliderTaskController, _ value: Binding<CGFloat>) -> SliderTaskView
@@ -27,10 +27,12 @@ public struct SynchronizedSliderTaskView<Controller: OCKSliderTaskController, Sl
         content(controller, $value)
             .onAppear {
                 self.query?.perform(using: self.controller)
-                value = self.controller.viewModel?.value ?? 0
             }
             .onReceive(controller.$error.compactMap { $0 }) { error in
                 self.errorHandler?(error)
+            }
+            .onReceive(self.controller.$viewModel) { _ in
+                value = self.controller.viewModel?.value ?? 0
             }
     }
 
@@ -40,10 +42,6 @@ public struct SynchronizedSliderTaskView<Controller: OCKSliderTaskController, Sl
         self._controller = .init(wrappedValue: controller)
         self.errorHandler = errorHandler
         self.content = content
-        /*self.content(self._controller, $value){
-            
-        }*/
-        //self._value = State(initialValue: self.content.)
     }
 
     init(copying copy: Self, settingErrorHandler errorHandler: @escaping (Error) -> Void) {

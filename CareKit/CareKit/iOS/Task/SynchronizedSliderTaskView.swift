@@ -40,7 +40,7 @@ public struct SynchronizedSliderTaskView<Controller: OCKSliderTaskController, Sl
             }
     }
 
-    init(controller: Controller, query: OCKSynchronizedTaskQuery, errorHandler: ((Error) -> Void)? = nil, /*initialValue: CGFloat,*/
+    init(controller: Controller, query: OCKSynchronizedTaskQuery? = nil, errorHandler: ((Error) -> Void)? = nil, /*initialValue: CGFloat,*/
          content: @escaping (_ viewModel: OCKSliderTaskController, _ value: Binding<CGFloat>) -> SliderTaskView) {
         self.query = query
         self._controller = .init(wrappedValue: controller)

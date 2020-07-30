@@ -89,7 +89,7 @@ public struct SliderTaskView<Header: View, SliderView: View>: View {
     /// - Parameters:
     ///     - controller: Controller that holds a reference to data displayed by the view.
     ///     - content: Create a view to display whenever the body is computed.
-    public init(controller: OCKSliderTaskController, initialValue: CGFloat,
+    public init(controller: OCKSliderTaskController, /*initialValue: CGFloat,*/
                 content: @escaping (_ controller: OCKSliderTaskController, _ value: Binding<CGFloat>) -> CareKitUI.SliderTaskView<Header, SliderView>) {
         taskView = .init(controller: controller/*, initialValue: initialValue*/, content: content)
     }
@@ -147,7 +147,7 @@ private extension CareKitUI.SliderTaskView where Header == _SliderTaskViewHeader
                   detail: viewModel?.detail.map { Text($0) },
                   instructions: viewModel?.instructions.map{ Text($0) },
                   isComplete: viewModel?.isComplete ?? false,
-                  initialValue: viewModel?.value,
+                  initialValue: nil,
                   value: value,
                   range: range,
                   step: step,
@@ -172,7 +172,7 @@ public struct SliderTaskViewModel {
     /// True if the button under the slider is in the completed.
     public let isComplete: Bool
     
-    public let value: CGFloat
+    //public let value: CGFloat
 
     /// Action to perform when the button is tapped.
     public let action: (Double) -> Void

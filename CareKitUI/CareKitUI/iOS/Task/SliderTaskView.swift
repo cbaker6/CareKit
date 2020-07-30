@@ -114,7 +114,7 @@ public extension SliderTaskView where SliderView == _SliderTaskViewFooter {
     /// - Parameter action: Action to perform when the button is tapped.
     init(instructions: Text? = nil,
          isComplete: Bool,
-         initialValue: CGFloat?, value: Binding<CGFloat>,
+         initialValue: CGFloat? = nil, value: Binding<CGFloat>,
          range: ClosedRange<CGFloat>, step: CGFloat,
          minimumImage: Image? = nil, maximumImage: Image? = nil,
          sliderStyle: SliderStyle = .system,
@@ -151,7 +151,7 @@ public extension SliderTaskView where Header == _SliderTaskViewHeader, SliderVie
     init(title: Text, detail: Text? = nil,
          instructions: Text? = nil,
          isComplete: Bool,
-         initialValue: CGFloat?, value: Binding<CGFloat>,
+         initialValue: CGFloat? = nil, value: Binding<CGFloat>,
          range: ClosedRange<CGFloat>, step: CGFloat,
          minimumImage: Image? = nil, maximumImage: Image? = nil,
          sliderStyle: SliderStyle,
@@ -203,7 +203,7 @@ public struct _SliderTaskViewFooter: View {
     fileprivate let sliderStyle: SliderStyle
     @Binding var value: CGFloat
     
-    init(initialValue: CGFloat?, value: Binding<CGFloat>, range: ClosedRange<CGFloat>, step: CGFloat,
+    init(initialValue: CGFloat? = nil, value: Binding<CGFloat>, range: ClosedRange<CGFloat>, step: CGFloat,
          isComplete: Bool, maximumImage: Image?, minimumImage: Image?, sliderStyle: SliderStyle,
          action: @escaping (_ value: Double) -> Void) {
         self.initialValue = initialValue ?? range.lowerBound + round((range.upperBound - range.lowerBound) / (step * 2)) * step
@@ -225,7 +225,9 @@ public struct _SliderTaskViewFooter: View {
             OCKSliderButton(value: $value, isComplete: isComplete, action: action)
         }
         .onAppear {
-            value = initialValue
+            if !isComplete  {
+                value = initialValue
+            }
         }
     }
 }

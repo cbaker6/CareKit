@@ -49,7 +49,7 @@ open class OCKSliderTaskController: OCKTaskController {
                      detail: taskEvents.firstEventDetail,
                      instructions: taskEvents.firstTaskInstructions,
                      isComplete: taskEvents.isFirstEventComplete,
-                     value: value,
+                     //value: value,
                      action: saveSliderValueActionForFirstEvent(errorHandler: errorHandler))
     }
     

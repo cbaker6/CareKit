@@ -20,6 +20,11 @@ open class OCKSliderTaskController: OCKTaskController {
         willSet { objectWillChange.send() }
     }
     
+    /// Data used to create a `CareKitUI.SliderTaskTaskView`.
+    @Published public private(set) var value: CGFloat = 0 {
+        willSet { objectWillChange.send() }
+    }
+    
     private var cancellable: AnyCancellable?
     
     public required init(storeManager: OCKSynchronizedStoreManager) {
@@ -31,11 +36,8 @@ open class OCKSliderTaskController: OCKTaskController {
     
     private func makeViewModel(from taskEvents: OCKTaskEvents) -> SliderTaskViewModel? {
         guard !taskEvents.isEmpty else { return nil }
-        
-        let event = taskEvents.first?.first
-        var value: CGFloat = 0
-        
-        if let foundValue = event?.scheduleEvent.element.targetValues.first?.numberValue?.doubleValue {
+
+        if let foundValue = taskEvents.first?.first?.outcome?.values.last?.numberValue?.doubleValue {
             value = CGFloat(foundValue)
         }
     

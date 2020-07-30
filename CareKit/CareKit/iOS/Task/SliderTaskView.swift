@@ -89,10 +89,10 @@ public struct SliderTaskView<Header: View, SliderView: View>: View {
     /// - Parameters:
     ///     - controller: Controller that holds a reference to data displayed by the view.
     ///     - content: Create a view to display whenever the body is computed.
-    public init(controller: OCKSliderTaskController, initialValue: CGFloat,
+    /*public init(controller: OCKSliderTaskController, initialValue: CGFloat,
                 content: @escaping (_ controller: OCKSliderTaskController, _ value: Binding<CGFloat>) -> CareKitUI.SliderTaskView<Header, SliderView>) {
         taskView = .init(controller: controller/*, initialValue: initialValue*/, content: content)
-    }
+    }*/
     
     /// Handle any errors that may occur.
     /// - Parameter handler: Handle the encountered error.
@@ -133,11 +133,11 @@ public extension SliderTaskView where Header == _SliderTaskViewHeader, SliderVie
     /// Create an instance that displays the default content.
     /// - Parameters:
     ///     - controller: Controller that holds a reference to data displayed by the view.
-    init(controller: OCKSliderTaskController/*, initialValue: CGFloat*/) {
+    /*init(controller: OCKSliderTaskController/*, initialValue: CGFloat*/) {
         taskView = .init(controller: controller/*, initialValue: initialValue*/) {
             .init(viewModel: $0.viewModel, value: $1)
         }
-    }
+    }*/
 }
 
 private extension CareKitUI.SliderTaskView where Header == _SliderTaskViewHeader, SliderView == _SliderTaskViewFooter {

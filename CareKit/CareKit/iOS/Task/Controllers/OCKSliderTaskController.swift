@@ -22,10 +22,7 @@ open class OCKSliderTaskController: OCKTaskController {
     
     /// Data used to create a `CareKitUI.SliderTaskTaskView`.
     @Published public private(set) var value: CGFloat = 0 {
-        didSet { DispatchQueue.main.async {
-            self.objectWillChange.send()
-            }
-        }
+        willSet { objectWillChange.send() }
     }
     
     private var cancellable: AnyCancellable?

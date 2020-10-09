@@ -27,7 +27,7 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
+#if canImport(UIKit)
 import UIKit
 
 extension Double {
@@ -54,3 +54,4 @@ extension CGFloat {
         return Swift.max(Swift.min(self, range.upperBound), range.lowerBound)
     }
 }
+#endif

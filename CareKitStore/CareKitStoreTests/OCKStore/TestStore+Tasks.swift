@@ -29,7 +29,9 @@
  */
 
 @testable import CareKitStore
+#if canImport(HealthKit)
 import HealthKit
+#endif
 import XCTest
 
 class TestStoreTasks: XCTestCase {

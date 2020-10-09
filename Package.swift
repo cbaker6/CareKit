@@ -3,7 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "CareKit",
-    platforms: [.iOS(.v13), .watchOS(.v6)],
+    platforms: [.iOS(.v13), .watchOS(.v6), .macOS(.v10_13)],
     products: [
         .library(
             name: "CareKit",

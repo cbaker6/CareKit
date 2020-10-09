@@ -29,8 +29,9 @@
  */
 
 import Foundation
+#if canImport(HealthKit)
 import HealthKit
-
+#endif
 extension OCKStore: OCKCoreDataTaskStoreProtocol {
 
     // MARK: OCKCoreDataTaskStoreProtocol

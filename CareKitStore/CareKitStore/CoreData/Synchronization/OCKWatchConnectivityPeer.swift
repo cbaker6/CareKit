@@ -27,7 +27,7 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
+#if canImport(WatchConnectivity)
 import Foundation
 import WatchConnectivity
 
@@ -221,4 +221,4 @@ open class OCKWatchConnectivityPeer: OCKRemoteSynchronizable {
         #endif
     }
 }
-
+#endif

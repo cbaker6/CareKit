@@ -48,7 +48,7 @@ public protocol OCKAnyCarePlan {
     /// Any array of notes associated with this object.
     var notes: [OCKNote]? { get }
 
-    /// Determines if this care plan belongs to the given patient.
+    /// Determines if this care plan belongs to the given patiehtn.
     ///
     /// - Parameter patient: A patient which may or may not own this care plan.
     func belongs(to patient: OCKAnyPatient) -> Bool

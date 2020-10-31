@@ -124,9 +124,6 @@
 		64E1BD4E2309FCF200DFFE52 /* OCKResponsiveLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E1BD4D2309FCF200DFFE52 /* OCKResponsiveLayout.swift */; };
 		64EEC2382318253B00B1012F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 64EEC2362318253B00B1012F /* Localizable.strings */; };
 		64EEC23B231825DD00B1012F /* OCKLocalization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EEC23A231825DD00B1012F /* OCKLocalization.swift */; };
-		E88E002224B51344009A7AC8 /* SliderCompletionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88E001F24B51343009A7AC8 /* SliderCompletionView.swift */; };
-		E88E002324B51344009A7AC8 /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88E002024B51343009A7AC8 /* Slider.swift */; };
-		E88E002424B51344009A7AC8 /* SliderTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88E002124B51343009A7AC8 /* SliderTaskView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -242,7 +239,6 @@
 		64E1BD4D2309FCF200DFFE52 /* OCKResponsiveLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OCKResponsiveLayout.swift; sourceTree = "<group>"; };
 		64EEC2372318253B00B1012F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		64EEC23A231825DD00B1012F /* OCKLocalization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCKLocalization.swift; sourceTree = "<group>"; };
-		E88E001F24B51343009A7AC8 /* SliderCompletionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderCompletionView.swift; sourceTree = "<group>"; };
 		E88E002024B51343009A7AC8 /* Slider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Slider.swift; sourceTree = "<group>"; };
 		E88E002124B51343009A7AC8 /* SliderTaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderTaskView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -282,13 +278,10 @@
 				510466F724A2848800D0FD53 /* Views */,
 				51F12D3E229CA8DE00CA265B /* Controls */,
 				51F12D41229CA92400CA265B /* Labels */,
-				51E7643A22C2ED7300160C22 /* Authentication */,
 				518F9D4422961BF5009CAA48 /* Contact */,
 				518F9D5622961BF5009CAA48 /* Charts */,
-				51B225E223EE263F00A2D11F /* Calendar Events */,
 				518F9D4A22961BF5009CAA48 /* Task */,
 				51F12D4A229CAB7C00CA265B /* Detail View */,
-				640B6A1923D90979009490D6 /* Picker */,
 				51F12D49229CAB3600CA265B /* Calendar */,
 				515888C62437AED100E65C73 /* Featured Content */,
 				51367939243BF69D0026997B /* Link */,
@@ -447,6 +440,7 @@
 				5174225D224185290054E97C /* CareKitUI */,
 				512B012F22C2F82900ABCB1D /* CareKitUITests */,
 				5174225C224185290054E97C /* Products */,
+				70F2E070254DD7D600B2EA5C /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -551,20 +545,6 @@
 			path = Style;
 			sourceTree = "<group>";
 		};
-		51B225E223EE263F00A2D11F /* Calendar Events */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Calendar Events";
-			sourceTree = "<group>";
-		};
-		51E7643A22C2ED7300160C22 /* Authentication */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Authentication;
-			sourceTree = "<group>";
-		};
 		51F12D3E229CA8DE00CA265B /* Controls */ = {
 			isa = PBXGroup;
 			children = (
@@ -644,13 +624,6 @@
 			path = "Detail View";
 			sourceTree = "<group>";
 		};
-		640B6A1923D90979009490D6 /* Picker */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Picker;
-			sourceTree = "<group>";
-		};
 		64EEC2352318252B00B1012F /* Localization */ = {
 			isa = PBXGroup;
 			children = (
@@ -659,6 +632,15 @@
 				64EEC23A231825DD00B1012F /* OCKLocalization.swift */,
 			);
 			path = Localization;
+			sourceTree = "<group>";
+		};
+		70F2E070254DD7D600B2EA5C /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				E88E002124B51343009A7AC8 /* SliderTaskView.swift */,
+				E88E002024B51343009A7AC8 /* Slider.swift */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -825,7 +807,6 @@
 			files = (
 				510466F924A2850700D0FD53 /* OCKContactDisplayable.swift in Sources */,
 				518F9D9E22961BF5009CAA48 /* OCKBarLayer.swift in Sources */,
-				E88E002424B51344009A7AC8 /* SliderTaskView.swift in Sources */,
 				518F9DA922961BF6009CAA48 /* OCKRingView.swift in Sources */,
 				518F9D9C22961BF5009CAA48 /* OCKGridLayer.swift in Sources */,
 				51F78FEE22D7C7C100058858 /* OCKCalendarDisplayable.swift in Sources */,
@@ -898,7 +879,6 @@
 				518F9D9222961BF5009CAA48 /* OCKSelfSizingCollectionView.swift in Sources */,
 				51B225AD23EDDCFC00A2D11F /* SimpleTaskView.swift in Sources */,
 				518F9D8E22961BF5009CAA48 /* OCKSimpleTaskView.swift in Sources */,
-				E88E002324B51344009A7AC8 /* Slider.swift in Sources */,
 				51637EA322F3A68400BAF65C /* OCKLogTaskView.swift in Sources */,
 				516A1C48244F766A00BBF2D3 /* OSValue.swift in Sources */,
 				5178FBDA22E253FC00794353 /* OCKChartDisplayable.swift in Sources */,

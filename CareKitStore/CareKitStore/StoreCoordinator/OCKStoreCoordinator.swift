@@ -235,6 +235,7 @@ open class OCKStoreCoordinator: OCKAnyStoreProtocol {
 
         #if os(iOS)
         // HealthKit stores should only respond to HealthKit tasks
+        
         if store is OCKHealthKitPassthroughStore && !(task is OCKHealthKitTask) { return false }
         #endif
 

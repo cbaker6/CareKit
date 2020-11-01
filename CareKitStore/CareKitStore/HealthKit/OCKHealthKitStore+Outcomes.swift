@@ -79,6 +79,7 @@ public extension OCKHealthKitPassthroughStore {
                 let currentTime = Date()
                 let sampleTime = eventInterval.contains(currentTime) ? currentTime : eventInterval.start
                 let sample = HKQuantitySample(type: type, quantity: quantity, start: sampleTime, end: sampleTime.advanced(by: 1))
+                
                 return sample
             }
 

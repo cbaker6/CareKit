@@ -35,16 +35,15 @@ import SwiftUI
 extension OCKTaskController {
 
     func saveOutcomesActionForFirstEvent(values: [OCKOutcomeValue], errorHandler: ((Error) -> Void)?) -> () -> Void {
-        { self.saveOutcomesEvent(atIndexPath: .init(row: 0, section: 0), values: values, errorHandler: errorHandler) }
+        { self.saveOutcomesForEvent(atIndexPath: .init(row: 0, section: 0), values: values, errorHandler: errorHandler) }
     }
     
     func saveOutcomesActionForEvent(atIndexPath indexPath: IndexPath, values: [OCKOutcomeValue], errorHandler: ((Error) -> Void)?) -> () -> Void {
-        { self.saveOutcomesEvent(atIndexPath: indexPath, values: values, errorHandler: errorHandler) }
+        { self.saveOutcomesForEvent(atIndexPath: indexPath, values: values, errorHandler: errorHandler) }
     }
     
-    func saveOutcomesEvent(atIndexPath indexPath: IndexPath, values: [OCKOutcomeValue], errorHandler: ((Error) -> Void)?) {
-        let isComplete = isEventComplete(atIndexPath: indexPath)
-        setEvent(atIndexPath: indexPath, isComplete: !isComplete, values: values) { result in
+    func saveOutcomesForEvent(atIndexPath indexPath: IndexPath, values: [OCKOutcomeValue], errorHandler: ((Error) -> Void)?) {
+        setEvent(atIndexPath: indexPath, values: values) { result in
             if case let .failure(error) = result {
                 errorHandler?(error)
             }
@@ -65,10 +64,20 @@ extension OCKTaskController {
     }
 
     private func toggleEvent(atIndexPath indexPath: IndexPath, errorHandler: ((Error) -> Void)?) {
+        
         let isComplete = isEventComplete(atIndexPath: indexPath)
-        setEvent(atIndexPath: indexPath, isComplete: !isComplete) { result in
-            if case let .failure(error) = result {
-                errorHandler?(error)
+        
+        if !isComplete {
+            setEvent(atIndexPath: indexPath, values: [.init(true)]) { result in
+                if case let .failure(error) = result {
+                    errorHandler?(error)
+                }
+            }
+        } else {
+            setEvent(atIndexPath: indexPath, values: .init()) { result in
+                if case let .failure(error) = result {
+                    errorHandler?(error)
+                }
             }
         }
     }

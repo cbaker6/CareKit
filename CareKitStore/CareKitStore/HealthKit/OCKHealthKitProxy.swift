@@ -100,7 +100,7 @@ class OCKHealthKitProxy {
 
                 var innerTimesCalled = 0
                 group.enter()
-                results.enumerateStatistics(from: event.start, to: event.end.advanced(by: -1)) { statistics, _ in
+                results.enumerateStatistics(from: event.start, to: event.end.addingTimeInterval(-1)) { statistics, _ in
                     innerTimesCalled += 1
                     assert(innerTimesCalled <= 1, "This handler should never be called more than once. Check the query interval. This is a bug!")
                     defer { group.leave() }

@@ -239,7 +239,7 @@ class TestStoreConsumeRevisions: XCTestCase {
 
         var outcome = OCKOutcome(taskUUID: try task.getUUID(), taskOccurrenceIndex: 0, values: [])
         outcome.uuid = UUID()
-        outcome.createdDate = Date().advanced(by: 10)
+        outcome.createdDate = Date().addingTimeInterval(10)
         outcome.updatedDate = outcome.createdDate
         outcome.deletedDate = outcome.createdDate
 

@@ -238,7 +238,7 @@ class TestStoreProtocolExtensions: XCTestCase {
         try store.addTaskAndWait(task)
         for i in 1...10 {
             var update = task
-            update.effectiveDate = midnight.advanced(by: 10 * TimeInterval(i))
+            update.effectiveDate = midnight.addingTimeInterval(10 * TimeInterval(i))
             update.title = "Update \(i)"
             try store.updateTaskAndWait(update)
         }

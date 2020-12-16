@@ -34,7 +34,6 @@ import Foundation
 import HealthKit
 
 /// A specialized store that transparently manipulates outcomes in HealthKit.
-@available(iOS 13.0, *)
 public final class OCKHealthKitPassthroughStore: OCKEventStore {
 
     public typealias Task = OCKHealthKitTask

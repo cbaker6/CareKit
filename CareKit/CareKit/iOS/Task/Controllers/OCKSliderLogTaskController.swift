@@ -23,6 +23,9 @@ open class OCKSliderLogTaskController: OCKTaskController {
     /// Data used to create a `CareKitUI.SliderTaskTaskView`.
     @Published public private(set) var value: Double = 0
     
+    /// Data used to create a `CareKitUI.SliderTaskTaskView`
+    @Published public private(set) var valuesArray: [Double] = []
+    
     private var cancellable: AnyCancellable?
     
     public required init(storeManager: OCKSynchronizedStoreManager) {
@@ -37,6 +40,9 @@ open class OCKSliderLogTaskController: OCKTaskController {
 
         if let foundValue = taskEvents.first?.first?.sortedOutcomeValuesByRecency().outcome?.values.first?.numberValue?.doubleValue {
             value = foundValue
+            if let foundArray = taskEvents.first?.first?.sortedOutcomeValuesByRecency().outcome?.values.map({ $0.numberValue!.doubleValue }) {
+                valuesArray = foundArray
+            }
         }
     
         let errorHandler: (Error) -> Void = { [weak self] error in

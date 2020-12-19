@@ -267,394 +267,362 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-        510466E924A26B0A00D0FD53 /* iOS */ = {
-            isa = PBXGroup;
-            children = (
-                518F9D8322961BF5009CAA48 /* OCKCardable.swift */,
-                64E1BD4D2309FCF200DFFE52 /* OCKResponsiveLayout.swift */,
-                5105911E237651C8004EDC84 /* OCKAccessibleValue.swift */,
-                510466F724A2848800D0FD53 /* Views */,
-                51F12D3E229CA8DE00CA265B /* Controls */,
-                51F12D41229CA92400CA265B /* Labels */,
-                51E7643A22C2ED7300160C22 /* Authentication */,
-                518F9D4422961BF5009CAA48 /* Contact */,
-                518F9D5622961BF5009CAA48 /* Charts */,
-                51B225E223EE263F00A2D11F /* Calendar Events */,
-                518F9D4A22961BF5009CAA48 /* Task */,
-                51F12D4A229CAB7C00CA265B /* Detail View */,
-                640B6A1923D90979009490D6 /* Picker */,
-                51F12D49229CAB3600CA265B /* Calendar */,
-                515888C62437AED100E65C73 /* Featured Content */,
-                51367939243BF69D0026997B /* Link */,
-                510466ED24A26B9900D0FD53 /* Style */,
-                510466F024A278FC00D0FD53 /* Extensions */,
-            );
-            path = iOS;
-            sourceTree = "<group>";
-        };
-        510466EB24A26B1600D0FD53 /* Shared */ = {
-            isa = PBXGroup;
-            children = (
-                510CC633243B843C008BD6B3 /* OCKLog.swift */,
-                51B2259A23EDDCFC00A2D11F /* NoHighlightStyle.swift */,
-                516A1C47244F766A00BBF2D3 /* OSValue.swift */,
-                510466F624A2842A00D0FD53 /* Components */,
-                510466EE24A26C1800D0FD53 /* Task */,
-                518F9D7022961BF5009CAA48 /* Style */,
-                510466EF24A278EF00D0FD53 /* Extensions */,
-                64EEC2352318252B00B1012F /* Localization */,
-            );
-            path = Shared;
-            sourceTree = "<group>";
-        };
-        510466ED24A26B9900D0FD53 /* Style */ = {
-            isa = PBXGroup;
-            children = (
-                51AB06BF22FE539400B73FC2 /* OCKStylable.swift */,
-            );
-            path = Style;
-            sourceTree = "<group>";
-        };
-        510466EE24A26C1800D0FD53 /* Task */ = {
-            isa = PBXGroup;
-            children = (
-                51B225A123EDDCFC00A2D11F /* SimpleTaskView.swift */,
-                51B225A223EDDCFC00A2D11F /* InstructionsTaskView.swift */,
-            );
-            path = Task;
-            sourceTree = "<group>";
-        };
-        510466EF24A278EF00D0FD53 /* Extensions */ = {
-            isa = PBXGroup;
-            children = (
-                516A1C4E244FA7E500BBF2D3 /* View+Extension.swift */,
-                51EFC75423FCAE6000536266 /* UIColor+Extension.swift */,
-                5103C55122F37B44007A7403 /* Number+Extensions.swift */,
-                517309A424AA6D7E00A35C85 /* OCKStyler+Extension.swift */,
-            );
-            path = Extensions;
-            sourceTree = "<group>";
-        };
-        510466F024A278FC00D0FD53 /* Extensions */ = {
-            isa = PBXGroup;
-            children = (
-                519288722427E2DC00D0AF43 /* CATransaction+Extension.swift */,
-                516A02B922F363AE00D55AD7 /* NSLayoutConstraint+Extensions.swift */,
-                518F9D6F22961BF5009CAA48 /* UIFont+Extensions.swift */,
-                03089D7E231ED7AF0054EA23 /* Calendar+Extensions.swift */,
-            );
-            path = Extensions;
-            sourceTree = "<group>";
-        };
-        510466F224A282D400D0FD53 /* Link */ = {
-            isa = PBXGroup;
-            children = (
-                5105254524462AF5004483D0 /* TestLinkType.swift */,
-                51052548244639B3004483D0 /* TestLinkView.swift */,
-            );
-            path = Link;
-            sourceTree = "<group>";
-        };
-        510466F324A2830500D0FD53 /* Task */ = {
-            isa = PBXGroup;
-            children = (
-                51E77382237D1D8000ED70A2 /* TestGridTaskView.swift */,
-                51746F2A2448B90B00B647E1 /* TestNumericProgressTaskView.swift */,
-            );
-            path = Task;
-            sourceTree = "<group>";
-        };
-        510466F424A2831200D0FD53 /* Calendar */ = {
-            isa = PBXGroup;
-            children = (
-            );
-            path = Calendar;
-            sourceTree = "<group>";
-        };
-        510466F624A2842A00D0FD53 /* Components */ = {
-            isa = PBXGroup;
-            children = (
-                51B2259E23EDDCFC00A2D11F /* CardView.swift */,
-                51B2259F23EDDCFC00A2D11F /* HeaderView.swift */,
-                51173F3D243FE022004CB150 /* RectangularCompletionView.swift */,
-                51173F3B243FE007004CB150 /* CircularCompletionView.swift */,
-            );
-            path = Components;
-            sourceTree = "<group>";
-        };
-        510466F724A2848800D0FD53 /* Views */ = {
-            isa = PBXGroup;
-            children = (
-                516A02BB22F363D900D55AD7 /* OCKView.swift */,
-                518F9D8722961BF5009CAA48 /* OCKStackView.swift */,
-                518F9D7E22961BF5009CAA48 /* OCKSeparatorView.swift */,
-                518F9D7B22961BF5009CAA48 /* OCKHeaderView.swift */,
-            );
-            path = Views;
-            sourceTree = "<group>";
-        };
-        512B012F22C2F82900ABCB1D /* CareKitUITests */ = {
-            isa = PBXGroup;
-            children = (
-                05A6B74C237F49F7009D7D1F /* CareKitUI.xctestplan */,
-                64E1BD4B2309FCDC00DFFE52 /* OCKResponsiveLayoutTests.swift */,
-                51AB06C122FE53E300B73FC2 /* TestStylableView.swift */,
-                511A854723E0CAA2002A2AFB /* TestColorExtension.swift */,
-                510466F224A282D400D0FD53 /* Link */,
-                510466F324A2830500D0FD53 /* Task */,
-                510466F424A2831200D0FD53 /* Calendar */,
-                512B013222C2F82900ABCB1D /* Info.plist */,
-            );
-            path = CareKitUITests;
-            sourceTree = "<group>";
-        };
-        51367939243BF69D0026997B /* Link */ = {
-            isa = PBXGroup;
-            children = (
-                51367946243BF6EA0026997B /* LinkItem.swift */,
-                5136794F243BF7040026997B /* LinkView.swift */,
-                51367948243BF6EC0026997B /* LinkButton.swift */,
-                51367951243BF7450026997B /* LinkLabel.swift */,
-                51367947243BF6EB0026997B /* SafariView.swift */,
-            );
-            path = Link;
-            sourceTree = "<group>";
-        };
-        5143E39D22F2740C00FE6773 /* Slider */ = {
-            isa = PBXGroup;
-            children = (
-            );
-            path = Slider;
-            sourceTree = "<group>";
-        };
-        515888C62437AED100E65C73 /* Featured Content */ = {
-            isa = PBXGroup;
-            children = (
-                51FEF4C324325902003CE34C /* OCKFeaturedContentView.swift */,
-            );
-            path = "Featured Content";
-            sourceTree = "<group>";
-        };
-        51742251224185290054E97C = {
-            isa = PBXGroup;
-            children = (
-                5174225D224185290054E97C /* CareKitUI */,
-                512B012F22C2F82900ABCB1D /* CareKitUITests */,
-                5174225C224185290054E97C /* Products */,
-            );
-            sourceTree = "<group>";
-        };
-        5174225C224185290054E97C /* Products */ = {
-            isa = PBXGroup;
-            children = (
-                5174225B224185290054E97C /* CareKitUI.framework */,
-                512B012E22C2F82900ABCB1D /* CareKitUITests iOS.xctest */,
-                51F9F11A23A9B8F00087C900 /* CareKitUI.framework */,
-            );
-            name = Products;
-            sourceTree = "<group>";
-        };
-        5174225D224185290054E97C /* CareKitUI */ = {
-            isa = PBXGroup;
-            children = (
-                510466EB24A26B1600D0FD53 /* Shared */,
-                510466E924A26B0A00D0FD53 /* iOS */,
-                5174225F224185290054E97C /* Info.plist */,
-            );
-            path = CareKitUI;
-            sourceTree = "<group>";
-        };
-        518F9D4422961BF5009CAA48 /* Contact */ = {
-            isa = PBXGroup;
-            children = (
-                510466F824A2850700D0FD53 /* OCKContactDisplayable.swift */,
-                515C3C7F22F8AB9A007AC906 /* OCKSimpleContactView.swift */,
-                518F9D4622961BF5009CAA48 /* OCKDetailedContactView.swift */,
-                518F9D4522961BF5009CAA48 /* OCKAddressButton.swift */,
-                518F9D4722961BF5009CAA48 /* OCKContactButton.swift */,
-            );
-            path = Contact;
-            sourceTree = "<group>";
-        };
-        518F9D4A22961BF5009CAA48 /* Task */ = {
-            isa = PBXGroup;
-            children = (
-                5196B54222D5872C00800706 /* OCKTaskDisplayable.swift */,
-                518F9D4B22961BF5009CAA48 /* OCKChecklistTaskView.swift */,
-                518F9D5422961BF5009CAA48 /* OCKGridTaskView.swift */,
-                518F9D4D22961BF5009CAA48 /* OCKSimpleTaskView.swift */,
-                518F9D4F22961BF5009CAA48 /* OCKInstructionsTaskView.swift */,
-                51637EA222F3A68400BAF65C /* OCKLogTaskView.swift */,
-                518F9D5222961BF5009CAA48 /* OCKButtonLogTaskView.swift */,
-                51F75B932447DD0B00978C71 /* NumericProgressTaskView.swift */,
-                513FE9FC24803AE10016FCE6 /* LabeledValueTaskView.swift */,
-                51F12D43229CA99400CA265B /* Buttons */,
-                51F12D44229CA9CF00CA265B /* Collection */,
-            );
-            path = Task;
-            sourceTree = "<group>";
-        };
-        518F9D5622961BF5009CAA48 /* Charts */ = {
-            isa = PBXGroup;
-            children = (
-                51F12D46229CAA7100CA265B /* Gradient Plots */,
-                51F12D45229CAA3E00CA265B /* Protocols */,
-                518F9D5A22961BF5009CAA48 /* Layers */,
-                518F9D6222961BF5009CAA48 /* OCKCartesianChartView.swift */,
-                518F9D5822961BF5009CAA48 /* OCKGraphLegendView.swift */,
-                518F9D6022961BF5009CAA48 /* OCKGraphAxisView.swift */,
-                518F9D6122961BF5009CAA48 /* OCKDataSeries.swift */,
-                518F9D6422961BF5009CAA48 /* OCKGridView.swift */,
-                518F9D6622961BF5009CAA48 /* OCKCartesianGraphView.swift */,
-            );
-            path = Charts;
-            sourceTree = "<group>";
-        };
-        518F9D5A22961BF5009CAA48 /* Layers */ = {
-            isa = PBXGroup;
-            children = (
-                518F9D5B22961BF5009CAA48 /* OCKCartesianCoordinatesLayer.swift */,
-                518F9D5D22961BF5009CAA48 /* OCKGridLayer.swift */,
-                518F9D5C22961BF5009CAA48 /* OCKScatterLayer.swift */,
-                518F9D5E22961BF5009CAA48 /* OCKLineLayer.swift */,
-                518F9D5F22961BF5009CAA48 /* OCKBarLayer.swift */,
-            );
-            path = Layers;
-            sourceTree = "<group>";
-        };
-        518F9D6822961BF5009CAA48 /* Ring */ = {
-            isa = PBXGroup;
-            children = (
-                518F9D6922961BF5009CAA48 /* OCKCompletionRingView.swift */,
-                518F9D6B22961BF5009CAA48 /* OCKRingView.swift */,
-                518F9D8122961BF5009CAA48 /* OCKCompletionRingButton.swift */,
-                51178E1423AAAB2F0068BAB1 /* OCKCompletionState.swift */,
-            );
-            path = Ring;
-            sourceTree = "<group>";
-        };
-        518F9D7022961BF5009CAA48 /* Style */ = {
-            isa = PBXGroup;
-            children = (
-                510D862C23020D410073776E /* OCKStyler.swift */,
-                518F9D7422961BF5009CAA48 /* OCKColorStyler.swift */,
-                518F9D7622961BF5009CAA48 /* OCKAnimationStyler.swift */,
-                518F9D7722961BF5009CAA48 /* OCKAppearanceStyler.swift */,
-                518F9D7822961BF5009CAA48 /* OCKDimensionStyler.swift */,
-            );
-            path = Style;
-            sourceTree = "<group>";
-        };
-        51B225E223EE263F00A2D11F /* Calendar Events */ = {
-            isa = PBXGroup;
-            children = (
-            );
-            path = "Calendar Events";
-            sourceTree = "<group>";
-        };
-        51E7643A22C2ED7300160C22 /* Authentication */ = {
-            isa = PBXGroup;
-            children = (
-            );
-            path = Authentication;
-            sourceTree = "<group>";
-        };
-        51F12D3E229CA8DE00CA265B /* Controls */ = {
-            isa = PBXGroup;
-            children = (
-                510A5761234A7B920006C376 /* OCKAnimatedButton.swift */,
-                51656028234AB47500F2A21F /* OCKCheckmarkButton.swift */,
-                518F9D5022961BF5009CAA48 /* OCKLabeledButton.swift */,
-                5143E39D22F2740C00FE6773 /* Slider */,
-            );
-            path = Controls;
-            sourceTree = "<group>";
-        };
-        51F12D41229CA92400CA265B /* Labels */ = {
-            isa = PBXGroup;
-            children = (
-                518F9D8222961BF5009CAA48 /* OCKLabel.swift */,
-                03181063236A158E006D4870 /* OCKCappedSizeLabel.swift */,
-            );
-            path = Labels;
-            sourceTree = "<group>";
-        };
-        51F12D43229CA99400CA265B /* Buttons */ = {
-            isa = PBXGroup;
-            children = (
-                51F12D38229C81E200CA265B /* OCKLabeledCheckmarkButton.swift */,
-                518F9D5522961BF5009CAA48 /* OCKLogItemButton.swift */,
-                518F9D4E22961BF5009CAA48 /* OCKChecklistItemButton.swift */,
-            );
-            path = Buttons;
-            sourceTree = "<group>";
-        };
-        51F12D44229CA9CF00CA265B /* Collection */ = {
-            isa = PBXGroup;
-            children = (
-                64699E9822FC7B5000FF624F /* OCKLogButtonCell.swift */,
-                518F9D5122961BF5009CAA48 /* OCKSelfSizingCollectionView.swift */,
-                518F9D5322961BF5009CAA48 /* OCKGridTaskCell.swift */,
-            );
-            path = Collection;
-            sourceTree = "<group>";
-        };
-        51F12D45229CAA3E00CA265B /* Protocols */ = {
-            isa = PBXGroup;
-            children = (
-                518F9D6722961BF5009CAA48 /* OCKGraphable.swift */,
-                5178FBD922E253FC00794353 /* OCKChartDisplayable.swift */,
-            );
-            path = Protocols;
-            sourceTree = "<group>";
-        };
-        51F12D46229CAA7100CA265B /* Gradient Plots */ = {
-            isa = PBXGroup;
-            children = (
-                518F9D5722961BF5009CAA48 /* OCKGradientPlotView.swift */,
-                518F9D6522961BF5009CAA48 /* OCKLinePlotView.swift */,
-                518F9D5922961BF5009CAA48 /* OCKScatterPlotView.swift */,
-                518F9D6322961BF5009CAA48 /* OCKBarPlotView.swift */,
-            );
-            path = "Gradient Plots";
-            sourceTree = "<group>";
-        };
-        51F12D49229CAB3600CA265B /* Calendar */ = {
-            isa = PBXGroup;
-            children = (
-                51F78FED22D7C7C100058858 /* OCKCalendarDisplayable.swift */,
-                518F9D7C22961BF5009CAA48 /* OCKWeekCalendarView.swift */,
-                518F9D6822961BF5009CAA48 /* Ring */,
-            );
-            path = Calendar;
-            sourceTree = "<group>";
-        };
-        51F12D4A229CAB7C00CA265B /* Detail View */ = {
-            isa = PBXGroup;
-            children = (
-                511BCB5B24365E2E00B4D643 /* OCKDetailedImageView.swift */,
-                512EE8FF22975F850052F37C /* OCKDetailView.swift */,
-            );
-            path = "Detail View";
-            sourceTree = "<group>";
-        };
-        640B6A1923D90979009490D6 /* Picker */ = {
-            isa = PBXGroup;
-            children = (
-            );
-            path = Picker;
-            sourceTree = "<group>";
-        };
-        64EEC2352318252B00B1012F /* Localization */ = {
-            isa = PBXGroup;
-            children = (
-                64EEC2362318253B00B1012F /* Localizable.strings */,
-                03AD384423625A3500F6E7DC /* Localizable.stringsdict */,
-                64EEC23A231825DD00B1012F /* OCKLocalization.swift */,
-            );
-            path = Localization;
-            sourceTree = "<group>";
-        };
+		510466E924A26B0A00D0FD53 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				518F9D8322961BF5009CAA48 /* OCKCardable.swift */,
+				64E1BD4D2309FCF200DFFE52 /* OCKResponsiveLayout.swift */,
+				5105911E237651C8004EDC84 /* OCKAccessibleValue.swift */,
+				510466F724A2848800D0FD53 /* Views */,
+				51F12D3E229CA8DE00CA265B /* Controls */,
+				51F12D41229CA92400CA265B /* Labels */,
+				518F9D4422961BF5009CAA48 /* Contact */,
+				518F9D5622961BF5009CAA48 /* Charts */,
+				518F9D4A22961BF5009CAA48 /* Task */,
+				51F12D4A229CAB7C00CA265B /* Detail View */,
+				51F12D49229CAB3600CA265B /* Calendar */,
+				515888C62437AED100E65C73 /* Featured Content */,
+				51367939243BF69D0026997B /* Link */,
+				510466ED24A26B9900D0FD53 /* Style */,
+				510466F024A278FC00D0FD53 /* Extensions */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		510466EB24A26B1600D0FD53 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				510CC633243B843C008BD6B3 /* OCKLog.swift */,
+				51B2259A23EDDCFC00A2D11F /* NoHighlightStyle.swift */,
+				516A1C47244F766A00BBF2D3 /* OSValue.swift */,
+				510466F624A2842A00D0FD53 /* Components */,
+				510466EE24A26C1800D0FD53 /* Task */,
+				518F9D7022961BF5009CAA48 /* Style */,
+				510466EF24A278EF00D0FD53 /* Extensions */,
+				64EEC2352318252B00B1012F /* Localization */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		510466ED24A26B9900D0FD53 /* Style */ = {
+			isa = PBXGroup;
+			children = (
+				51AB06BF22FE539400B73FC2 /* OCKStylable.swift */,
+			);
+			path = Style;
+			sourceTree = "<group>";
+		};
+		510466EE24A26C1800D0FD53 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				51B225A123EDDCFC00A2D11F /* SimpleTaskView.swift */,
+				51B225A223EDDCFC00A2D11F /* InstructionsTaskView.swift */,
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
+		510466EF24A278EF00D0FD53 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				516A1C4E244FA7E500BBF2D3 /* View+Extension.swift */,
+				51EFC75423FCAE6000536266 /* UIColor+Extension.swift */,
+				5103C55122F37B44007A7403 /* Number+Extensions.swift */,
+				517309A424AA6D7E00A35C85 /* OCKStyler+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		510466F024A278FC00D0FD53 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				519288722427E2DC00D0AF43 /* CATransaction+Extension.swift */,
+				516A02B922F363AE00D55AD7 /* NSLayoutConstraint+Extensions.swift */,
+				518F9D6F22961BF5009CAA48 /* UIFont+Extensions.swift */,
+				03089D7E231ED7AF0054EA23 /* Calendar+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		510466F224A282D400D0FD53 /* Link */ = {
+			isa = PBXGroup;
+			children = (
+				5105254524462AF5004483D0 /* TestLinkType.swift */,
+				51052548244639B3004483D0 /* TestLinkView.swift */,
+			);
+			path = Link;
+			sourceTree = "<group>";
+		};
+		510466F324A2830500D0FD53 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				51E77382237D1D8000ED70A2 /* TestGridTaskView.swift */,
+				51746F2A2448B90B00B647E1 /* TestNumericProgressTaskView.swift */,
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
+		510466F424A2831200D0FD53 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		510466F624A2842A00D0FD53 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				51B2259E23EDDCFC00A2D11F /* CardView.swift */,
+				51B2259F23EDDCFC00A2D11F /* HeaderView.swift */,
+				51173F3D243FE022004CB150 /* RectangularCompletionView.swift */,
+				51173F3B243FE007004CB150 /* CircularCompletionView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		510466F724A2848800D0FD53 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				516A02BB22F363D900D55AD7 /* OCKView.swift */,
+				518F9D8722961BF5009CAA48 /* OCKStackView.swift */,
+				518F9D7E22961BF5009CAA48 /* OCKSeparatorView.swift */,
+				518F9D7B22961BF5009CAA48 /* OCKHeaderView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		512B012F22C2F82900ABCB1D /* CareKitUITests */ = {
+			isa = PBXGroup;
+			children = (
+				05A6B74C237F49F7009D7D1F /* CareKitUI.xctestplan */,
+				64E1BD4B2309FCDC00DFFE52 /* OCKResponsiveLayoutTests.swift */,
+				51AB06C122FE53E300B73FC2 /* TestStylableView.swift */,
+				511A854723E0CAA2002A2AFB /* TestColorExtension.swift */,
+				510466F224A282D400D0FD53 /* Link */,
+				510466F324A2830500D0FD53 /* Task */,
+				510466F424A2831200D0FD53 /* Calendar */,
+				512B013222C2F82900ABCB1D /* Info.plist */,
+			);
+			path = CareKitUITests;
+			sourceTree = "<group>";
+		};
+		51367939243BF69D0026997B /* Link */ = {
+			isa = PBXGroup;
+			children = (
+				51367946243BF6EA0026997B /* LinkItem.swift */,
+				5136794F243BF7040026997B /* LinkView.swift */,
+				51367948243BF6EC0026997B /* LinkButton.swift */,
+				51367951243BF7450026997B /* LinkLabel.swift */,
+				51367947243BF6EB0026997B /* SafariView.swift */,
+			);
+			path = Link;
+			sourceTree = "<group>";
+		};
+		515888C62437AED100E65C73 /* Featured Content */ = {
+			isa = PBXGroup;
+			children = (
+				51FEF4C324325902003CE34C /* OCKFeaturedContentView.swift */,
+			);
+			path = "Featured Content";
+			sourceTree = "<group>";
+		};
+		51742251224185290054E97C = {
+			isa = PBXGroup;
+			children = (
+				5174225D224185290054E97C /* CareKitUI */,
+				512B012F22C2F82900ABCB1D /* CareKitUITests */,
+				5174225C224185290054E97C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5174225C224185290054E97C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5174225B224185290054E97C /* CareKitUI.framework */,
+				512B012E22C2F82900ABCB1D /* CareKitUITests iOS.xctest */,
+				51F9F11A23A9B8F00087C900 /* CareKitUI.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5174225D224185290054E97C /* CareKitUI */ = {
+			isa = PBXGroup;
+			children = (
+				510466EB24A26B1600D0FD53 /* Shared */,
+				510466E924A26B0A00D0FD53 /* iOS */,
+				5174225F224185290054E97C /* Info.plist */,
+			);
+			path = CareKitUI;
+			sourceTree = "<group>";
+		};
+		518F9D4422961BF5009CAA48 /* Contact */ = {
+			isa = PBXGroup;
+			children = (
+				510466F824A2850700D0FD53 /* OCKContactDisplayable.swift */,
+				515C3C7F22F8AB9A007AC906 /* OCKSimpleContactView.swift */,
+				518F9D4622961BF5009CAA48 /* OCKDetailedContactView.swift */,
+				518F9D4522961BF5009CAA48 /* OCKAddressButton.swift */,
+				518F9D4722961BF5009CAA48 /* OCKContactButton.swift */,
+			);
+			path = Contact;
+			sourceTree = "<group>";
+		};
+		518F9D4A22961BF5009CAA48 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				5196B54222D5872C00800706 /* OCKTaskDisplayable.swift */,
+				518F9D4B22961BF5009CAA48 /* OCKChecklistTaskView.swift */,
+				518F9D5422961BF5009CAA48 /* OCKGridTaskView.swift */,
+				518F9D4D22961BF5009CAA48 /* OCKSimpleTaskView.swift */,
+				518F9D4F22961BF5009CAA48 /* OCKInstructionsTaskView.swift */,
+				51637EA222F3A68400BAF65C /* OCKLogTaskView.swift */,
+				518F9D5222961BF5009CAA48 /* OCKButtonLogTaskView.swift */,
+				51F75B932447DD0B00978C71 /* NumericProgressTaskView.swift */,
+				513FE9FC24803AE10016FCE6 /* LabeledValueTaskView.swift */,
+				51F12D43229CA99400CA265B /* Buttons */,
+				51F12D44229CA9CF00CA265B /* Collection */,
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
+		518F9D5622961BF5009CAA48 /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				51F12D46229CAA7100CA265B /* Gradient Plots */,
+				51F12D45229CAA3E00CA265B /* Protocols */,
+				518F9D5A22961BF5009CAA48 /* Layers */,
+				518F9D6222961BF5009CAA48 /* OCKCartesianChartView.swift */,
+				518F9D5822961BF5009CAA48 /* OCKGraphLegendView.swift */,
+				518F9D6022961BF5009CAA48 /* OCKGraphAxisView.swift */,
+				518F9D6122961BF5009CAA48 /* OCKDataSeries.swift */,
+				518F9D6422961BF5009CAA48 /* OCKGridView.swift */,
+				518F9D6622961BF5009CAA48 /* OCKCartesianGraphView.swift */,
+			);
+			path = Charts;
+			sourceTree = "<group>";
+		};
+		518F9D5A22961BF5009CAA48 /* Layers */ = {
+			isa = PBXGroup;
+			children = (
+				518F9D5B22961BF5009CAA48 /* OCKCartesianCoordinatesLayer.swift */,
+				518F9D5D22961BF5009CAA48 /* OCKGridLayer.swift */,
+				518F9D5C22961BF5009CAA48 /* OCKScatterLayer.swift */,
+				518F9D5E22961BF5009CAA48 /* OCKLineLayer.swift */,
+				518F9D5F22961BF5009CAA48 /* OCKBarLayer.swift */,
+			);
+			path = Layers;
+			sourceTree = "<group>";
+		};
+		518F9D6822961BF5009CAA48 /* Ring */ = {
+			isa = PBXGroup;
+			children = (
+				518F9D6922961BF5009CAA48 /* OCKCompletionRingView.swift */,
+				518F9D6B22961BF5009CAA48 /* OCKRingView.swift */,
+				518F9D8122961BF5009CAA48 /* OCKCompletionRingButton.swift */,
+				51178E1423AAAB2F0068BAB1 /* OCKCompletionState.swift */,
+			);
+			path = Ring;
+			sourceTree = "<group>";
+		};
+		518F9D7022961BF5009CAA48 /* Style */ = {
+			isa = PBXGroup;
+			children = (
+				510D862C23020D410073776E /* OCKStyler.swift */,
+				518F9D7422961BF5009CAA48 /* OCKColorStyler.swift */,
+				518F9D7622961BF5009CAA48 /* OCKAnimationStyler.swift */,
+				518F9D7722961BF5009CAA48 /* OCKAppearanceStyler.swift */,
+				518F9D7822961BF5009CAA48 /* OCKDimensionStyler.swift */,
+			);
+			path = Style;
+			sourceTree = "<group>";
+		};
+		51F12D3E229CA8DE00CA265B /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				510A5761234A7B920006C376 /* OCKAnimatedButton.swift */,
+				51656028234AB47500F2A21F /* OCKCheckmarkButton.swift */,
+				518F9D5022961BF5009CAA48 /* OCKLabeledButton.swift */,
+			);
+			path = Controls;
+			sourceTree = "<group>";
+		};
+		51F12D41229CA92400CA265B /* Labels */ = {
+			isa = PBXGroup;
+			children = (
+				518F9D8222961BF5009CAA48 /* OCKLabel.swift */,
+				03181063236A158E006D4870 /* OCKCappedSizeLabel.swift */,
+			);
+			path = Labels;
+			sourceTree = "<group>";
+		};
+		51F12D43229CA99400CA265B /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				51F12D38229C81E200CA265B /* OCKLabeledCheckmarkButton.swift */,
+				518F9D5522961BF5009CAA48 /* OCKLogItemButton.swift */,
+				518F9D4E22961BF5009CAA48 /* OCKChecklistItemButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		51F12D44229CA9CF00CA265B /* Collection */ = {
+			isa = PBXGroup;
+			children = (
+				64699E9822FC7B5000FF624F /* OCKLogButtonCell.swift */,
+				518F9D5122961BF5009CAA48 /* OCKSelfSizingCollectionView.swift */,
+				518F9D5322961BF5009CAA48 /* OCKGridTaskCell.swift */,
+			);
+			path = Collection;
+			sourceTree = "<group>";
+		};
+		51F12D45229CAA3E00CA265B /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				518F9D6722961BF5009CAA48 /* OCKGraphable.swift */,
+				5178FBD922E253FC00794353 /* OCKChartDisplayable.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		51F12D46229CAA7100CA265B /* Gradient Plots */ = {
+			isa = PBXGroup;
+			children = (
+				518F9D5722961BF5009CAA48 /* OCKGradientPlotView.swift */,
+				518F9D6522961BF5009CAA48 /* OCKLinePlotView.swift */,
+				518F9D5922961BF5009CAA48 /* OCKScatterPlotView.swift */,
+				518F9D6322961BF5009CAA48 /* OCKBarPlotView.swift */,
+			);
+			path = "Gradient Plots";
+			sourceTree = "<group>";
+		};
+		51F12D49229CAB3600CA265B /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				51F78FED22D7C7C100058858 /* OCKCalendarDisplayable.swift */,
+				518F9D7C22961BF5009CAA48 /* OCKWeekCalendarView.swift */,
+				518F9D6822961BF5009CAA48 /* Ring */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		51F12D4A229CAB7C00CA265B /* Detail View */ = {
+			isa = PBXGroup;
+			children = (
+				511BCB5B24365E2E00B4D643 /* OCKDetailedImageView.swift */,
+				512EE8FF22975F850052F37C /* OCKDetailView.swift */,
+			);
+			path = "Detail View";
+			sourceTree = "<group>";
+		};
+		64EEC2352318252B00B1012F /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				64EEC2362318253B00B1012F /* Localizable.strings */,
+				03AD384423625A3500F6E7DC /* Localizable.stringsdict */,
+				64EEC23A231825DD00B1012F /* OCKLocalization.swift */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */

@@ -35,6 +35,11 @@ class MockPatientStore: OCKAnyPatientStore {
     var patients = [OCKAnyPatient]()
 
     weak var patientDelegate: OCKPatientStoreDelegate?
+    weak var resetDelegate: OCKResetDelegate?
+
+    func reset() throws {
+        patients = []
+    }
 
     func fetchAnyPatients(query: OCKAnyPatientQuery, callbackQueue: DispatchQueue,
                           completion: @escaping OCKResultClosure<[OCKAnyPatient]>) {
@@ -169,5 +174,21 @@ class TestPersistentStoreCoordinator: XCTestCase {
         let task = OCKHealthKitTask(id: "A", title: nil, carePlanUUID: nil, schedule: schedule, healthKitLinkage: link)
 
         XCTAssertThrowsError(try coordinator.addAnyTaskAndWait(task))
+    }
+    
+    func testStoreCoordinatorDoesNotSendNormalOutcomesToHealthKit() {
+        let coordinator = OCKStoreCoordinator()
+        let passthrough = OCKHealthKitPassthroughStore(name: "test", type: .inMemory)
+        let outcome = OCKOutcome(taskUUID: UUID(), taskOccurrenceIndex: 0, values: [])
+        let willHandle = coordinator.outcomeStore(passthrough, shouldHandleWritingOutcome: outcome)
+        XCTAssertFalse(willHandle)
+    }
+    
+    func testStoreCoordinatorDoesNotSendHealthKitOutcomesToOCKStore() {
+        let coordinator = OCKStoreCoordinator()
+        let store = OCKStore(name: "test", type: .inMemory)
+        let outcome = OCKHealthKitOutcome(taskUUID: UUID(), taskOccurrenceIndex: 0, values: [])
+        let willHandle = coordinator.outcomeStore(store, shouldHandleWritingOutcome: outcome)
+        XCTAssertFalse(willHandle)
     }
 }

@@ -30,10 +30,26 @@
 
 import CoreData
 import Foundation
+import HealthKit
 
 @objc(OCKCDHealthKitLinkage)
 class OCKCDHealthKitLinkage: NSManagedObject {
     @NSManaged var quantityIdentifier: String
     @NSManaged var quantityType: String
     @NSManaged var unitString: String
+    
+    convenience init(link: OCKHealthKitLinkage, context: NSManagedObjectContext) {
+        self.init(entity: Self.entity(), insertInto: context)
+        self.quantityIdentifier = link.quantityIdentifier.rawValue
+        self.quantityType = link.quantityType.rawValue
+        self.unitString = link.unit.unitString
+    }
+
+    func makeValue() -> OCKHealthKitLinkage {
+        OCKHealthKitLinkage(
+            quantityIdentifier: HKQuantityTypeIdentifier(rawValue: quantityIdentifier),
+            quantityType: OCKHealthKitLinkage.QuantityType(rawValue: quantityType)!,
+            unit: HKUnit(from: unitString)
+        )
+    }
 }

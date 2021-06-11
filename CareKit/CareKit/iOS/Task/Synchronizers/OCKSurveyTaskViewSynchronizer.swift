@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2019, Apple Inc. All rights reserved.
+ Copyright (c) 2021, Apple Inc. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -27,33 +27,33 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#if canImport(UIKit)
+#if !os(watchOS) && canImport(ResearchKit)
 
-import Contacts
-import MapKit
-import UIKit
+import CareKitUI
 
-struct OCKContactUtility {
-    private static let addressFormatter: CNPostalAddressFormatter = {
-        let formatter = CNPostalAddressFormatter()
-        formatter.style = .mailingAddress
-        return formatter
-    }()
+open class OCKSurveyTaskViewSynchronizer: OCKInstructionsTaskViewSynchronizer {
 
-    private static let nameFormatter: PersonNameComponentsFormatter = {
-        let nameFormatter = PersonNameComponentsFormatter()
-        nameFormatter.style = .long
-        return nameFormatter
-    }()
-
-    static func string(from location: CNPostalAddress?) -> String? {
-        guard let location = location else { return nil }
-        return addressFormatter.string(from: location)
+    override open func makeView() -> OCKInstructionsTaskView {
+        let view = super.makeView()
+        view.completionButton.handlesSelection = false
+        view.completionButton.label.text = loc("BEGIN")
+        return view
     }
 
-    static func string(from components: PersonNameComponents?) -> String? {
-        guard let components = components else { return nil }
-        return nameFormatter.string(from: components)
+    override open func updateView(
+        _ view: OCKInstructionsTaskView,
+        context: OCKSynchronizationContext<OCKTaskEvents>) {
+
+        super.updateView(view, context: context)
+
+        guard let event = context.viewModel.first?.first else {
+            return
+        }
+
+        let isComplete = event.outcome != nil
+
+        view.completionButton.label.text = loc(isComplete ? "COMPLETED" : "BEGIN")
     }
 }
+
 #endif

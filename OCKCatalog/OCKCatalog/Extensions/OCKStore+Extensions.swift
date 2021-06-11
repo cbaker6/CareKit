@@ -84,7 +84,8 @@ extension OCKStore {
         var task2 = OCKTask(id: Tasks.doxylamine.rawValue, title: "Doxylamine", carePlanUUID: nil,
                             schedule: .mealTimesEachDay(start: start, end: nil))
         task2.instructions = "Take the tablet with a full glass of water."
-        
+        task2.asset = "pills"
+
         let taskScheduleElement = OCKScheduleElement(start: start, end: nil, interval: .init(day: 1),
                                                                                  text: nil, targetValues: [], duration: .allDay)
         var task3 = OCKTask(id: Tasks.distress.rawValue, title: "Distress", carePlanUUID: nil,

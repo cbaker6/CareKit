@@ -21,10 +21,10 @@ open class OCKSliderLogTaskController: OCKTaskController {
     }
     
     /// Data used to create a `CareKitUI.SliderTaskTaskView`.
-    @Published public private(set) var value: Double = 0
+    @Published public var value: Double = 0
     
     /// Data used to create a `CareKitUI.SliderTaskTaskView`
-    @Published public private(set) var valuesArray: [Double] = []
+    @Published public var valuesArray: [Double] = []
     
     private var cancellable: AnyCancellable?
     
@@ -35,7 +35,7 @@ open class OCKSliderLogTaskController: OCKTaskController {
         }
     }
     
-    private func makeViewModel(from taskEvents: OCKTaskEvents) -> SliderLogTaskViewModel? {
+    public func makeViewModel(from taskEvents: OCKTaskEvents) -> SliderLogTaskViewModel? {
         guard !taskEvents.isEmpty else { return nil }
 
         if let foundValue = taskEvents.first?.first?.sortedOutcomeValuesByRecency().outcome?.values.first?.numberValue?.doubleValue {

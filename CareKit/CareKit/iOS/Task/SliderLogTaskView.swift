@@ -169,6 +169,16 @@ public struct SliderLogTaskViewModel {
 
     /// Action to perform when the button is tapped.
     public let action: (Double) -> Void
+    
+    public init (title: String,
+                 detail: String? = nil,
+                 instructions: String? = nil,
+                 action: @escaping (Double) -> Void) {
+        self.title = title
+        self.detail = detail
+        self.instructions = instructions
+        self.action = action
+    }
 }
 
 #endif

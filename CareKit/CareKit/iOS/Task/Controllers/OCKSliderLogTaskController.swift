@@ -35,7 +35,7 @@ open class OCKSliderLogTaskController: OCKTaskController {
         }
     }
     
-    public func makeViewModel(from taskEvents: OCKTaskEvents) -> SliderLogTaskViewModel? {
+    open func makeViewModel(from taskEvents: OCKTaskEvents) -> SliderLogTaskViewModel? {
         guard !taskEvents.isEmpty else { return nil }
 
         if let foundValue = taskEvents.first?.first?.sortedOutcomeValuesByRecency().outcome?.values.first?.numberValue?.doubleValue {

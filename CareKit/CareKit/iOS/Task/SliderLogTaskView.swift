@@ -72,7 +72,21 @@ public struct SliderLogTaskView<Header: View, Slider: View>: View {
                          query: .taskIDs([taskID], eventQuery),
                          content: content)
     }
-    
+
+    /// Create an instance. The first task and event that match the provided queries will be fetched from the the store and displayed in the view.
+    /// The view will update when changes occur in the store.
+    /// - Parameters:
+    ///     - taskID: The ID of the task to fetch.
+    ///     - eventQuery: A query used to fetch an event in the store.
+    ///     - controller: Controller that holds a reference to data displayed by the view.
+    ///     - content: Create a view to display whenever the body is computed.
+    public init(taskID: String, eventQuery: OCKEventQuery, controller: OCKSliderLogTaskController,
+                content: @escaping (_ controller: OCKSliderLogTaskController, _ value: Binding<Double>, _ valuesArray: Binding<[Double]>) -> CareKitUI.SliderLogTaskView<Header, Slider>) {
+        taskView = .init(controller: controller,
+                         query: .taskIDs([taskID], eventQuery),
+                         content: content)
+    }
+
     /// Create an instance. The first event that matches the provided query will be fetched from the the store and displayed in the view. The view
     /// will update when changes occur in the store.
     /// - Parameters:
@@ -86,7 +100,21 @@ public struct SliderLogTaskView<Header: View, Slider: View>: View {
                          query: .tasks([task], eventQuery),
                          content: content)
     }
-    
+
+    /// Create an instance. The first event that matches the provided query will be fetched from the the store and displayed in the view. The view
+    /// will update when changes occur in the store.
+    /// - Parameters:
+    ///     - task: The task associated with the event to fetch.
+    ///     - eventQuery: A query used to fetch an event in the store.
+    ///     - controller: Controller that holds a reference to data displayed by the view.
+    ///     - content: Create a view to display whenever the body is computed.
+    public init(task: OCKAnyTask, eventQuery: OCKEventQuery, controller: OCKSliderLogTaskController,
+                content: @escaping (_ controller: OCKSliderLogTaskController, _ value: Binding<Double>, _ valuesArray: Binding<[Double]>) -> CareKitUI.SliderLogTaskView<Header, Slider>) {
+        taskView = .init(controller: controller,
+                         query: .tasks([task], eventQuery),
+                         content: content)
+    }
+
     /// Create an instance.
     /// - Parameters:
     ///     - controller: Controller that holds a reference to data displayed by the view.

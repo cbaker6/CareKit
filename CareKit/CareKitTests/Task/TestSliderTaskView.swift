@@ -47,7 +47,9 @@ class TestSliderLogTaskView: XCTestCase {
 
     func testCustomContentInitializers() {
         _ = CareKit.SliderLogTaskView(task: task, eventQuery: eventQuery, storeManager: controller.storeManager) { controller, value, valuesArray in self.staticView }
+        _ = CareKit.SliderLogTaskView(task: task, eventQuery: eventQuery, controller: controller) { controller, value, valuesArray in self.staticView }
         _ = CareKit.SliderLogTaskView(taskID: "", eventQuery: eventQuery, storeManager: controller.storeManager) { controller, value, valuesArray  in self.staticView }
+        _ = CareKit.SliderLogTaskView(taskID: "", eventQuery: eventQuery, controller: controller) { controller, value, valuesArray  in self.staticView }
         _ = CareKit.SliderLogTaskView(controller: controller) { controller, value, valuesArray  in self.staticView }
     }
 }

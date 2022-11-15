@@ -230,7 +230,7 @@ UIViewController, OCKContactViewDelegate, MFMessageComposeViewControllerDelegate
         handleThrowable(method: controller.initiateSystemContactLookup) { [weak self] contactViewController in
             contactViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self,
                                                                                       action: #selector(dismissViewController))
-            if self.view.window?.tintColor == nil {
+            if contactView.window?.tintColor == nil {
                 contactViewController.view.tintColor = view.tintColor
             }
             let navigationController = UINavigationController(rootViewController: contactViewController)

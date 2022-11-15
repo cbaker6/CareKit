@@ -169,6 +169,9 @@ open class OCKSurveyTaskViewController: OCKTaskViewController<OCKTaskController,
         ).last!.appendingPathComponent("ResearchKit", isDirectory: true)
 
         surveyViewController.outputDirectory = directory
+        if self.view.window?.tintColor == nil {
+            surveyViewController.view.tintColor = view.tintColor
+        }
         surveyViewController.delegate = self
 
         present(surveyViewController, animated: true, completion: nil)

@@ -194,6 +194,9 @@ UIViewController, OCKContactViewDelegate, MFMessageComposeViewControllerDelegate
         handleThrowable(method: controller.initiateMessage) { [weak self] viewController in
             guard let self = self else { return }
             viewController.messageComposeDelegate = self
+            if self.view.window?.tintColor == nil {
+                viewController.view.tintColor = view.tintColor
+            }
             self.present(viewController, animated: true, completion: nil)
         }
     }
@@ -205,6 +208,9 @@ UIViewController, OCKContactViewDelegate, MFMessageComposeViewControllerDelegate
         handleThrowable(method: controller.initiateEmail) { [weak self] viewController in
             guard let self = self else { return }
             viewController.mailComposeDelegate = self
+            if self.view.window?.tintColor == nil {
+                viewController.view.tintColor = view.tintColor
+            }
             self.present(viewController, animated: true, completion: nil)
         }
     }
@@ -224,6 +230,9 @@ UIViewController, OCKContactViewDelegate, MFMessageComposeViewControllerDelegate
         handleThrowable(method: controller.initiateSystemContactLookup) { [weak self] contactViewController in
             contactViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self,
                                                                                       action: #selector(dismissViewController))
+            if self.view.window?.tintColor == nil {
+                contactViewController.view.tintColor = view.tintColor
+            }
             let navigationController = UINavigationController(rootViewController: contactViewController)
             present(navigationController, animated: true, completion: nil)
         }

@@ -227,6 +227,7 @@ UIViewController, OCKContactViewDelegate, MFMessageComposeViewControllerDelegate
             let navigationController = UINavigationController(rootViewController: contactViewController)
             if contactView.window?.tintColor == nil {
                 contactViewController.view.tintColor = view.tintColor
+                navigationController.navigationBar.tintColor = view.tintColor
             }
             present(navigationController, animated: true, completion: nil)
         }

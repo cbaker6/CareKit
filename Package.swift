@@ -40,7 +40,7 @@ let package = Package(
         .target(
             name: "CareKitStore",
             path: "CareKitStore/CareKitStore",
-            exclude: ["Info.plist"]),
+            exclude: ["Info.plist", "CoreData/Migrations/2_0To2_1/2.0_2.1_Mapping.xcmappingmodel"]),
 
         .target(
             name: "CareKitFHIR",

@@ -28,6 +28,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(CoreData)
 import CareKitStore
 import Foundation
 import XCTest
@@ -185,3 +186,4 @@ class TestStoreCoordinatorEventStream: XCTestCase {
         return task
     }
 }
+#endif

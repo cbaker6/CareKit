@@ -28,6 +28,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(HealthKit)
 import Foundation
 import HealthKit
 
@@ -49,3 +50,4 @@ extension Sample {
         dateInterval = DateInterval(start: sample.startDate, end: sample.endDate)
     }
 }
+#endif

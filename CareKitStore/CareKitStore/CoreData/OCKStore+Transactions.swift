@@ -28,6 +28,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(CoreData)
 import CoreData
 import Foundation
 
@@ -209,3 +210,4 @@ extension OCKStore {
         }
     }
 }
+#endif

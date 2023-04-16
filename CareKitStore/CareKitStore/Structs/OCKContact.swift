@@ -28,7 +28,10 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(CoreData)
 import CoreData
+#endif
+
 import Foundation
 
 /// An `OCKContact` represents a contact that a user may want to get in touch with. A contact may be a care provider, a friend, or a family
@@ -115,15 +118,17 @@ public struct OCKContact: Codable, Equatable, Identifiable, OCKAnyContact {
 
 extension OCKContact: OCKVersionedObjectCompatible {
 
-    static func entity() -> NSEntityDescription {
-        OCKCDContact.entity()
-    }
-
     func entity() -> OCKEntity {
         .contact(self)
+    }
+
+    #if canImport(CoreData)
+    static func entity() -> NSEntityDescription {
+        OCKCDContact.entity()
     }
     
     func insert(context: NSManagedObjectContext) -> OCKCDVersionedObject {
         OCKCDContact(contact: self, context: context)
     }
+    #endif
 }

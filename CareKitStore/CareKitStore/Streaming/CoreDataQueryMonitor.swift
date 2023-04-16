@@ -28,6 +28,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(CoreData)
 import CoreData
 import Foundation
 import os.log
@@ -114,3 +115,4 @@ final class CoreDataQueryMonitor<
         resultHandler(.success(result))
     }
 }
+#endif

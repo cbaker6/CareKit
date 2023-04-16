@@ -28,6 +28,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(CoreData)
 import CoreData
 import os.log
 
@@ -149,3 +150,4 @@ extension OCKStore {
         } + query.defaultSortDescriptors()
     }
 }
+#endif

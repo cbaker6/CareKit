@@ -28,7 +28,10 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(CoreData)
 import CoreData
+#endif
+
 import Foundation
 
 /// An `OCKOutcome` represents the outcome of an event corresponding to a task. An outcome may have 0 or more values associated with it.
@@ -86,15 +89,17 @@ public struct OCKOutcome: Codable, Equatable, Identifiable, OCKAnyOutcome {
 
 extension OCKOutcome: OCKVersionedObjectCompatible {
 
-    static func entity() -> NSEntityDescription {
-        OCKCDOutcome.entity()
-    }
-
     func entity() -> OCKEntity {
         .outcome(self)
+    }
+
+    #if canImport(CoreData)
+    static func entity() -> NSEntityDescription {
+        OCKCDOutcome.entity()
     }
     
     func insert(context: NSManagedObjectContext) -> OCKCDVersionedObject {
         OCKCDOutcome(outcome: self, context: context)
     }
+    #endif
 }

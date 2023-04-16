@@ -28,6 +28,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(CoreData)
 import CoreData
 import Foundation
 
@@ -36,3 +37,4 @@ final class OCKCDKnowledgeElement: NSManagedObject {
     @NSManaged var uuid: UUID
     @NSManaged var time: Int64
 }
+#endif

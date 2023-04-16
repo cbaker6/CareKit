@@ -27,6 +27,8 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
+#if canImport(CoreData)
 @testable import CareKitStore
 import XCTest
 
@@ -302,3 +304,4 @@ class TestStoreCarePlans: XCTestCase {
         XCTAssertThrowsError(try store.deleteCarePlanAndWait(plan))
     }
 }
+#endif

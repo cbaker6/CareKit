@@ -28,3 +28,14 @@ jobs:
         run: defaults write com.apple.dt.XCBuild EnableSwiftBuildSystemIntegration 1
       - name: Build
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -verbose -workspace CKWorkspace.xcworkspace -scheme ${{ matrix.scheme }} -destination ${{ matrix.destination }} build test | xcpretty
+
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: sersoft-gmbh/SwiftyActions@v2
+        with:
+          release-version: "5"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and Test
+        run: swift test --enable-test-discovery

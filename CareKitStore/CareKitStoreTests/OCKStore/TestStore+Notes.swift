@@ -28,6 +28,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(CoreData)
 @testable import CareKitStore
 import XCTest
 
@@ -70,3 +71,4 @@ class TestStoreNotes: XCTestCase {
         XCTAssert(savedOutcome.notes?.count == 1)
     }
 }
+#endif

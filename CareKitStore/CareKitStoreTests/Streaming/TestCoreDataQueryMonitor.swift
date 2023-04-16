@@ -28,6 +28,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(CoreData)
 import Foundation
 import XCTest
 
@@ -335,3 +336,4 @@ class TestCoreDataQueryMonitor: XCTestCase {
         return task
     }
 }
+#endif

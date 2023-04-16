@@ -28,7 +28,10 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(CoreData)
 import CoreData
+#endif
+
 import Foundation
 
 /// An `OCKCarePlan` represents a set of tasks, including both interventions and assesments, that a patient is supposed to complete as part of his
@@ -86,15 +89,17 @@ public struct OCKCarePlan: Codable, Equatable, Identifiable, OCKAnyCarePlan {
 
 extension OCKCarePlan: OCKVersionedObjectCompatible {
 
-    static func entity() -> NSEntityDescription {
-        OCKCDCarePlan.entity()
-    }
-
     func entity() -> OCKEntity {
         .carePlan(self)
+    }
+
+    #if canImport(CoreData)
+    static func entity() -> NSEntityDescription {
+        OCKCDCarePlan.entity()
     }
     
     func insert(context: NSManagedObjectContext) -> OCKCDVersionedObject {
         OCKCDCarePlan(plan: self, context: context)
     }
+    #endif
 }

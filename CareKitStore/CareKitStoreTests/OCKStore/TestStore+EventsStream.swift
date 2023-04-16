@@ -28,6 +28,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(CoreData)
 @testable import CareKitStore
 import Foundation
 import XCTest
@@ -238,3 +239,4 @@ private struct Event: Equatable {
     var outcome: OCKOutcome?
     var scheduleEvent: OCKScheduleEvent
 }
+#endif

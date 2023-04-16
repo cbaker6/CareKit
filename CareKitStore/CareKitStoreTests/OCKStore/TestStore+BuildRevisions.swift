@@ -28,6 +28,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(CoreData)
 @testable import CareKitStore
 import XCTest
 
@@ -307,3 +308,4 @@ class TestStoreBuildRevisions: XCTestCase {
         XCTAssert(revision?.entities.first?.value.deletedDate != nil)
     }
 }
+#endif

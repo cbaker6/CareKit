@@ -28,6 +28,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(CoreData)
 import CoreData
 
 @objc(OCKCDPostalAddress)
@@ -66,3 +67,4 @@ class OCKCDPostalAddress: NSManagedObject {
         return address
     }
 }
+#endif

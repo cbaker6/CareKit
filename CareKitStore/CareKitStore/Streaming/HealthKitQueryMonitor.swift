@@ -28,11 +28,12 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(HealthKit)
 import Foundation
 import HealthKit
 
 /// A wrapper around HealthKit that allows for starting and stopping a live query of samples.
-@available(iOS 15, watchOS 8, *)
+@available(iOS 15, watchOS 8, macOS 13.0, *)
 final class HealthKitQueryMonitor: QueryMonitor {
 
     private let store: HKHealthStore
@@ -117,3 +118,4 @@ final class HealthKitQueryMonitor: QueryMonitor {
         resultHandler(.success(result))
     }
 }
+#endif

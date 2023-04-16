@@ -27,6 +27,8 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
+#if canImport(CoreData)
 @testable import CareKitStore
 import Foundation
 import XCTest
@@ -135,3 +137,4 @@ class TestStoreCRDTMergeProperties: XCTestCase {
         return merged
     }
 }
+#endif

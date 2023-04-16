@@ -28,6 +28,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(CoreData)
 import CoreData
 
 @objc(OCKCDNote)
@@ -51,3 +52,4 @@ class OCKCDNote: NSManagedObject {
         OCKNote(author: author, title: title, content: content)
     }
 }
+#endif

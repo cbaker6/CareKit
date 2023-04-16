@@ -28,11 +28,12 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(HealthKit)
 import Foundation
 import HealthKit
 import os.log
 
-@available(iOS 15, watchOS 8, *)
+@available(iOS 15, watchOS 8, macOS 13.0, *)
 public extension OCKHealthKitPassthroughStore {
 
     func outcomes(matching query: OCKOutcomeQuery) -> CareStoreQueryResults<OCKHealthKitOutcome> {
@@ -57,3 +58,4 @@ public extension OCKHealthKitPassthroughStore {
         return wrappedOutcomes
     }
 }
+#endif

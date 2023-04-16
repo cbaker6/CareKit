@@ -28,13 +28,14 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(HealthKit)
 import CoreData
 import Foundation
 import HealthKit
 import os.log
 
 /// A specialized store that transparently manipulates outcomes in HealthKit.
-@available(iOS 15, watchOS 8, *)
+@available(iOS 15, watchOS 8, macOS 13.0, *)
 public final class OCKHealthKitPassthroughStore: OCKEventStore {
     public typealias Task = OCKHealthKitTask
     public typealias Outcome = OCKHealthKitOutcome
@@ -84,3 +85,4 @@ public final class OCKHealthKitPassthroughStore: OCKEventStore {
         }
     }
 }
+#endif

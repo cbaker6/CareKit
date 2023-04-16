@@ -28,6 +28,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(CoreData)
 @testable import CareKitStore
 import CoreData
 import XCTest
@@ -393,4 +394,4 @@ class TestStoreConsumeRevisions: XCTestCase {
         XCTAssert(contacts.first?.createdDate == date)
     }
 }
-
+#endif

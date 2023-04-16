@@ -28,7 +28,10 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(CoreData)
 import CoreData
+#endif
+
 import Foundation
 
 protocol OCKVersionedObjectCompatible {
@@ -95,11 +98,13 @@ protocol OCKVersionedObjectCompatible {
     /// The timezone this record was created in.
     var timezone: TimeZone { get set }
 
-    static func entity() -> NSEntityDescription
-
     func entity() -> OCKEntity
+
+    #if canImport(CoreData)
+    static func entity() -> NSEntityDescription
     
     func insert(context: NSManagedObjectContext) -> OCKCDVersionedObject
+    #endif
 }
 
 extension OCKVersionedObjectCompatible {

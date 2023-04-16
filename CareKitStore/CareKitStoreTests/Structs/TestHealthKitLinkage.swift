@@ -28,6 +28,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(HealthKit)
 import CareKitStore
 import HealthKit
 import XCTest
@@ -46,3 +47,4 @@ class TestHealthKitLinkage: XCTestCase {
         XCTAssert(linkage.unit == unit)
     }
 }
+#endif

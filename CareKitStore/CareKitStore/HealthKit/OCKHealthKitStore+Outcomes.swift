@@ -28,11 +28,12 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(HealthKit)
 import Foundation
 import HealthKit
 import os.log
 
-@available(iOS 15, watchOS 8, *)
+@available(iOS 15, watchOS 8, macOS 13.0, *)
 public extension OCKHealthKitPassthroughStore {
 
     func addOutcomes(_ outcomes: [OCKHealthKitOutcome], callbackQueue: DispatchQueue = .main,
@@ -183,3 +184,4 @@ public extension OCKHealthKitPassthroughStore {
         return allHealthKitUUIDsExist
     }
 }
+#endif

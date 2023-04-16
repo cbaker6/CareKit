@@ -28,12 +28,13 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(HealthKit)
 @testable import CareKitStore
 
 import HealthKit
 import XCTest
 
-@available(iOS 15, watchOS 8, *)
+@available(iOS 15, watchOS 8, macOS 13.0, *)
 class TestHealthKitPassthroughStoreOutcomes: XCTestCase {
 
     private let cdStore = OCKStore(
@@ -164,3 +165,4 @@ class TestHealthKitPassthroughStoreOutcomes: XCTestCase {
         return stepsTask
     }
 }
+#endif

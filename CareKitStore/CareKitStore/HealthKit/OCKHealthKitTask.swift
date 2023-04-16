@@ -28,7 +28,10 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(HealthKit)
+#if canImport(CoreData)
 import CoreData
+#endif
 import Foundation
 
 /// An `OCKHealthKitTask` represents some task or action that a patient is supposed to perform. Tasks are optionally associable with an `OCKCarePlan`
@@ -95,15 +98,18 @@ public struct OCKHealthKitTask: Codable, Equatable, OCKAnyVersionableTask, OCKAn
 
 extension OCKHealthKitTask: OCKVersionedObjectCompatible {
 
-    static func entity() -> NSEntityDescription {
-        OCKCDHealthKitTask.entity()
-    }
-
     func entity() -> OCKEntity {
         .healthKitTask(self)
+    }
+
+    #if canImport(CoreData)
+    static func entity() -> NSEntityDescription {
+        OCKCDHealthKitTask.entity()
     }
     
     func insert(context: NSManagedObjectContext) -> OCKCDVersionedObject {
         OCKCDHealthKitTask(task: self, context: context)
     }
+    #endif
 }
+#endif

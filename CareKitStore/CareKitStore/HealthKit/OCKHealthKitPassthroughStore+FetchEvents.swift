@@ -28,10 +28,11 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(HealthKit)
 import Foundation
 import HealthKit
 
-@available(iOS 15, watchOS 8, *)
+@available(iOS 15, watchOS 8, macOS 13.0, *)
 public extension OCKHealthKitPassthroughStore {
 
     func fetchEvents(
@@ -60,7 +61,7 @@ public extension OCKHealthKitPassthroughStore {
     }
 }
 
-@available(iOS 15, watchOS 8, *)
+@available(iOS 15, watchOS 8, macOS 13.0, *)
 extension OCKHealthKitPassthroughStore {
 
     /// Test seam. Allows us to abstract HK out of the business logic.
@@ -133,3 +134,4 @@ extension OCKHealthKitPassthroughStore {
         }
     }
 }
+#endif

@@ -62,6 +62,7 @@ extension OCKSchedule {
     }
 }
 
+#if canImport(CoreData)
 extension XCTestCase {
 
     func expect(
@@ -87,3 +88,4 @@ extension XCTestCase {
         waitForExpectations(timeout: 10.0, handler: nil)
     }
 }
+#endif

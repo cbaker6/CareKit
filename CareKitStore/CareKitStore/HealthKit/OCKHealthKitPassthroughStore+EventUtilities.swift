@@ -28,11 +28,12 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(HealthKit)
 import Foundation
 import HealthKit
 
 
-@available(iOS 15, watchOS 8, *)
+@available(iOS 15, watchOS 8, macOS 13.0, *)
 extension OCKHealthKitPassthroughStore {
 
     // Element == SampleChange
@@ -613,4 +614,4 @@ extension OCKHealthKitPassthroughStore {
         )
     }
 }
-
+#endif

@@ -28,6 +28,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(HealthKit)
 @testable import CareKitStore
 
 import AsyncAlgorithms
@@ -37,7 +38,7 @@ import XCTest
 // Note, we test the event stream and not the outcome stream because the outcome stream
 // calls into the event stream. Testing the outcome stream is unnecessary.
 
-@available(iOS 15, watchOS 8, *)
+@available(iOS 15, watchOS 8, macOS 13.0, *)
 class TestHealthKitPassthroughStoreEvents: XCTestCase {
 
     private let cdStore = OCKStore(
@@ -822,7 +823,7 @@ private struct Event: Equatable {
     var outcome: OCKHealthKitOutcome?
 }
 
-@available(iOS 15, watchOS 8, *)
+@available(iOS 15, watchOS 8, macOS 13.0, *)
 private extension Event {
 
     init(_ event: OCKHealthKitPassthroughStore.Event) {
@@ -833,3 +834,4 @@ private extension Event {
     }
 }
 
+#endif

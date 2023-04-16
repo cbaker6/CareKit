@@ -28,6 +28,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(CoreData)
 import CoreData
 import Foundation
 import os.log
@@ -348,3 +349,4 @@ private struct OutcomeMetadata {
     var task: OCKCDTask
     var scheduleEvent: OCKScheduleEvent
 }
+#endif

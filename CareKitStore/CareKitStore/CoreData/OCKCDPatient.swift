@@ -28,6 +28,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(CoreData)
 import CoreData
 import Foundation
 
@@ -64,3 +65,4 @@ class OCKCDPatient: OCKCDVersionedObject {
         return patient
     }
 }
+#endif

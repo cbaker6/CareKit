@@ -28,6 +28,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(CoreData)
 import CoreData
 
 @objc(OCKCDCarePlan)
@@ -59,3 +60,4 @@ class OCKCDCarePlan: OCKCDVersionedObject {
         return plan
     }
 }
+#endif

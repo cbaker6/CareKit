@@ -28,7 +28,9 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(CoreData)
 import CoreData
+#endif
 import Foundation
 
 /// Represents a patient
@@ -98,15 +100,17 @@ public struct OCKPatient: Codable, Equatable, Identifiable, OCKAnyPatient {
 
 extension OCKPatient: OCKVersionedObjectCompatible {
 
+    func entity() -> OCKEntity {
+        .patient(self)
+    }
+
+    #if canImport(CoreData)
     static func entity() -> NSEntityDescription {
         OCKCDPatient.entity()
     }
 
-    func entity() -> OCKEntity {
-        .patient(self)
-    }
-    
     func insert(context: NSManagedObjectContext) -> OCKCDVersionedObject {
         OCKCDPatient(patient: self, context: context)
     }
+    #endif
 }

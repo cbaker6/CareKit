@@ -28,6 +28,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(CoreData)
 @testable import CareKitStore
 import Foundation
 import XCTest
@@ -237,3 +238,4 @@ class TestStorePatients: XCTestCase {
         XCTAssertThrowsError(try store.deletePatientAndWait(OCKPatient(id: "myID", givenName: "John", familyName: "Appleseed")))
     }
 }
+#endif

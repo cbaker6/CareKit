@@ -28,6 +28,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(CoreData)
 @testable import CareKitStore
 import HealthKit
 import XCTest
@@ -416,4 +417,4 @@ class TestStoreTasks: XCTestCase {
         XCTAssertThrowsError(try store.deleteTaskAndWait(task))
     }
 }
-
+#endif

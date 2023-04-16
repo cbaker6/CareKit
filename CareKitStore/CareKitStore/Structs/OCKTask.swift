@@ -28,7 +28,10 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(CoreData)
 import CoreData
+#endif
+
 import Foundation
 
 /// An `OCKTask` represents some task or action that a patient is supposed to perform. Tasks are optionally associable with an `OCKCarePlan`
@@ -90,15 +93,17 @@ public struct OCKTask: Codable, Equatable, OCKAnyVersionableTask, OCKAnyMutableT
 
 extension OCKTask: OCKVersionedObjectCompatible {
 
-    static func entity() -> NSEntityDescription {
-        OCKCDTask.entity()
-    }
-
     func entity() -> OCKEntity {
         .task(self)
+    }
+
+    #if canImport(CoreData)
+    static func entity() -> NSEntityDescription {
+        OCKCDTask.entity()
     }
     
     func insert(context: NSManagedObjectContext) -> OCKCDVersionedObject {
         OCKCDTask(task: self, context: context)
     }
+    #endif
 }

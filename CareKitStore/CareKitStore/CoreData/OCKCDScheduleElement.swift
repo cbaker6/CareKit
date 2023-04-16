@@ -28,6 +28,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if canImport(CoreData)
 import CoreData
 import Foundation
 
@@ -143,3 +144,4 @@ extension OCKCDScheduleElement {
         return secondsInterval + minutesInterval + hoursInterval + daysInterval + weeksInterval + monthsInterval + yearsInterval > 0
     }
 }
+#endif

@@ -51,7 +51,7 @@ extension CareTaskProgress {
         // `fractionCompleted`.
         if isClampingRequired {
 
-            if #available(iOS 14, watchOS 7, *) {
+            if #available(iOS 14, watchOS 7, macOS 11.0, *) {
 
                 Logger.store?.error(
                     "Clamping progress value of \(fractionCompleted, privacy: .public) to be within range [0, 1]."

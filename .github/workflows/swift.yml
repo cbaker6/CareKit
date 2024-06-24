@@ -1,10 +1,10 @@
-name: CI
+name: Build
 
 on:
   push:
-    branches: [ main ]
+    branches: [ 'main', 'stable' ]
   pull_request:
-    branches: [ main ]
+    branches: [ 'main', 'stable' ]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -12,10 +12,10 @@ concurrency:
 
 jobs:        
   test:
-    runs-on: macos-13
+    runs-on: macos-14
     strategy:
       matrix:
-        destination: ['platform=iOS\ Simulator,OS=16.4,name=iPhone\ 14\ Pro\ Max', 'platform=watchOS\ Simulator,OS=9.4,name=Apple\ Watch\ Series\ 5\ \(40mm\)', 'platform=macOS']
+        destination: ['platform=iOS\ Simulator,OS=17.5,name=iPhone\ 15\ Pro\ Max', 'platform=watchOS\ Simulator,OS=10.5,name=Apple\ Watch\ Series\ 7\ \(45mm\)']
         scheme: ['CareKit', 'CareKitStore', 'CareKitUI', 'CareKitFHIR']
         exclude:
           - destination: 'platform=macOS'
@@ -23,10 +23,8 @@ jobs:
           - destination: 'platform=macOS'
             scheme: 'CareKitUI' 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set Xcode Version
-        run: sudo xcode-select -s /Applications/Xcode_14.3.app
-      - name: Use multiple cores
-        run: defaults write com.apple.dt.XCBuild EnableSwiftBuildSystemIntegration 1
+        run: sudo xcode-select -s /Applications/Xcode_15.4.app
       - name: Build
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -verbose -workspace CKWorkspace.xcworkspace -scheme ${{ matrix.scheme }} -destination ${{ matrix.destination }} build test | xcpretty

@@ -150,4 +150,5 @@ private final class MockPeer: OCKWatchConnectivityPeer {
         self.peersStore.resolveConflicts(completion: completion)
     }
 }
+
 #endif

@@ -246,4 +246,5 @@ open class OCKWatchConnectivityPeer: OCKRemoteSynchronizable {
         #endif
     }
 }
+
 #endif

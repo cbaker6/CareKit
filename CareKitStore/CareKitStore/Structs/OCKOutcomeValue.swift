@@ -69,7 +69,7 @@ public struct OCKOutcomeValue: Codable, Equatable, CustomStringConvertible {
     /// The date that this value was created.
     public var createdDate = Date()
 
-    /// The date that this value end.
+    /// The date that this value ends.
     public var endDate: Date?
     
     /// The underlying value.

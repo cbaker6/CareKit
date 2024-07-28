@@ -69,6 +69,9 @@ public struct OCKOutcomeValue: Codable, Equatable, CustomStringConvertible {
     /// The date that this value was created.
     public var createdDate = Date()
 
+    /// The date that this value end.
+    public var endDate: Date?
+    
     /// The underlying value.
     public var value: OCKOutcomeValueUnderlyingType
 

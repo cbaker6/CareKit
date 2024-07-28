@@ -2,9 +2,9 @@ name: Build
 
 on:
   push:
-    branches: [ 'main', 'stable' ]
+    branches: [ 'main', 'stable', 'macOS' ]
   pull_request:
-    branches: [ 'main', 'stable' ]
+    branches: [ 'main', 'stable', 'macOS' ]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

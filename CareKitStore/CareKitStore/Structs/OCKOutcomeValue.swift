@@ -66,13 +66,13 @@ public struct OCKOutcomeValue: Codable, Equatable, CustomStringConvertible {
     /// The units for this measurement.
     public var units: String?
     
-    // The date that this value was created.
+    /// The date that this value was created.
     public var createdDate = Date()
 
-    /// The sample’s start date.
+    /// The value's start date.
     public var startDate: Date?
 
-    /// The sample’s end date.
+    /// The value's end date.
     public var endDate: Date?
     
     /// The underlying value.

@@ -35,6 +35,7 @@ class OCKCDOutcomeValue: NSManagedObject {
     @NSManaged var kind: String? // blood sugar, body weight, etc.
     @NSManaged var units: String?
     @NSManaged var createdDate: Date
+    @NSManaged var startDate: Date?
     @NSManaged var endDate: Date?
     @NSManaged var outcome: OCKCDOutcome?
 
@@ -57,6 +58,7 @@ class OCKCDOutcomeValue: NSManagedObject {
         self.units = value.units
         self.kind = value.kind
         self.createdDate = value.createdDate
+        self.startDate = value.startDate
         self.endDate = value.endDate
     }
 
@@ -67,6 +69,7 @@ class OCKCDOutcomeValue: NSManagedObject {
         self.managedObjectContext!.performAndWait {
             value = OCKOutcomeValue(self.value, units: units)
             value.createdDate = createdDate
+            value.startDate = startDate
             value.endDate = endDate
             value.kind = kind
         }

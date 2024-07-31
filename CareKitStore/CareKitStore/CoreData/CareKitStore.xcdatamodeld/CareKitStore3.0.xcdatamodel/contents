@@ -137,6 +137,7 @@
         <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="integerValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="kind" optional="YES" attributeType="String"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="textValue" optional="YES" attributeType="String"/>
         <attribute name="typeString" attributeType="String"/>
         <attribute name="units" optional="YES" attributeType="String"/>

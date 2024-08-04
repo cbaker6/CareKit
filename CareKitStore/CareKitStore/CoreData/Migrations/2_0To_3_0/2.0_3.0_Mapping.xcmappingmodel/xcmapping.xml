@@ -79,15 +79,15 @@
         <relationship name="entitymapping" type="1/1" destination="XDDEVENTITYMAPPING" idrefs="z251"></relationship>
     </object>
     <object type="XDDEVENTITYMAPPING" id="z109">
-        <attribute name="migrationpolicyclassname" type="string">CareKitStore.OCKStoreMigration2_0To2_1Policy</attribute>
+        <attribute name="migrationpolicyclassname" type="string">CareKitStore.OCKStoreMigration2_0To3_0Policy</attribute>
         <attribute name="sourcename" type="string">OCKCDCarePlan</attribute>
         <attribute name="mappingtypename" type="string">Undefined</attribute>
         <attribute name="mappingnumber" type="int16">13</attribute>
         <attribute name="destinationname" type="string">OCKCDCarePlan</attribute>
         <attribute name="autogenerateexpression" type="bool">1</attribute>
         <relationship name="mappingmodel" type="1/1" destination="XDDEVMAPPINGMODEL" idrefs="z283"></relationship>
-        <relationship name="attributemappings" type="0/0" destination="XDDEVATTRIBUTEMAPPING" idrefs="z300 z204 z363 z179 z339 z154 z282 z161 z242 z258 z138 z220 z321 z117"></relationship>
-        <relationship name="relationshipmappings" type="0/0" destination="XDDEVRELATIONSHIPMAPPING" idrefs="z199 z231 z278 z252 z358 z332 z174 z147"></relationship>
+        <relationship name="attributemappings" type="0/0" destination="XDDEVATTRIBUTEMAPPING" idrefs="z282 z204 z321 z117 z363 z154 z258 z339 z300 z179 z138 z242 z220 z161"></relationship>
+        <relationship name="relationshipmappings" type="0/0" destination="XDDEVRELATIONSHIPMAPPING" idrefs="z278 z231 z199 z252 z147 z332 z358 z174"></relationship>
     </object>
     <object type="XDDEVRELATIONSHIPMAPPING" id="z110">
         <attribute name="autogenerateexpression" type="bool">1</attribute>
@@ -566,15 +566,15 @@
         <relationship name="entitymapping" type="1/1" destination="XDDEVENTITYMAPPING" idrefs="z251"></relationship>
     </object>
     <object type="XDDEVENTITYMAPPING" id="z213">
-        <attribute name="migrationpolicyclassname" type="string">CareKitStore.OCKStoreMigration2_0To2_1Policy</attribute>
+        <attribute name="migrationpolicyclassname" type="string">CareKitStore.OCKStoreMigration2_0To3_0Policy</attribute>
         <attribute name="sourcename" type="string">OCKCDPatient</attribute>
         <attribute name="mappingtypename" type="string">Undefined</attribute>
         <attribute name="mappingnumber" type="int16">2</attribute>
         <attribute name="destinationname" type="string">OCKCDPatient</attribute>
         <attribute name="autogenerateexpression" type="bool">1</attribute>
         <relationship name="mappingmodel" type="1/1" destination="XDDEVMAPPINGMODEL" idrefs="z283"></relationship>
-        <relationship name="attributemappings" type="0/0" destination="XDDEVATTRIBUTEMAPPING" idrefs="z343 z157 z324 z165 z245 z305 z141 z223 z127 z122 z287 z102 z208 z261 z183 z350"></relationship>
-        <relationship name="relationshipmappings" type="0/0" destination="XDDEVRELATIONSHIPMAPPING" idrefs="z177 z205 z202 z244 z281 z255 z361"></relationship>
+        <relationship name="attributemappings" type="0/0" destination="XDDEVATTRIBUTEMAPPING" idrefs="z261 z287 z122 z223 z343 z183 z245 z102 z127 z165 z141 z305 z324 z208 z157 z350"></relationship>
+        <relationship name="relationshipmappings" type="0/0" destination="XDDEVRELATIONSHIPMAPPING" idrefs="z177 z244 z205 z255 z202 z361 z281"></relationship>
     </object>
     <object type="XDDEVRELATIONSHIPMAPPING" id="z214">
         <attribute name="autogenerateexpression" type="bool">1</attribute>
@@ -741,15 +741,15 @@
         <relationship name="entitymapping" type="1/1" destination="XDDEVENTITYMAPPING" idrefs="z251"></relationship>
     </object>
     <object type="XDDEVENTITYMAPPING" id="z251">
-        <attribute name="migrationpolicyclassname" type="string">CareKitStore.OCKStoreMigration2_0To2_1Policy</attribute>
+        <attribute name="migrationpolicyclassname" type="string">CareKitStore.OCKStoreMigration2_0To3_0Policy</attribute>
         <attribute name="sourcename" type="string">OCKCDContact</attribute>
         <attribute name="mappingtypename" type="string">Undefined</attribute>
         <attribute name="mappingnumber" type="int16">5</attribute>
         <attribute name="destinationname" type="string">OCKCDContact</attribute>
         <attribute name="autogenerateexpression" type="bool">1</attribute>
         <relationship name="mappingmodel" type="1/1" destination="XDDEVMAPPINGMODEL" idrefs="z283"></relationship>
-        <relationship name="attributemappings" type="0/0" destination="XDDEVATTRIBUTEMAPPING" idrefs="z330 z275 z299 z335 z172 z336 z233 z298 z130 z108 z196 z292 z256 z355 z150 z250 z218 z313 z345 z115 z212"></relationship>
-        <relationship name="relationshipmappings" type="0/0" destination="XDDEVRELATIONSHIPMAPPING" idrefs="z182 z229 z209 z310 z286 z126 z105 z146"></relationship>
+        <relationship name="attributemappings" type="0/0" destination="XDDEVATTRIBUTEMAPPING" idrefs="z355 z150 z275 z330 z313 z130 z196 z345 z218 z299 z212 z298 z172 z336 z233 z108 z250 z115 z292 z335 z256"></relationship>
+        <relationship name="relationshipmappings" type="0/0" destination="XDDEVRELATIONSHIPMAPPING" idrefs="z146 z182 z209 z286 z105 z126 z310 z229"></relationship>
     </object>
     <object type="XDDEVRELATIONSHIPMAPPING" id="z252">
         <attribute name="autogenerateexpression" type="bool">1</attribute>
@@ -1041,15 +1041,15 @@ dmVyVCR0b3BYJG9iamVjdHMSAAGGoF8QD05TS2V5ZWRBcmNoaXZlctEAAAAIAAAACVRyb290gAGvERQF
         <relationship name="entitymapping" type="1/1" destination="XDDEVENTITYMAPPING" idrefs="z251"></relationship>
     </object>
     <object type="XDDEVENTITYMAPPING" id="z314">
-        <attribute name="migrationpolicyclassname" type="string">CareKitStore.OCKStoreMigration2_0To2_1Policy</attribute>
+        <attribute name="migrationpolicyclassname" type="string">CareKitStore.OCKStoreMigration2_0To3_0Policy</attribute>
         <attribute name="sourcename" type="string">OCKCDOutcome</attribute>
         <attribute name="mappingtypename" type="string">Undefined</attribute>
         <attribute name="mappingnumber" type="int16">6</attribute>
         <attribute name="destinationname" type="string">OCKCDOutcome</attribute>
         <attribute name="autogenerateexpression" type="bool">1</attribute>
         <relationship name="mappingmodel" type="1/1" destination="XDDEVMAPPINGMODEL" idrefs="z283"></relationship>
-        <relationship name="attributemappings" type="0/0" destination="XDDEVATTRIBUTEMAPPING" idrefs="z360 z264 z254 z334 z239 z342 z159 z318 z135 z217 z297 z201 z304 z119 z176 z280"></relationship>
-        <relationship name="relationshipmappings" type="0/0" destination="XDDEVRELATIONSHIPMAPPING" idrefs="z114 z354 z195 z171 z274 z249 z329"></relationship>
+        <relationship name="attributemappings" type="0/0" destination="XDDEVATTRIBUTEMAPPING" idrefs="z297 z201 z176 z280 z318 z239 z159 z334 z254 z360 z342 z304 z119 z135 z264 z217"></relationship>
+        <relationship name="relationshipmappings" type="0/0" destination="XDDEVRELATIONSHIPMAPPING" idrefs="z249 z114 z171 z195 z329 z274 z354"></relationship>
     </object>
     <object type="XDDEVRELATIONSHIPMAPPING" id="z315">
         <attribute name="autogenerateexpression" type="bool">1</attribute>
@@ -1240,15 +1240,15 @@ dmVyVCR0b3BYJG9iamVjdHMSAAGGoF8QD05TS2V5ZWRBcmNoaXZlctEAAAAIAAAACVRyb290gAGvERQF
         <relationship name="entitymapping" type="1/1" destination="XDDEVENTITYMAPPING" idrefs="z251"></relationship>
     </object>
     <object type="XDDEVENTITYMAPPING" id="z356">
-        <attribute name="migrationpolicyclassname" type="string">CareKitStore.OCKStoreMigration2_0To2_1Policy</attribute>
+        <attribute name="migrationpolicyclassname" type="string">CareKitStore.OCKStoreMigration2_0To3_0Policy</attribute>
         <attribute name="sourcename" type="string">OCKCDTask</attribute>
         <attribute name="mappingtypename" type="string">Undefined</attribute>
         <attribute name="mappingnumber" type="int16">8</attribute>
         <attribute name="destinationname" type="string">OCKCDTask</attribute>
         <attribute name="autogenerateexpression" type="bool">1</attribute>
         <relationship name="mappingmodel" type="1/1" destination="XDDEVMAPPINGMODEL" idrefs="z283"></relationship>
-        <relationship name="attributemappings" type="0/0" destination="XDDEVATTRIBUTEMAPPING" idrefs="z279 z359 z323 z285 z364 z181 z302 z260 z341 z156 z237 z317 z222 z140 z200 z118"></relationship>
-        <relationship name="relationshipmappings" type="0/0" destination="XDDEVRELATIONSHIPMAPPING" idrefs="z134 z170 z216 z194 z296 z273 z113 z353"></relationship>
+        <relationship name="attributemappings" type="0/0" destination="XDDEVATTRIBUTEMAPPING" idrefs="z260 z302 z156 z341 z181 z222 z317 z200 z285 z364 z323 z140 z118 z237 z279 z359"></relationship>
+        <relationship name="relationshipmappings" type="0/0" destination="XDDEVRELATIONSHIPMAPPING" idrefs="z353 z273 z113 z194 z216 z296 z170 z134"></relationship>
     </object>
     <object type="XDDEVRELATIONSHIPMAPPING" id="z357">
         <attribute name="autogenerateexpression" type="bool">1</attribute>

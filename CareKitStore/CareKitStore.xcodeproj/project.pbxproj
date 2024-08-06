@@ -1600,7 +1600,7 @@
 			);
 			currentVersion = 70C4A6FE2C61B33F00A83FC4 /* CareKitStore3.0.xcdatamodel */;
 			name = CareKitStore.xcdatamodeld;
-			path = /Users/coreybaker/Documents/Xcode_Projects/other/CareKit/CareKitStore/CareKitStore/CoreData/CareKitStore.xcdatamodeld;
+			path = CareKitStore.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

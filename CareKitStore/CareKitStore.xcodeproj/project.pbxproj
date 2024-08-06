@@ -139,7 +139,7 @@
 		70C4A70C2C61B42200A83FC4 /* 2.0_3.0_Mapping.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 70C4A7072C61B42200A83FC4 /* 2.0_3.0_Mapping.xcmappingmodel */; };
 		70C4A70D2C61B42200A83FC4 /* OCKStoreMigration2_0To3_0Policy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C4A7082C61B42200A83FC4 /* OCKStoreMigration2_0To3_0Policy.swift */; };
 		70C4A70E2C61B42200A83FC4 /* 2.1_3.0_Mapping.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 70C4A70A2C61B42200A83FC4 /* 2.1_3.0_Mapping.xcmappingmodel */; };
-		70C4A70F2C61C41E00A83FC4 /* CareKitStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 70C4A6FC2C61B33F00A83FC4 /* CareKitStore.xcdatamodeld */; };
+		70C4A7112C61C63500A83FC4 /* CareKitStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 70C4A6FC2C61B33F00A83FC4 /* CareKitStore.xcdatamodeld */; };
 		E7131DC12241FAA80001861B /* OCKTaskQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7131DC02241FAA80001861B /* OCKTaskQuery.swift */; };
 		E7131DC5224200640001861B /* OCKOutcomeQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7131DC4224200640001861B /* OCKOutcomeQuery.swift */; };
 		E7131DCB22420A520001861B /* OCKPatientQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7131DCA22420A520001861B /* OCKPatientQuery.swift */; };
@@ -1026,6 +1026,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70C4A7112C61C63500A83FC4 /* CareKitStore.xcdatamodeld in Sources */,
 				51D2F63D2878FBE900D19C2D /* PartialEvent.swift in Sources */,
 				E7AE85502232F24600AF7C32 /* OCKTask.swift in Sources */,
 				E7AE855A2232F24600AF7C32 /* OCKCDPatient.swift in Sources */,
@@ -1115,7 +1116,6 @@
 				03ADE6F725CDCC00008507BE /* OCKStore+HealthKit.swift in Sources */,
 				51E6632128871F83006197D3 /* OCKReadOnlyEventStore+PartialEventsStream.swift in Sources */,
 				03534C1D2342917000BA1C67 /* OCKAnyOutcome.swift in Sources */,
-				70C4A70F2C61C41E00A83FC4 /* CareKitStore.xcdatamodeld in Sources */,
 				03E88155234D077A00A28A13 /* OCKAnyVersionableTask.swift in Sources */,
 				03143264244F86C30025481A /* OCKWatchConnectivityPeer.swift in Sources */,
 				03A054A4232AE01F001ADF16 /* OCKPersistentStoreCoordinator+Outcomes.swift in Sources */,

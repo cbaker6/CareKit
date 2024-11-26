@@ -42,9 +42,9 @@ public struct OCKScheduleEvent: Equatable {
         element: OCKScheduleElement,
         occurrence: Int
     ) {
-        self.start = Date()
-        self.end = Date()
+        self.start = start
+        self.end = end
         self.element = element
-        self.occurrence = 0
+        self.occurrence = occurrence
     }
 }

@@ -63,10 +63,11 @@ class OCKCDOutcome: OCKCDVersionedObject {
     func makeOutcome() -> OCKOutcome {
 
         var outcome: OCKOutcome!
-        
+        let taskUUID = task.uuid
+
         self.managedObjectContext!.performAndWait {
             outcome = OCKOutcome(
-                taskUUID: task.uuid,
+                taskUUID: taskUUID,
                 taskOccurrenceIndex: Int(taskOccurrenceIndex),
                 values: values.map { $0.makeValue() }
             )

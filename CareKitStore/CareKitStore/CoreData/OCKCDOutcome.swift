@@ -38,7 +38,8 @@ class OCKCDOutcome: OCKCDVersionedObject {
     @NSManaged var values: Set<OCKCDOutcomeValue>
     @NSManaged var startDate: Date
     @NSManaged var endDate: Date
-    
+    var taskUUID: UUID?
+
     convenience init(outcome: OCKOutcome, context: NSManagedObjectContext) {
         self.init(entity: Self.entity(), insertInto: context)
         self.copyVersionedValue(value: outcome, context: context)
@@ -48,6 +49,7 @@ class OCKCDOutcome: OCKCDVersionedObject {
         let event = schedule[outcome.taskOccurrenceIndex]
 
         self.task = task
+        self.taskUUID = task.uuid
         self.taskOccurrenceIndex = Int64(outcome.taskOccurrenceIndex)
         self.startDate = event.start
         self.endDate = event.end
@@ -63,11 +65,10 @@ class OCKCDOutcome: OCKCDVersionedObject {
     func makeOutcome() -> OCKOutcome {
 
         var outcome: OCKOutcome!
-        let taskUUID = task.uuid
 
         self.managedObjectContext!.performAndWait {
             outcome = OCKOutcome(
-                taskUUID: taskUUID,
+                taskUUID: taskUUID!,
                 taskOccurrenceIndex: Int(taskOccurrenceIndex),
                 values: values.map { $0.makeValue() }
             )

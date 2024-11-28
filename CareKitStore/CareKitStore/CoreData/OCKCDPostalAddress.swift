@@ -56,14 +56,16 @@ class OCKCDPostalAddress: NSManagedObject {
     func makeValue() -> OCKPostalAddress {
 
         let address = OCKPostalAddress()
-        address.street = street
-        address.subLocality = subLocality
-        address.city = city
-        address.subAdministrativeArea = subAdministrativeArea
-        address.state = state
-        address.postalCode = postalCode
-        address.country = country
-        address.isoCountryCode = isoCountryCode
+        self.managedObjectContext!.performAndWait {
+            address.street = street
+            address.subLocality = subLocality
+            address.city = city
+            address.subAdministrativeArea = subAdministrativeArea
+            address.state = state
+            address.postalCode = postalCode
+            address.country = country
+            address.isoCountryCode = isoCountryCode
+        }
 
         return address
     }

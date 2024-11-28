@@ -64,11 +64,15 @@ class OCKCDOutcomeValue: NSManagedObject {
 
     func makeValue() -> OCKOutcomeValue {
 
-        var value = OCKOutcomeValue(self.value, units: units)
-        value.createdDate = createdDate
-        value.startDate = startDate
-        value.endDate = endDate
-        value.kind = kind
+        var value: OCKOutcomeValue!
+        
+        self.managedObjectContext!.performAndWait {
+            value = OCKOutcomeValue(self.value, units: units)
+            value.createdDate = createdDate
+            value.startDate = startDate
+            value.endDate = endDate
+            value.kind = kind
+        }
 
         return value
     }

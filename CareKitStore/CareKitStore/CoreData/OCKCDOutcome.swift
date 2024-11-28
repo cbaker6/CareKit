@@ -62,18 +62,12 @@ class OCKCDOutcome: OCKCDVersionedObject {
     
     func makeOutcome() -> OCKOutcome {
 
-        var outcome: OCKOutcome!
-        let taskUUID = task.uuid
-
-        self.managedObjectContext!.performAndWait {
-            outcome = OCKOutcome(
-                taskUUID: taskUUID,
-                taskOccurrenceIndex: Int(taskOccurrenceIndex),
-                values: values.map { $0.makeValue() }
-            )
-            
-            outcome.copyVersionedValues(from: self)
-        }
+        var outcome = OCKOutcome(
+            taskUUID: task.uuid,
+            taskOccurrenceIndex: Int(taskOccurrenceIndex),
+            values: values.map { $0.makeValue() }
+        )
+        outcome.copyVersionedValues(from: self)
 
         return outcome
     }

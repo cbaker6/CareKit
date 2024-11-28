@@ -52,12 +52,8 @@ class OCKCDCarePlan: OCKCDVersionedObject {
     
     func makePlan() -> OCKCarePlan {
 
-        var plan: OCKCarePlan!
-
-        self.managedObjectContext!.performAndWait {
-            plan = OCKCarePlan(id: id, title: title, patientUUID: patient?.uuid)
-            plan.copyVersionedValues(from: self)
-        }
+        var plan = OCKCarePlan(id: id, title: title, patientUUID: patient?.uuid)
+        plan.copyVersionedValues(from: self)
 
         return plan
     }

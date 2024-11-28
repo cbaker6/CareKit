@@ -67,18 +67,14 @@ class OCKCDScheduleElement: NSManagedObject {
 
     func makeValue() -> OCKScheduleElement {
 
-        var scheduleElement: OCKScheduleElement!
-
-        self.managedObjectContext!.performAndWait {
-            scheduleElement = OCKScheduleElement(
-                start: startDate,
-                end: endDate,
-                interval: interval,
-                text: text,
-                targetValues: targetValues.map { $0.makeValue() },
-                duration: duration
-            )
-        }
+        var scheduleElement = OCKScheduleElement(
+            start: startDate,
+            end: endDate,
+            interval: interval,
+            text: text,
+            targetValues: targetValues.map { $0.makeValue() },
+            duration: duration
+        )
 
         return scheduleElement
     }

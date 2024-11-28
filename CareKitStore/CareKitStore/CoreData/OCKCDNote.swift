@@ -49,11 +49,12 @@ class OCKCDNote: NSManagedObject {
 
     func makeValue() -> OCKNote {
 
-        var note: OCKNote!
-        self.managedObjectContext!.performAndWait {
-            note = OCKNote(author: author, title: title, content: content)
-        }
-        
+        let note = OCKNote(
+            author: author,
+            title: title,
+            content: content
+        )
+
         return note
     }
 }

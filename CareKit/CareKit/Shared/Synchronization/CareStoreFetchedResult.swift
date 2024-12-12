@@ -39,7 +39,7 @@ public struct CareStoreFetchedResult<Result>: Identifiable {
     /// The underlying result fetched from the CareKit store.
     public var result: Result
 
-    var store: OCKAnyStoreProtocol
+    public var store: OCKAnyStoreProtocol
 
     /// Creates a fetched result.
     public init(id: String, result: Result, store: OCKAnyStoreProtocol) {

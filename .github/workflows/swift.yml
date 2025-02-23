@@ -10,21 +10,21 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-jobs:        
+jobs:
   test:
-    runs-on: macos-14
+    runs-on: macos-15
     strategy:
       matrix:
-        destination: ['platform=iOS\ Simulator,OS=18.2,name=iPhone\ 15\ Pro\ Max', 'platform=watchOS\ Simulator,OS=11.2,name=Apple\ Watch\ Series\ 7\ \(45mm\)', 'platform=macOS CODE_SIGN_IDENTITY=""']
+        destination: ['platform=iOS\ Simulator,OS=18.2,name=iPhone\ 16\ Pro\ Max', 'platform=watchOS\ Simulator,OS=11.2,name=Apple\ Watch\ Series\ 10\ \(46mm\)', 'platform=macOS CODE_SIGN_IDENTITY=""']
         scheme: ['CareKit', 'CareKitStore', 'CareKitUI', 'CareKitFHIR']
         exclude:
           - destination: 'platform=macOS'
-            scheme: 'CareKit' 
+            scheme: 'CareKit'
           - destination: 'platform=macOS'
-            scheme: 'CareKitUI' 
+            scheme: 'CareKitUI'
     steps:
       - uses: actions/checkout@v4
       - name: Set Xcode Version
         run: sudo xcode-select -s /Applications/Xcode_16.2.app
       - name: Build
-        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -verbose -workspace CKWorkspace.xcworkspace -scheme ${{ matrix.scheme }} -destination ${{ matrix.destination }} build test | xcpretty
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -verbose -workspace CKWorkspace.xcworkspace -scheme ${{ matrix.scheme }} -destination ${{ matrix.destination }} build test 2>&1 | xcbeautify --renderer github-actions

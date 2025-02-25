@@ -110,7 +110,10 @@ class TestHealthKitPassthroughStoreEvents: XCTestCase {
                 id: UUID(),
                 type: HKObjectType.quantityType(forIdentifier: heartRateTask.healthKitLinkage.quantityIdentifier)!,
                 quantity: HKQuantity(unit: heartRateTask.healthKitLinkage.unit, doubleValue: $0),
-                dateInterval: DateInterval(start: heartRateStart, end: heartRateEnd)
+                dateInterval: DateInterval(start: heartRateStart, end: heartRateEnd),
+                sourceRevision: heartRateSourceRevision,
+                device: heartRateDevice,
+                metadata: heartRateMetadata
             )
         }
 
@@ -155,9 +158,15 @@ class TestHealthKitPassthroughStoreEvents: XCTestCase {
                 XCTAssertEqual(outcomeValues.first?.doubleValue, 70)
                 XCTAssertEqual(outcomeValues.first?.startDate, heartRateStart)
                 XCTAssertEqual(outcomeValues.first?.endDate, heartRateEnd)
+                XCTAssertEqual(outcomeValues.first?.sourceRevision, heartRateSourceRevision)
+                XCTAssertEqual(outcomeValues.first?.device, heartRateDevice)
+                XCTAssertEqual(outcomeValues.first?.metadata, heartRateMetadata)
                 XCTAssertEqual(outcomeValues.last?.doubleValue, 80)
                 XCTAssertEqual(outcomeValues.last?.startDate, heartRateStart)
                 XCTAssertEqual(outcomeValues.last?.endDate, heartRateEnd)
+                XCTAssertEqual(outcomeValues.last?.sourceRevision, heartRateSourceRevision)
+                XCTAssertEqual(outcomeValues.last?.device, heartRateDevice)
+                XCTAssertEqual(outcomeValues.last?.metadata, heartRateMetadata)
 
             default:
                 XCTFail("Unexpected task")

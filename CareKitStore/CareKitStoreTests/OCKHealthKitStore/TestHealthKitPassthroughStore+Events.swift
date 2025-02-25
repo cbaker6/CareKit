@@ -78,10 +78,33 @@ class TestHealthKitPassthroughStoreEvents: XCTestCase {
                 dateInterval: DateInterval(start: stepsTask.schedule[0].start, end: stepsTask.schedule[0].end)
             )
         }
-
         let heartRates: [Double] = [70, 80]
         let heartRateStart = heartRateTask.schedule[0].start
         let heartRateEnd = heartRateTask.schedule[0].end
+        let heartRateSourceRevision = SourceRevision(
+            source: .init(
+                name: "name",
+                bundleIdentifier: "bundle"
+            ),
+            version: "version",
+            productType: "productType",
+            operatingSystemVersion: .init(
+                majorVersion: 1,
+                minorVersion: 0,
+                patchVersion: 2
+            )
+        )
+        let heartRateDevice = Device(
+            name: "deviceName",
+            manufacturer: "manufacturer",
+            model: "model",
+            hardwareVersion: "hardwareVersion",
+            firmwareVersion: "firmwareVersion",
+            softwareVersion: "softwareVersion",
+            localIdentifier: "localIdentifier",
+            udiDeviceIdentifier: "udiDeviceIdentifier"
+        )
+        let heartRateMetadata = ["key": "value"]
         let heartRateSamples = heartRates.map {
             Sample(
                 id: UUID(),
@@ -132,11 +155,9 @@ class TestHealthKitPassthroughStoreEvents: XCTestCase {
                 XCTAssertEqual(outcomeValues.first?.doubleValue, 70)
                 XCTAssertEqual(outcomeValues.first?.startDate, heartRateStart)
                 XCTAssertEqual(outcomeValues.first?.endDate, heartRateEnd)
-                #if !os(macOS) && !os(visionOS)
-                XCTAssertEqual(outcomeValues[safe: 1]?.doubleValue, 80)
-                #else
-                XCTAssertEqual(outcomeValues[1].doubleValue, 80)
-                #endif
+                XCTAssertEqual(outcomeValues.last?.doubleValue, 80)
+                XCTAssertEqual(outcomeValues.last?.startDate, heartRateStart)
+                XCTAssertEqual(outcomeValues.last?.endDate, heartRateEnd)
 
             default:
                 XCTFail("Unexpected task")

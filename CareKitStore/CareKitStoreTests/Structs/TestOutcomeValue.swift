@@ -144,6 +144,30 @@ class TestOutcomeValue: XCTestCase {
         value.createdDate = Date().addingTimeInterval(-200)
         value.startDate = Date().addingTimeInterval(-100)
         value.endDate = Date().addingTimeInterval(-50)
+        value.sourceRevision = SourceRevision(
+            source: .init(
+                name: "name",
+                bundleIdentifier: "bundle"
+            ),
+            version: "version",
+            productType: "productType",
+            operatingSystemVersion: .init(
+                majorVersion: 1,
+                minorVersion: 0,
+                patchVersion: 2
+            )
+        )
+        value.device = Device(
+            name: "deviceName",
+            manufacturer: "manufacturer",
+            model: "model",
+            hardwareVersion: "hardwareVersion",
+            firmwareVersion: "firmwareVersion",
+            softwareVersion: "softwareVersion",
+            localIdentifier: "localIdentifier",
+            udiDeviceIdentifier: "udiDeviceIdentifier"
+        )
+        value.metadata = ["key": "value"]
 
         let encoded = try JSONEncoder().encode(value)
         let decoded = try JSONDecoder().decode(OCKOutcomeValue.self, from: encoded)
@@ -153,6 +177,9 @@ class TestOutcomeValue: XCTestCase {
         XCTAssertEqual(decoded.createdDate, value.createdDate)
         XCTAssertEqual(decoded.startDate, value.startDate)
         XCTAssertEqual(decoded.endDate, value.endDate)
+        XCTAssertEqual(decoded.sourceRevision, value.sourceRevision)
+        XCTAssertEqual(decoded.device, value.device)
+        XCTAssertEqual(decoded.metadata, value.metadata)
 
         if let decodedUnderValue = decoded.value as? Int,
             let currentUnderValue = value.value as? Int {

@@ -254,6 +254,9 @@ extension OCKHealthKitPassthroughStore {
         
         outcomeValue.startDate = sample.dateInterval.start
         outcomeValue.endDate = sample.dateInterval.end
+        outcomeValue.sourceRevision = sample.sourceRevision
+        outcomeValue.device = sample.device
+        outcomeValue.metadata = sample.metadata
 
         var updatedEvent = event
 

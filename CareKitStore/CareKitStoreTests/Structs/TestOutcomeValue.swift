@@ -142,9 +142,10 @@ class TestOutcomeValue: XCTestCase {
         value.kind = "whale"
         value.units = "m/s"
         value.createdDate = Date().addingTimeInterval(-200)
-        value.startDate = Date().addingTimeInterval(-100)
-        value.endDate = Date().addingTimeInterval(-50)
-        value.sourceRevision = SourceRevision(
+        let startDate = Date().addingTimeInterval(-100)
+        let endDate = Date().addingTimeInterval(-50)
+        value.dateInterval = DateInterval(start: startDate, end: endDate)
+        value.sourceRevision = OCKSourceRevision(
             source: .init(
                 name: "name",
                 bundleIdentifier: "bundle"
@@ -157,7 +158,7 @@ class TestOutcomeValue: XCTestCase {
                 patchVersion: 2
             )
         )
-        value.device = Device(
+        value.device = OCKDevice(
             name: "deviceName",
             manufacturer: "manufacturer",
             model: "model",
@@ -175,8 +176,7 @@ class TestOutcomeValue: XCTestCase {
         XCTAssertEqual(decoded.kind, value.kind)
         XCTAssertEqual(decoded.units, value.units)
         XCTAssertEqual(decoded.createdDate, value.createdDate)
-        XCTAssertEqual(decoded.startDate, value.startDate)
-        XCTAssertEqual(decoded.endDate, value.endDate)
+        XCTAssertEqual(decoded.dateInterval, value.dateInterval)
         XCTAssertEqual(decoded.sourceRevision, value.sourceRevision)
         XCTAssertEqual(decoded.device, value.device)
         XCTAssertEqual(decoded.metadata, value.metadata)

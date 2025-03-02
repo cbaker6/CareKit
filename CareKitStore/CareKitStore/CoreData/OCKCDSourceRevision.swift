@@ -29,16 +29,41 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import HealthKit
+import CoreData
 
-struct Source: Codable, Hashable {
-    var name: String
-    var bundleIdentifier: String
-}
+@objc(OCKCDSourceRevision)
+class OCKCDSourceRevision: NSManagedObject {
+    @NSManaged var source: OCKCDSource
+    @NSManaged var version: String?
+    @NSManaged var productType: String?
+    @NSManaged var operatingSystemVersion: OCKCDOperatingSystemVersion
 
-extension Source {
-    init(source: HKSource) {
-        self.name = source.name
-        self.bundleIdentifier = source.bundleIdentifier
+    convenience init(sourceRevision: OCKSourceRevision, context: NSManagedObjectContext) {
+        self.init(entity: Self.entity(), insertInto: context)
+        source = OCKCDSource(
+            source: sourceRevision.source,
+            context: context
+        )
+        version = sourceRevision.version
+        productType = sourceRevision.productType
+        operatingSystemVersion = OCKCDOperatingSystemVersion(
+            operatingSystemVersion: sourceRevision.operatingSystemVersion,
+            context: context
+        )
+    }
+
+    func makeValue() -> OCKSourceRevision {
+
+        var sourceRevision: OCKSourceRevision!
+        self.managedObjectContext!.performAndWait {
+            sourceRevision = OCKSourceRevision(
+                source: source.makeValue(),
+                version: version,
+                productType: productType,
+                operatingSystemVersion: operatingSystemVersion.makeValue()
+            )
+        }
+
+        return sourceRevision
     }
 }

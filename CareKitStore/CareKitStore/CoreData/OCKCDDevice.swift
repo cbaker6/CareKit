@@ -1,5 +1,6 @@
+//
 /*
- Copyright (c) 2022, Apple Inc. All rights reserved.
+ Copyright (c) 2025, Apple Inc. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -28,36 +29,45 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import Foundation
-import HealthKit
+import CoreData
 
-// Needed for testing because we can't create our own `HKSample`s
-struct Sample {
+@objc(OCKCDDevice)
+class OCKCDDevice: NSManagedObject {
+    @NSManaged var name: String?
+    @NSManaged var manufacturer: String?
+    @NSManaged var model: String?
+    @NSManaged var hardwareVersion: String?
+    @NSManaged var firmwareVersion: String?
+    @NSManaged var softwareVersion: String?
+    @NSManaged var localIdentifier: String?
+    @NSManaged var udiDeviceIdentifier: String?
 
-    var id: UUID
-    var type: HKSampleType
-    var quantity: HKQuantity
-    var dateInterval: DateInterval
-    var sourceRevision: OCKSourceRevision?
-    var device: OCKDevice?
-    var metadata: [String: String]?
-}
+    convenience init(device: OCKDevice, context: NSManagedObjectContext) {
+        self.init(entity: Self.entity(), insertInto: context)
+        name = device.name
+        manufacturer = device.manufacturer
+        model = device.model
+        hardwareVersion = device.hardwareVersion
+        firmwareVersion = device.firmwareVersion
+        softwareVersion = device.softwareVersion
+        localIdentifier = device.localIdentifier
+        udiDeviceIdentifier = device.udiDeviceIdentifier
+    }
 
-extension Sample {
+    func makeValue() -> OCKDevice {
 
-    init(_ sample: HKQuantitySample) {
-        id = sample.uuid
-        type = sample.sampleType
-        quantity = sample.quantity
-        dateInterval = DateInterval(start: sample.startDate, end: sample.endDate)
-        sourceRevision = OCKSourceRevision(sourceRevision: sample.sourceRevision)
-        if let device = sample.device {
-            self.device = OCKDevice(device: device)
+        var device = OCKDevice()
+        self.managedObjectContext!.performAndWait {
+            device.name = name
+            device.manufacturer = manufacturer
+            device.model = model
+            device.hardwareVersion = hardwareVersion
+            device.firmwareVersion = firmwareVersion
+            device.softwareVersion = softwareVersion
+            device.localIdentifier = localIdentifier
+            device.udiDeviceIdentifier = udiDeviceIdentifier
         }
-        if let metadata = sample.metadata {
-            self.metadata = metadata.reduce(into: [:]) { result, element in
-                result[element.key] = String("\(element.value)")
-            }
-        }
+
+        return device
     }
 }

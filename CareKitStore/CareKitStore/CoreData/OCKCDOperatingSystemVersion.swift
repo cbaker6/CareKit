@@ -1,5 +1,6 @@
+//
 /*
- Copyright (c) 2022, Apple Inc. All rights reserved.
+ Copyright (c) 2025, Apple Inc. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -28,36 +29,30 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import Foundation
-import HealthKit
+import CoreData
 
-// Needed for testing because we can't create our own `HKSample`s
-struct Sample {
+@objc(OCKCDOperatingSystemVersion)
+class OCKCDOperatingSystemVersion: NSManagedObject {
+    @NSManaged var majorVersion: Int
+    @NSManaged var minorVersion: Int
+    @NSManaged var patchVersion: Int
 
-    var id: UUID
-    var type: HKSampleType
-    var quantity: HKQuantity
-    var dateInterval: DateInterval
-    var sourceRevision: OCKSourceRevision?
-    var device: OCKDevice?
-    var metadata: [String: String]?
-}
+    convenience init(operatingSystemVersion: OperatingSystemVersion, context: NSManagedObjectContext) {
+        self.init(entity: Self.entity(), insertInto: context)
+        majorVersion = operatingSystemVersion.majorVersion
+        minorVersion = operatingSystemVersion.minorVersion
+        patchVersion = operatingSystemVersion.patchVersion
+    }
 
-extension Sample {
+    func makeValue() -> OperatingSystemVersion {
 
-    init(_ sample: HKQuantitySample) {
-        id = sample.uuid
-        type = sample.sampleType
-        quantity = sample.quantity
-        dateInterval = DateInterval(start: sample.startDate, end: sample.endDate)
-        sourceRevision = OCKSourceRevision(sourceRevision: sample.sourceRevision)
-        if let device = sample.device {
-            self.device = OCKDevice(device: device)
+        var operatingSystemVersion = OperatingSystemVersion()
+        self.managedObjectContext!.performAndWait {
+            operatingSystemVersion.majorVersion = majorVersion
+            operatingSystemVersion.minorVersion = minorVersion
+            operatingSystemVersion.patchVersion = patchVersion
         }
-        if let metadata = sample.metadata {
-            self.metadata = metadata.reduce(into: [:]) { result, element in
-                result[element.key] = String("\(element.value)")
-            }
-        }
+
+        return operatingSystemVersion
     }
 }

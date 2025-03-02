@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23C71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="24E5206s" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="OCKCDCarePlan" representedClassName="OCKCDCarePlan" syncable="YES">
         <attribute name="asset" optional="YES" attributeType="String"/>
         <attribute name="createdDate" attributeType="Date" usesScalarValueType="NO"/>
@@ -69,6 +69,17 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
+    <entity name="OCKCDDevice" representedClassName="OCKCDDevice" syncable="YES">
+        <attribute name="firmwareVersion" optional="YES" attributeType="String"/>
+        <attribute name="hardwareVersion" optional="YES" attributeType="String"/>
+        <attribute name="localIdentifier" optional="YES" attributeType="String"/>
+        <attribute name="manufacturer" optional="YES" attributeType="String"/>
+        <attribute name="model" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="softwareVersion" optional="YES" attributeType="String"/>
+        <attribute name="udiDeviceIdentifier" optional="YES" attributeType="String"/>
+        <relationship name="device" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OCKCDOutcomeValue" inverseName="device" inverseEntity="OCKCDOutcomeValue"/>
+    </entity>
     <entity name="OCKCDHealthKitLinkage" representedClassName="OCKCDHealthKitLinkage" syncable="YES">
         <attribute name="quantityIdentifier" attributeType="String"/>
         <attribute name="quantityType" attributeType="String"/>
@@ -97,6 +108,12 @@
         <relationship name="plan" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OCKCDCarePlan" inverseName="notes" inverseEntity="OCKCDCarePlan"/>
         <relationship name="scheduleElement" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OCKCDScheduleElement" inverseName="notes" inverseEntity="OCKCDScheduleElement"/>
         <relationship name="task" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OCKCDTaskBase" inverseName="notes" inverseEntity="OCKCDTaskBase"/>
+    </entity>
+    <entity name="OCKCDOperatingSystemVersion" representedClassName="OCKCDOperatingSystemVersion" syncable="YES">
+        <attribute name="majorVersion" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="minorVersion" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="patchVersion" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="operatingSystemVersion" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OCKCDSourceRevision" inverseName="operatingSystemVersion" inverseEntity="OCKCDSourceRevision"/>
     </entity>
     <entity name="OCKCDOutcome" representedClassName="OCKCDOutcome" syncable="YES">
         <attribute name="asset" optional="YES" attributeType="String"/>
@@ -137,12 +154,15 @@
         <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="integerValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="kind" optional="YES" attributeType="String"/>
+        <attribute name="metadata" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="textValue" optional="YES" attributeType="String"/>
         <attribute name="typeString" attributeType="String"/>
         <attribute name="units" optional="YES" attributeType="String"/>
+        <relationship name="device" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OCKCDDevice" inverseName="device" inverseEntity="OCKCDDevice"/>
         <relationship name="outcome" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OCKCDOutcome" inverseName="values" inverseEntity="OCKCDOutcome"/>
         <relationship name="scheduleElement" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OCKCDScheduleElement" inverseName="targetValues" inverseEntity="OCKCDScheduleElement"/>
+        <relationship name="sourceRevision" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OCKCDSourceRevision" inverseName="sourceRevision" inverseEntity="OCKCDSourceRevision"/>
     </entity>
     <entity name="OCKCDPatient" representedClassName="OCKCDPatient" syncable="YES">
         <attribute name="allergies" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
@@ -213,6 +233,18 @@
         <relationship name="notes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="OCKCDNote" inverseName="scheduleElement" inverseEntity="OCKCDNote"/>
         <relationship name="targetValues" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="OCKCDOutcomeValue" inverseName="scheduleElement" inverseEntity="OCKCDOutcomeValue"/>
         <relationship name="task" optional="YES" maxCount="1" deletionRule="Deny" destinationEntity="OCKCDTaskBase" inverseName="scheduleElements" inverseEntity="OCKCDTaskBase"/>
+    </entity>
+    <entity name="OCKCDSource" representedClassName="OCKCDSource" syncable="YES">
+        <attribute name="bundleIdentifier" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="source" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OCKCDSourceRevision" inverseName="source" inverseEntity="OCKCDSourceRevision"/>
+    </entity>
+    <entity name="OCKCDSourceRevision" representedClassName="OCKCDSourceRevision" syncable="YES">
+        <attribute name="productType" optional="YES" attributeType="String"/>
+        <attribute name="version" optional="YES" attributeType="String"/>
+        <relationship name="operatingSystemVersion" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OCKCDOperatingSystemVersion" inverseName="operatingSystemVersion" inverseEntity="OCKCDOperatingSystemVersion"/>
+        <relationship name="source" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OCKCDSource" inverseName="source" inverseEntity="OCKCDSource"/>
+        <relationship name="sourceRevision" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OCKCDOutcomeValue" inverseName="sourceRevision" inverseEntity="OCKCDOutcomeValue"/>
     </entity>
     <entity name="OCKCDTag" representedClassName="OCKCDTag" syncable="YES">
         <attribute name="title" attributeType="String"/>

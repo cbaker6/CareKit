@@ -31,16 +31,17 @@
 
 import Foundation
 
-struct OSVersion: Codable, Hashable {
-    let majorVersion: Int
-    let minorVersion: Int
-    let patchVersion: Int
-}
+extension OperatingSystemVersion: Hashable {
 
-extension OSVersion {
-    init(operatingSystemVersion: OperatingSystemVersion) {
-        self.majorVersion = operatingSystemVersion.majorVersion
-        self.minorVersion = operatingSystemVersion.minorVersion
-        self.patchVersion = operatingSystemVersion.patchVersion
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(majorVersion)
+        hasher.combine(minorVersion)
+        hasher.combine(patchVersion)
+    }
+    
+    public static func == (lhs: OperatingSystemVersion, rhs: OperatingSystemVersion) -> Bool {
+        lhs.majorVersion == rhs.majorVersion &&
+        lhs.minorVersion == rhs.minorVersion &&
+        lhs.patchVersion == rhs.patchVersion
     }
 }

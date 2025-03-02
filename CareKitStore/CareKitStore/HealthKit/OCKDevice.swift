@@ -31,7 +31,7 @@
 
 import HealthKit
 
-struct Device: Codable, Hashable {
+struct OCKDevice: Codable, Hashable {
 
     /**
      The name of the receiver.
@@ -88,7 +88,7 @@ struct Device: Codable, Hashable {
     var udiDeviceIdentifier: String?
 }
 
-extension Device {
+extension OCKDevice {
 
     init(device: HKDevice) {
         self.name = device.name

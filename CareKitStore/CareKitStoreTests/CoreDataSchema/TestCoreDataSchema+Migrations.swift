@@ -194,9 +194,15 @@ class TestCoreDataSchemaMigrations: XCTestCase {
         let outcomeValue = outcomeValues?.first
         let startDate = outcomeValue?.value(forKey: "startDate")
         let endDate = outcomeValue?.value(forKey: "endDate")
+        let sourceRevision = outcomeValue?.value(forKey: "sourceRevision")
+        let device = outcomeValue?.value(forKey: "device")
+        let metadata = outcomeValue?.value(forKey: "metadata")
         XCTAssertNil(startDate)
         XCTAssertNil(endDate)
-        
+        XCTAssertNil(sourceRevision)
+        XCTAssertNil(device)
+        XCTAssertNil(metadata)
+
         // 5. Tear down the CoreData stack before the files get deleted
         let store = container.persistentStoreCoordinator.persistentStores[0]
         try container.persistentStoreCoordinator.remove(store)

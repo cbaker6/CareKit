@@ -78,15 +78,43 @@ class TestHealthKitPassthroughStoreEvents: XCTestCase {
                 dateInterval: DateInterval(start: stepsTask.schedule[0].start, end: stepsTask.schedule[0].end)
             )
         }
-
         let heartRates: [Double] = [70, 80]
-
+        let heartRateStart = heartRateTask.schedule[0].start
+        let heartRateEnd = heartRateTask.schedule[0].end
+        let heartRateDateInterval = DateInterval(start: heartRateStart, end: heartRateEnd)
+        let heartRateSourceRevision = OCKSourceRevision(
+            source: .init(
+                name: "name",
+                bundleIdentifier: "bundle"
+            ),
+            version: "version",
+            productType: "productType",
+            operatingSystemVersion: .init(
+                majorVersion: 1,
+                minorVersion: 0,
+                patchVersion: 2
+            )
+        )
+        let heartRateDevice = OCKDevice(
+            name: "deviceName",
+            manufacturer: "manufacturer",
+            model: "model",
+            hardwareVersion: "hardwareVersion",
+            firmwareVersion: "firmwareVersion",
+            softwareVersion: "softwareVersion",
+            localIdentifier: "localIdentifier",
+            udiDeviceIdentifier: "udiDeviceIdentifier"
+        )
+        let heartRateMetadata = ["key": "value"]
         let heartRateSamples = heartRates.map {
             Sample(
                 id: UUID(),
                 type: HKObjectType.quantityType(forIdentifier: heartRateTask.healthKitLinkage.quantityIdentifier)!,
                 quantity: HKQuantity(unit: heartRateTask.healthKitLinkage.unit, doubleValue: $0),
-                dateInterval: DateInterval(start: heartRateTask.schedule[0].start, end: heartRateTask.schedule[0].end)
+                dateInterval: heartRateDateInterval,
+                sourceRevision: heartRateSourceRevision,
+                device: heartRateDevice,
+                metadata: heartRateMetadata
             )
         }
 
@@ -129,7 +157,15 @@ class TestHealthKitPassthroughStoreEvents: XCTestCase {
             case heartRateTask.id:
                 XCTAssertEqual(outcomeValues.count, 2)
                 XCTAssertEqual(outcomeValues.first?.doubleValue, 70)
-                XCTAssertEqual(outcomeValues[safe: 1]?.doubleValue, 80)
+                XCTAssertEqual(outcomeValues.first?.dateInterval, heartRateDateInterval)
+                XCTAssertEqual(outcomeValues.first?.sourceRevision, heartRateSourceRevision)
+                XCTAssertEqual(outcomeValues.first?.device, heartRateDevice)
+                XCTAssertEqual(outcomeValues.first?.metadata, heartRateMetadata)
+                XCTAssertEqual(outcomeValues.last?.doubleValue, 80)
+                XCTAssertEqual(outcomeValues.last?.dateInterval, heartRateDateInterval)
+                XCTAssertEqual(outcomeValues.last?.sourceRevision, heartRateSourceRevision)
+                XCTAssertEqual(outcomeValues.last?.device, heartRateDevice)
+                XCTAssertEqual(outcomeValues.last?.metadata, heartRateMetadata)
 
             default:
                 XCTFail("Unexpected task")

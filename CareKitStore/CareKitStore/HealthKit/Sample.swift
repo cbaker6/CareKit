@@ -38,6 +38,9 @@ struct Sample {
     var type: HKSampleType
     var quantity: HKQuantity
     var dateInterval: DateInterval
+    var sourceRevision: OCKSourceRevision?
+    var device: OCKDevice?
+    var metadata: [String: String]?
 }
 
 extension Sample {
@@ -47,5 +50,14 @@ extension Sample {
         type = sample.sampleType
         quantity = sample.quantity
         dateInterval = DateInterval(start: sample.startDate, end: sample.endDate)
+        sourceRevision = OCKSourceRevision(sourceRevision: sample.sourceRevision)
+        if let device = sample.device {
+            self.device = OCKDevice(device: device)
+        }
+        if let metadata = sample.metadata {
+            self.metadata = metadata.reduce(into: [:]) { result, element in
+                result[element.key] = String("\(element.value)")
+            }
+        }
     }
 }

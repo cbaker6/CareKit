@@ -65,9 +65,21 @@ public struct OCKOutcomeValue: Codable, Equatable, CustomStringConvertible {
 
     /// The units for this measurement.
     public var units: String?
-
+    
     /// The date that this value was created.
     public var createdDate = Date()
+
+    /// The start date and end date when this value represents a HealthKit sample.
+    private(set) var dateInterval: DateInterval?
+
+    /// An object indicating the source when this value represents a HealthKit sample.
+    private(set) var sourceRevision: OCKSourceRevision?
+
+    /// A device that generates data for HealthKit when this value represents a HealthKit sample.
+    private(set) var device: OCKDevice?
+
+    /// The metadata when this value represents a HealthKit sample.
+    private(set) var metadata: [String: String]?
 
     /// The underlying value.
     public var value: OCKOutcomeValueUnderlyingType
@@ -118,6 +130,31 @@ public struct OCKOutcomeValue: Codable, Equatable, CustomStringConvertible {
         self.units = units
     }
 
+    init(
+        _ value: OCKOutcomeValueUnderlyingType,
+        units: String? = nil,
+        createdDate: Date,
+        kind: String?,
+        sourceRevision: OCKSourceRevision?,
+        device: OCKDevice?,
+        metadata: [String: String]?,
+        startDate: Date?,
+        endDate: Date?
+    ) {
+        self.init(value, units: units)
+        self.createdDate = createdDate
+        self.kind = kind
+        self.sourceRevision = sourceRevision
+        self.device = device
+        self.metadata = metadata
+        if let startDate = startDate,
+           let endDate = endDate {
+            self.dateInterval = DateInterval(
+                start: startDate,
+                end: endDate
+            )
+        }
+    }
     /// Checks if two `OCKOutcomeValue`s have equal value properties, without checking their other properties.
     private func hasSameValueAs(_ other: OCKOutcomeValue) -> Bool {
         switch type {
@@ -147,6 +184,10 @@ public struct OCKOutcomeValue: Codable, Equatable, CustomStringConvertible {
         case value
         case type
         case createdDate
+        case dateInterval
+        case sourceRevision
+        case device
+        case metadata
     }
 
     public init(from decoder: Decoder) throws {
@@ -170,6 +211,10 @@ public struct OCKOutcomeValue: Codable, Equatable, CustomStringConvertible {
 
         kind = try container.decodeIfPresent(String.self, forKey: .kind)
         units = try container.decodeIfPresent(String.self, forKey: .units)
+        dateInterval = try container.decodeIfPresent(DateInterval.self, forKey: .dateInterval)
+        sourceRevision = try container.decodeIfPresent(OCKSourceRevision.self, forKey: .sourceRevision)
+        device = try container.decodeIfPresent(OCKDevice.self, forKey: .device)
+        metadata = try container.decodeIfPresent([String: String].self, forKey: .metadata)
         createdDate = try container.decode(Date.self, forKey: .createdDate)
     }
 
@@ -178,6 +223,10 @@ public struct OCKOutcomeValue: Codable, Equatable, CustomStringConvertible {
 
         try container.encode(type, forKey: .type)
         try container.encode(createdDate, forKey: .createdDate)
+        try container.encodeIfPresent(dateInterval, forKey: .dateInterval)
+        try container.encodeIfPresent(sourceRevision, forKey: .sourceRevision)
+        try container.encodeIfPresent(device, forKey: .device)
+        try container.encodeIfPresent(metadata, forKey: .metadata)
         try container.encodeIfPresent(kind, forKey: .kind)
         try container.encodeIfPresent(units, forKey: .units)
 

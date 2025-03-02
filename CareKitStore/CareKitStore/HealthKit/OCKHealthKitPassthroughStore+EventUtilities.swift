@@ -249,7 +249,14 @@ extension OCKHealthKitPassthroughStore {
 
         let outcomeValue = OCKOutcomeValue(
             doubleValue,
-            units: event.task.healthKitLinkage.unit.unitString
+            units: event.task.healthKitLinkage.unit.unitString,
+            createdDate: Date(),
+            kind: nil,
+            sourceRevision: sample.sourceRevision,
+            device: sample.device,
+            metadata: sample.metadata,
+            startDate: sample.dateInterval.start,
+            endDate: sample.dateInterval.end
         )
 
         var updatedEvent = event
@@ -562,7 +569,9 @@ extension OCKHealthKitPassthroughStore {
 
     func makeTaskQuery(from outcomeQuery: OCKOutcomeQuery) -> OCKTaskQuery {
 
-        let dateInterval = Calendar.current.dateInterval(of: .day, for: Date())!
+        // Search over the interval provided by OCKOutcomeQuery if present
+        // or else constrain sample query over the current day.
+        let dateInterval = outcomeQuery.dateInterval ?? Calendar.current.dateInterval(of: .day, for: Date())!
 
         var taskQuery = OCKTaskQuery(dateInterval: dateInterval)
         taskQuery.ids = outcomeQuery.taskIDs

@@ -69,12 +69,17 @@ public struct OCKOutcomeValue: Codable, Equatable, CustomStringConvertible {
     /// The date that this value was created.
     public var createdDate = Date()
 
-    /// The value's dateInterval.
-    public var dateInterval: DateInterval?
+    /// The start date and end date when this value represents a HealthKit sample.
+    private(set) var dateInterval: DateInterval?
 
-    var sourceRevision: OCKSourceRevision?
-    var device: OCKDevice?
-    var metadata: [String: String]?
+    /// An object indicating the source when this value represents a HealthKit sample.
+    private(set) var sourceRevision: OCKSourceRevision?
+
+    /// A device that generates data for HealthKit when this value represents a HealthKit sample.
+    private(set) var device: OCKDevice?
+
+    /// The metadata when this value represents a HealthKit sample.
+    private(set) var metadata: [String: String]?
 
     /// The underlying value.
     public var value: OCKOutcomeValueUnderlyingType
@@ -125,6 +130,31 @@ public struct OCKOutcomeValue: Codable, Equatable, CustomStringConvertible {
         self.units = units
     }
 
+    init(
+        _ value: OCKOutcomeValueUnderlyingType,
+        units: String? = nil,
+        createdDate: Date,
+        kind: String?,
+        sourceRevision: OCKSourceRevision?,
+        device: OCKDevice?,
+        metadata: [String: String]?,
+        startDate: Date?,
+        endDate: Date?
+    ) {
+        self.init(value, units: units)
+        self.createdDate = createdDate
+        self.kind = kind
+        self.sourceRevision = sourceRevision
+        self.device = device
+        self.metadata = metadata
+        if let startDate = startDate,
+           let endDate = endDate {
+            self.dateInterval = DateInterval(
+                start: startDate,
+                end: endDate
+            )
+        }
+    }
     /// Checks if two `OCKOutcomeValue`s have equal value properties, without checking their other properties.
     private func hasSameValueAs(_ other: OCKOutcomeValue) -> Bool {
         switch type {

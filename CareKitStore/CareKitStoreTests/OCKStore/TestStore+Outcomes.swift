@@ -86,12 +86,16 @@ class TestStoreOutcomes: XCTestCase {
             udiDeviceIdentifier: "udiDeviceIdentifier"
         )
         let metadata = ["key": "value"]
-        var value = OCKOutcomeValue(42)
-        value.kind = "number"
-        value.dateInterval = dateInterval
-        value.sourceRevision = sourceRevision
-        value.device = device
-        value.metadata = metadata
+        let value = OCKOutcomeValue(
+            42,
+            createdDate: Date(),
+            kind: "number",
+            sourceRevision: sourceRevision,
+            device: device,
+            metadata: metadata,
+            startDate: dateInterval.start,
+            endDate: dateInterval.end
+        )
 
         var outcome = OCKOutcome(taskUUID: taskUUID, taskOccurrenceIndex: 0, values: [value])
         outcome = try store.addOutcomeAndWait(outcome)

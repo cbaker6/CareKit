@@ -136,16 +136,10 @@ class TestOutcomeValue: XCTestCase {
     }
 
     func testCodingAllEntries() throws {
-        var value = OCKOutcomeValue(10)
-
-        // Value
-        value.kind = "whale"
-        value.units = "m/s"
-        value.createdDate = Date().addingTimeInterval(-200)
+        let createdDate = Date().addingTimeInterval(-200)
         let startDate = Date().addingTimeInterval(-100)
         let endDate = Date().addingTimeInterval(-50)
-        value.dateInterval = DateInterval(start: startDate, end: endDate)
-        value.sourceRevision = OCKSourceRevision(
+        let sourceRevision = OCKSourceRevision(
             source: .init(
                 name: "name",
                 bundleIdentifier: "bundle"
@@ -158,7 +152,7 @@ class TestOutcomeValue: XCTestCase {
                 patchVersion: 2
             )
         )
-        value.device = OCKDevice(
+        let device = OCKDevice(
             name: "deviceName",
             manufacturer: "manufacturer",
             model: "model",
@@ -168,7 +162,19 @@ class TestOutcomeValue: XCTestCase {
             localIdentifier: "localIdentifier",
             udiDeviceIdentifier: "udiDeviceIdentifier"
         )
-        value.metadata = ["key": "value"]
+        let metadata = ["key": "value"]
+
+        let value = OCKOutcomeValue(
+            10,
+            units: "m/s",
+            createdDate: createdDate,
+            kind: "whale",
+            sourceRevision: sourceRevision,
+            device: device,
+            metadata: metadata,
+            startDate: startDate,
+            endDate: endDate
+        )
 
         let encoded = try JSONEncoder().encode(value)
         let decoded = try JSONDecoder().decode(OCKOutcomeValue.self, from: encoded)

@@ -684,7 +684,7 @@
 			repositoryURL = "https://github.com/apple/FHIRModels";
 			requirement = {
 				kind = exactVersion;
-				version = 0.5.0;
+				version = 0.6.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

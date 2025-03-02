@@ -69,11 +69,8 @@ public struct OCKOutcomeValue: Codable, Equatable, CustomStringConvertible {
     /// The date that this value was created.
     public var createdDate = Date()
 
-    /// The value's start date.
-    public var startDate: Date?
-
-    /// The value's end date.
-    public var endDate: Date?
+    /// The value's dateInterval.
+    public var dateInterval: DateInterval?
 
     var sourceRevision: OCKSourceRevision?
     var device: OCKDevice?
@@ -157,8 +154,7 @@ public struct OCKOutcomeValue: Codable, Equatable, CustomStringConvertible {
         case value
         case type
         case createdDate
-        case startDate
-        case endDate
+        case dateInterval
         case sourceRevision
         case device
         case metadata
@@ -185,8 +181,7 @@ public struct OCKOutcomeValue: Codable, Equatable, CustomStringConvertible {
 
         kind = try container.decodeIfPresent(String.self, forKey: .kind)
         units = try container.decodeIfPresent(String.self, forKey: .units)
-        startDate = try container.decodeIfPresent(Date.self, forKey: .startDate)
-        endDate = try container.decodeIfPresent(Date.self, forKey: .endDate)
+        dateInterval = try container.decodeIfPresent(DateInterval.self, forKey: .dateInterval)
         sourceRevision = try container.decodeIfPresent(OCKSourceRevision.self, forKey: .sourceRevision)
         device = try container.decodeIfPresent(OCKDevice.self, forKey: .device)
         metadata = try container.decodeIfPresent([String: String].self, forKey: .metadata)
@@ -198,8 +193,7 @@ public struct OCKOutcomeValue: Codable, Equatable, CustomStringConvertible {
 
         try container.encode(type, forKey: .type)
         try container.encode(createdDate, forKey: .createdDate)
-        try container.encodeIfPresent(startDate, forKey: .startDate)
-        try container.encodeIfPresent(endDate, forKey: .endDate)
+        try container.encodeIfPresent(dateInterval, forKey: .dateInterval)
         try container.encodeIfPresent(sourceRevision, forKey: .sourceRevision)
         try container.encodeIfPresent(device, forKey: .device)
         try container.encodeIfPresent(metadata, forKey: .metadata)

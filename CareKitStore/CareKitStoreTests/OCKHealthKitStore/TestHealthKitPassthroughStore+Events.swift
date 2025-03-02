@@ -81,6 +81,7 @@ class TestHealthKitPassthroughStoreEvents: XCTestCase {
         let heartRates: [Double] = [70, 80]
         let heartRateStart = heartRateTask.schedule[0].start
         let heartRateEnd = heartRateTask.schedule[0].end
+        let heartRateDateInterval = DateInterval(start: heartRateStart, end: heartRateEnd)
         let heartRateSourceRevision = OCKSourceRevision(
             source: .init(
                 name: "name",
@@ -110,7 +111,7 @@ class TestHealthKitPassthroughStoreEvents: XCTestCase {
                 id: UUID(),
                 type: HKObjectType.quantityType(forIdentifier: heartRateTask.healthKitLinkage.quantityIdentifier)!,
                 quantity: HKQuantity(unit: heartRateTask.healthKitLinkage.unit, doubleValue: $0),
-                dateInterval: DateInterval(start: heartRateStart, end: heartRateEnd),
+                dateInterval: heartRateDateInterval,
                 sourceRevision: heartRateSourceRevision,
                 device: heartRateDevice,
                 metadata: heartRateMetadata
@@ -156,14 +157,12 @@ class TestHealthKitPassthroughStoreEvents: XCTestCase {
             case heartRateTask.id:
                 XCTAssertEqual(outcomeValues.count, 2)
                 XCTAssertEqual(outcomeValues.first?.doubleValue, 70)
-                XCTAssertEqual(outcomeValues.first?.startDate, heartRateStart)
-                XCTAssertEqual(outcomeValues.first?.endDate, heartRateEnd)
+                XCTAssertEqual(outcomeValues.first?.dateInterval, heartRateDateInterval)
                 XCTAssertEqual(outcomeValues.first?.sourceRevision, heartRateSourceRevision)
                 XCTAssertEqual(outcomeValues.first?.device, heartRateDevice)
                 XCTAssertEqual(outcomeValues.first?.metadata, heartRateMetadata)
                 XCTAssertEqual(outcomeValues.last?.doubleValue, 80)
-                XCTAssertEqual(outcomeValues.last?.startDate, heartRateStart)
-                XCTAssertEqual(outcomeValues.last?.endDate, heartRateEnd)
+                XCTAssertEqual(outcomeValues.last?.dateInterval, heartRateDateInterval)
                 XCTAssertEqual(outcomeValues.last?.sourceRevision, heartRateSourceRevision)
                 XCTAssertEqual(outcomeValues.last?.device, heartRateDevice)
                 XCTAssertEqual(outcomeValues.last?.metadata, heartRateMetadata)

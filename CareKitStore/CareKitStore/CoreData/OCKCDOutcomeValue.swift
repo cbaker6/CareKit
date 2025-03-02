@@ -38,7 +38,7 @@ class OCKCDOutcomeValue: NSManagedObject {
     @NSManaged var startDate: Date?
     @NSManaged var endDate: Date?
     @NSManaged var outcome: OCKCDOutcome?
-    @NSManaged var sourveRevision: OCKCDSourceRevision?
+    @NSManaged var sourceRevision: OCKCDSourceRevision?
     @NSManaged var device: OCKCDDevice?
     @NSManaged var metadata: [String: String]?
 
@@ -61,11 +61,11 @@ class OCKCDOutcomeValue: NSManagedObject {
         self.units = value.units
         self.kind = value.kind
         self.createdDate = value.createdDate
-        self.startDate = value.startDate
-        self.endDate = value.endDate
+        self.startDate = value.dateInterval?.start
+        self.endDate = value.dateInterval?.end
         self.metadata = value.metadata
         if let sourceRevision = value.sourceRevision {
-            self.sourveRevision = OCKCDSourceRevision(
+            self.sourceRevision = OCKCDSourceRevision(
                 sourceRevision: sourceRevision,
                 context: context
             )
@@ -85,9 +85,17 @@ class OCKCDOutcomeValue: NSManagedObject {
         self.managedObjectContext!.performAndWait {
             value = OCKOutcomeValue(self.value, units: units)
             value.createdDate = createdDate
-            value.startDate = startDate
-            value.endDate = endDate
             value.kind = kind
+            value.sourceRevision = sourceRevision?.makeValue()
+            value.device = device?.makeValue()
+            value.metadata = metadata
+            if let startDate = startDate,
+               let endDate = endDate {
+                value.dateInterval = DateInterval(
+                    start: startDate,
+                    end: endDate
+                )
+            }
         }
 
         return value

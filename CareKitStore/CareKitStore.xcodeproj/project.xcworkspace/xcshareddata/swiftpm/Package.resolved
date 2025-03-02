@@ -1,6 +1,6 @@
 {
   "originHash" : "9254d8ba71e5c8336e01ab745dc7b44b6ffc254f2c838f9fe0f93cca4c4d3647",
-  "pins" : [ 
+  "pins" : [
     {
       "identity" : "swift-async-algorithms",
       "kind" : "remoteSourceControl",

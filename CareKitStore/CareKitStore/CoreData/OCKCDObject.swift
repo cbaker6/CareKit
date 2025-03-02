@@ -54,7 +54,7 @@ class OCKCDObject: NSManagedObject {
         updatedDate = Date()
         notes = Set()
         timezoneIdentifier = TimeZone.current.identifier
-        schemaVersion = "3.0.1"
+        schemaVersion = "3.0.0"
         set(knowledge: managedObjectContext!.knowledgeVector)
     }
 

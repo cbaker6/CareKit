@@ -83,19 +83,17 @@ class OCKCDOutcomeValue: NSManagedObject {
         var value: OCKOutcomeValue!
         
         self.managedObjectContext!.performAndWait {
-            value = OCKOutcomeValue(self.value, units: units)
-            value.createdDate = createdDate
-            value.kind = kind
-            value.sourceRevision = sourceRevision?.makeValue()
-            value.device = device?.makeValue()
-            value.metadata = metadata
-            if let startDate = startDate,
-               let endDate = endDate {
-                value.dateInterval = DateInterval(
-                    start: startDate,
-                    end: endDate
-                )
-            }
+            value = OCKOutcomeValue(
+                self.value,
+                units: units,
+                createdDate: createdDate,
+                kind: kind,
+                sourceRevision: sourceRevision?.makeValue(),
+                device: device?.makeValue(),
+                metadata: metadata,
+                startDate: startDate,
+                endDate: endDate
+            )
         }
 
         return value

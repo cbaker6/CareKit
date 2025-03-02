@@ -31,8 +31,15 @@
 
 import HealthKit
 
-struct OCKSource: Codable, Hashable {
+public struct OCKSource: Codable, Hashable {
+    /**
+     The name of the source represented by the receiver.  If the source is an app, then the name is the localized name of the app.
+     */
     var name: String
+
+    /**
+     The bundle identifier of the source represented by the receiver.
+     */
     var bundleIdentifier: String
 }
 

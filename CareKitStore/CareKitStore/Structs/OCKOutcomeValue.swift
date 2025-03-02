@@ -75,8 +75,8 @@ public struct OCKOutcomeValue: Codable, Equatable, CustomStringConvertible {
     /// The value's end date.
     public var endDate: Date?
 
-    var sourceRevision: SourceRevision?
-    var device: Device?
+    var sourceRevision: OCKSourceRevision?
+    var device: OCKDevice?
     var metadata: [String: String]?
 
     /// The underlying value.
@@ -187,8 +187,8 @@ public struct OCKOutcomeValue: Codable, Equatable, CustomStringConvertible {
         units = try container.decodeIfPresent(String.self, forKey: .units)
         startDate = try container.decodeIfPresent(Date.self, forKey: .startDate)
         endDate = try container.decodeIfPresent(Date.self, forKey: .endDate)
-        sourceRevision = try container.decodeIfPresent(SourceRevision.self, forKey: .sourceRevision)
-        device = try container.decodeIfPresent(Device.self, forKey: .device)
+        sourceRevision = try container.decodeIfPresent(OCKSourceRevision.self, forKey: .sourceRevision)
+        device = try container.decodeIfPresent(OCKDevice.self, forKey: .device)
         metadata = try container.decodeIfPresent([String: String].self, forKey: .metadata)
         createdDate = try container.decode(Date.self, forKey: .createdDate)
     }

@@ -1,5 +1,6 @@
+//
 /*
- Copyright (c) 2022, Apple Inc. All rights reserved.
+ Copyright (c) 2025, Apple Inc. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -28,36 +29,16 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import Foundation
 import HealthKit
 
-// Needed for testing because we can't create our own `HKSample`s
-struct Sample {
-
-    var id: UUID
-    var type: HKSampleType
-    var quantity: HKQuantity
-    var dateInterval: DateInterval
-    var sourceRevision: OCKSourceRevision?
-    var device: OCKDevice?
-    var metadata: [String: String]?
+struct OCKSource: Codable, Hashable {
+    var name: String
+    var bundleIdentifier: String
 }
 
-extension Sample {
-
-    init(_ sample: HKQuantitySample) {
-        id = sample.uuid
-        type = sample.sampleType
-        quantity = sample.quantity
-        dateInterval = DateInterval(start: sample.startDate, end: sample.endDate)
-        sourceRevision = OCKSourceRevision(sourceRevision: sample.sourceRevision)
-        if let device = sample.device {
-            self.device = OCKDevice(device: device)
-        }
-        if let metadata = sample.metadata {
-            self.metadata = metadata.reduce(into: [:]) { result, element in
-                result[element.key] = String("\(element.value)")
-            }
-        }
+extension OCKSource {
+    init(source: HKSource) {
+        self.name = source.name
+        self.bundleIdentifier = source.bundleIdentifier
     }
 }

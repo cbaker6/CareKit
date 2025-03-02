@@ -29,42 +29,30 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import HealthKit
+import Foundation
 
-struct SourceRevision: Codable, Hashable {
-    /**
-     The HKSource of the receiver.
-     */
-    var source: Source
+extension OperatingSystemVersion: Codable {
 
-    /**
-     The version of the source property.
+    enum CodingKeys: String, CodingKey {
+        case majorVersion, minorVersion, patchVersion
+    }
 
-     This value is taken from the CFBundleVersion of the source. May be nil for older data.
-     */
-    var version: String?
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let majorVersion = try container.decode(Int.self, forKey: .majorVersion)
+        let minorVersion = try container.decode(Int.self, forKey: .minorVersion)
+        let patchVersion = try container.decode(Int.self, forKey: .patchVersion)
+        var osVersion = OperatingSystemVersion()
+        osVersion.majorVersion = majorVersion
+        osVersion.minorVersion = minorVersion
+        osVersion.patchVersion = patchVersion
+        self = osVersion
+    }
 
-    /**
-     Represents the product type of the device running HealthKit when the object was created.
-
-     This value may be nil for older data, which indicates an unknown product type.
-     */
-    var productType: String?
-
-    /**
-     Represents the operating system version of the device running HealthKit when the object was created.
-
-     iOS versions after 8.0 but prior to 8.2 are saved as 8.0, and iOS version after 8.2 but prior to 9.0
-     are saved as 8.2.
-     */
-    var operatingSystemVersion: OSVersion
-}
-
-extension SourceRevision {
-    init(sourceRevision: HKSourceRevision) {
-        self.source = Source(source: sourceRevision.source)
-        self.version = sourceRevision.version
-        self.productType = sourceRevision.productType
-        self.operatingSystemVersion = OSVersion(operatingSystemVersion: sourceRevision.operatingSystemVersion)
+    public func encode(to encoder: any Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(majorVersion, forKey: .majorVersion)
+        try container.encode(minorVersion, forKey: .minorVersion)
+        try container.encode(patchVersion, forKey: .patchVersion)
     }
 }

@@ -1,5 +1,6 @@
+//
 /*
- Copyright (c) 2022, Apple Inc. All rights reserved.
+ Copyright (c) 2025, Apple Inc. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -28,36 +29,42 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import Foundation
 import HealthKit
 
-// Needed for testing because we can't create our own `HKSample`s
-struct Sample {
+struct OCKSourceRevision: Codable, Hashable {
+    /**
+     The HKSource of the receiver.
+     */
+    var source: OCKSource
 
-    var id: UUID
-    var type: HKSampleType
-    var quantity: HKQuantity
-    var dateInterval: DateInterval
-    var sourceRevision: OCKSourceRevision?
-    var device: OCKDevice?
-    var metadata: [String: String]?
+    /**
+     The version of the source property.
+
+     This value is taken from the CFBundleVersion of the source. May be nil for older data.
+     */
+    var version: String?
+
+    /**
+     Represents the product type of the device running HealthKit when the object was created.
+
+     This value may be nil for older data, which indicates an unknown product type.
+     */
+    var productType: String?
+
+    /**
+     Represents the operating system version of the device running HealthKit when the object was created.
+
+     iOS versions after 8.0 but prior to 8.2 are saved as 8.0, and iOS version after 8.2 but prior to 9.0
+     are saved as 8.2.
+     */
+    var operatingSystemVersion: OperatingSystemVersion
 }
 
-extension Sample {
-
-    init(_ sample: HKQuantitySample) {
-        id = sample.uuid
-        type = sample.sampleType
-        quantity = sample.quantity
-        dateInterval = DateInterval(start: sample.startDate, end: sample.endDate)
-        sourceRevision = OCKSourceRevision(sourceRevision: sample.sourceRevision)
-        if let device = sample.device {
-            self.device = OCKDevice(device: device)
-        }
-        if let metadata = sample.metadata {
-            self.metadata = metadata.reduce(into: [:]) { result, element in
-                result[element.key] = String("\(element.value)")
-            }
-        }
+extension OCKSourceRevision {
+    init(sourceRevision: HKSourceRevision) {
+        self.source = OCKSource(source: sourceRevision.source)
+        self.version = sourceRevision.version
+        self.productType = sourceRevision.productType
+        self.operatingSystemVersion = sourceRevision.operatingSystemVersion
     }
 }

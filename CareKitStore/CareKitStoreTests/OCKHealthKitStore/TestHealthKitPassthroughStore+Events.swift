@@ -81,7 +81,7 @@ class TestHealthKitPassthroughStoreEvents: XCTestCase {
         let heartRates: [Double] = [70, 80]
         let heartRateStart = heartRateTask.schedule[0].start
         let heartRateEnd = heartRateTask.schedule[0].end
-        let heartRateSourceRevision = SourceRevision(
+        let heartRateSourceRevision = OCKSourceRevision(
             source: .init(
                 name: "name",
                 bundleIdentifier: "bundle"
@@ -94,7 +94,7 @@ class TestHealthKitPassthroughStoreEvents: XCTestCase {
                 patchVersion: 2
             )
         )
-        let heartRateDevice = Device(
+        let heartRateDevice = OCKDevice(
             name: "deviceName",
             manufacturer: "manufacturer",
             model: "model",

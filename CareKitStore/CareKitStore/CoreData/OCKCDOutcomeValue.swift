@@ -38,6 +38,9 @@ class OCKCDOutcomeValue: NSManagedObject {
     @NSManaged var startDate: Date?
     @NSManaged var endDate: Date?
     @NSManaged var outcome: OCKCDOutcome?
+    @NSManaged var sourveRevision: OCKCDSourceRevision?
+    @NSManaged var device: OCKCDDevice?
+    @NSManaged var metadata: [String: String]?
 
     @NSManaged private var typeString: String
     var type: OCKOutcomeValueType {
@@ -60,6 +63,19 @@ class OCKCDOutcomeValue: NSManagedObject {
         self.createdDate = value.createdDate
         self.startDate = value.startDate
         self.endDate = value.endDate
+        self.metadata = value.metadata
+        if let sourceRevision = value.sourceRevision {
+            self.sourveRevision = OCKCDSourceRevision(
+                sourceRevision: sourceRevision,
+                context: context
+            )
+        }
+        if let device = value.device {
+            self.device = OCKCDDevice(
+                device: device,
+                context: context
+            )
+        }
     }
 
     func makeValue() -> OCKOutcomeValue {

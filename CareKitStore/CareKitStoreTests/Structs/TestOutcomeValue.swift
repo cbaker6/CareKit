@@ -144,7 +144,7 @@ class TestOutcomeValue: XCTestCase {
         value.createdDate = Date().addingTimeInterval(-200)
         value.startDate = Date().addingTimeInterval(-100)
         value.endDate = Date().addingTimeInterval(-50)
-        value.sourceRevision = SourceRevision(
+        value.sourceRevision = OCKSourceRevision(
             source: .init(
                 name: "name",
                 bundleIdentifier: "bundle"
@@ -157,7 +157,7 @@ class TestOutcomeValue: XCTestCase {
                 patchVersion: 2
             )
         )
-        value.device = Device(
+        value.device = OCKDevice(
             name: "deviceName",
             manufacturer: "manufacturer",
             model: "model",

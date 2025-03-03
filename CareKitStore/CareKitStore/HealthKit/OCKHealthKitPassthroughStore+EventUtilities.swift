@@ -577,6 +577,14 @@ extension OCKHealthKitPassthroughStore {
         taskQuery.ids = outcomeQuery.taskIDs
         taskQuery.remoteIDs = outcomeQuery.taskRemoteIDs
         taskQuery.uuids = outcomeQuery.taskUUIDs
+        taskQuery.sortDescriptors = outcomeQuery.sortDescriptors.map { descriptor in
+            switch descriptor {
+            case .effectiveDate(ascending: let ascending):
+                return OCKTaskQuery.SortDescriptor.effectiveDate(ascending: ascending)
+            case .groupIdentifier(ascending: let ascending):
+                return OCKTaskQuery.SortDescriptor.groupIdentifier(ascending: ascending)
+            }
+        }
 
         return taskQuery
     }

@@ -134,7 +134,7 @@ public protocol OCKAnyTaskStore: OCKAnyReadOnlyTaskStore {
 public extension OCKAnyReadOnlyTaskStore {
     func fetchAnyTask(withID id: String, callbackQueue: DispatchQueue = .main, completion: @escaping OCKResultClosure<OCKAnyTask>) {
         var query = OCKTaskQuery(id: id)
-        query.sortDescriptors = [.effectiveDate(ascending: true)]
+        query.sortDescriptors = [.effectiveDate(ascending: false)]
         query.ids = [id]
         query.limit = 1
         fetchAnyTasks(query: query, callbackQueue: callbackQueue, completion:

@@ -32,23 +32,32 @@ import Foundation
 import HealthKit
 
 // Needed for testing because we can't create our own `HKSample`s
-struct SampleChange {
+struct QuantitySample: Sample {
 
-    var deletedIDs: Set<UUID> = []
-    var addedSamples: [Sample] = []
+    var id: UUID
+    var type: HKSampleType
+    var quantity: HKQuantity
+    var dateInterval: DateInterval
+    var sourceRevision: OCKSourceRevision?
+    var device: OCKDevice?
+    var metadata: [String: String]?
 }
 
-@available(iOS 15, watchOS 8, *)
-extension SampleChange {
+extension QuantitySample {
 
-    init(_ output: HealthKitQueryMonitor.QueryResult) {
-
-        deletedIDs = Set(
-            output.deletedObjects.map(\.uuid)
-        )
-
-        addedSamples = output.samples
-            .compactMap { $0 as? HKQuantitySample }
-            .map(Sample.init)
+    init(_ sample: HKQuantitySample) {
+        id = sample.uuid
+        type = sample.sampleType
+        quantity = sample.quantity
+        dateInterval = DateInterval(start: sample.startDate, end: sample.endDate)
+        sourceRevision = OCKSourceRevision(sourceRevision: sample.sourceRevision)
+        if let device = sample.device {
+            self.device = OCKDevice(device: device)
+        }
+        if let metadata = sample.metadata {
+            self.metadata = metadata.reduce(into: [:]) { result, element in
+                result[element.key] = String("\(element.value)")
+            }
+        }
     }
 }

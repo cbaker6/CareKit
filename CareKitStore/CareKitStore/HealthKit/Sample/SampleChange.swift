@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2025, Apple Inc. All rights reserved.
+ Copyright (c) 2022, Apple Inc. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -28,23 +28,33 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import Foundation
 import HealthKit
 
-public struct OCKSource: Codable, Hashable {
-    /**
-     The name of the source represented by the receiver.  If the source is an app, then the name is the localized name of the app.
-     */
-    var name: String
+// Needed for testing because we can't create our own `HKSample`s
+struct SampleChange {
 
-    /**
-     The bundle identifier of the source represented by the receiver.
-     */
-    var bundleIdentifier: String
+    var deletedIDs: Set<UUID> = []
+    var addedSamples: [Sample] = []
 }
 
-extension OCKSource {
-    init(source: HKSource) {
-        self.name = source.name
-        self.bundleIdentifier = source.bundleIdentifier
+@available(iOS 15, watchOS 8, *)
+extension SampleChange {
+
+    init(_ output: HealthKitQueryMonitor.QueryResult) {
+
+        deletedIDs = Set(
+            output.deletedObjects.map(\.uuid)
+        )
+
+        let quantitySamples = output.samples
+            .compactMap { $0 as? HKQuantitySample }
+            .map(QuantitySample.init)
+
+        let categorySamples = output.samples
+            .compactMap { $0 as? HKCategorySample }
+            .map(CategorySample.init)
+
+        addedSamples = quantitySamples + categorySamples
     }
 }

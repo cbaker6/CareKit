@@ -65,9 +65,9 @@ extension OCKHealthKitPassthroughStore {
     // Returns `some AsyncSequence where Element == [Event]`
     func events<SampleChanges: AsyncSequence>(
         matching query: OCKTaskQuery,
-        applyingChanges changes: @escaping ([Event]) -> SampleChanges,
+        applyingChanges changes: @escaping ([Event]) throws -> SampleChanges,
         updateCumulativeSumOfSamples: @escaping UpdateCumulativeSumOfSamples
-    ) -> AsyncFlatMapSequence<AsyncMapSequence<AsyncMapSequence<
+    ) -> AsyncThrowingFlatMapSequence<AsyncMapSequence<AsyncMapSequence<
         AsyncThrowingMapSequence<CareStoreQueryResults<OCKHealthKitTask>, [[OCKHealthKitPassthroughStore.Task]]>, [PartialEvent<OCKHealthKitPassthroughStore.Task>]>, [OCKHealthKitPassthroughStore.Event]>, AsyncThrowingExclusiveReductionsSequence<AsyncChain2Sequence<AsyncSyncSequence<[SampleChange]>, SampleChanges>, [OCKHealthKitPassthroughStore.Event]>
     > where SampleChanges.Element == SampleChange {
 
@@ -84,7 +84,7 @@ extension OCKHealthKitPassthroughStore {
         let updatedEvents = events.flatMap { events in
 
             let initialChanges = [SampleChange()].async
-            let seededChanges = chain(initialChanges, changes(events))
+            let seededChanges = try chain(initialChanges, changes(events))
 
             // Continuously update the outcomes for the events when new HealthKit
             // sample changes are received. We seed the streaming changes in case there actually

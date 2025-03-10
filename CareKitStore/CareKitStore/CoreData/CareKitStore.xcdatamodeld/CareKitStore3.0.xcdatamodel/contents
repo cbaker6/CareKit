@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="24E5206s" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="24E5222f" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="OCKCDCarePlan" representedClassName="OCKCDCarePlan" syncable="YES">
         <attribute name="asset" optional="YES" attributeType="String"/>
         <attribute name="createdDate" attributeType="Date" usesScalarValueType="NO"/>
@@ -81,9 +81,9 @@
         <relationship name="device" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OCKCDOutcomeValue" inverseName="device" inverseEntity="OCKCDOutcomeValue"/>
     </entity>
     <entity name="OCKCDHealthKitLinkage" representedClassName="OCKCDHealthKitLinkage" syncable="YES">
-        <attribute name="quantityIdentifier" attributeType="String"/>
-        <attribute name="quantityType" attributeType="String"/>
-        <attribute name="unitString" attributeType="String"/>
+        <attribute name="quantityType" optional="YES" attributeType="String"/>
+        <attribute name="sampleIdentifier" attributeType="String"/>
+        <attribute name="unitString" optional="YES" attributeType="String"/>
         <relationship name="task" maxCount="1" deletionRule="Deny" destinationEntity="OCKCDHealthKitTask" inverseName="healthKitLinkage" inverseEntity="OCKCDHealthKitTask"/>
     </entity>
     <entity name="OCKCDHealthKitTask" representedClassName="OCKCDHealthKitTask" parentEntity="OCKCDTaskBase" syncable="YES">

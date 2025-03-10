@@ -32,7 +32,7 @@ import CoreData
 import Foundation
 
 
-class OCKStoreMigration2_0To3_0Policy: NSEntityMigrationPolicy {
+class OCKStoreMigration2_1To3_0Policy: NSEntityMigrationPolicy {
 
     override func createDestinationInstances(
         forSource sInstance: NSManagedObject,
@@ -58,74 +58,15 @@ class OCKStoreMigration2_0To3_0Policy: NSEntityMigrationPolicy {
         // not capture any relationships - we have to tackle that separately.
         for key in sInstance.entity.attributesByName.keys {
 
-            // `allowsMissingRelationships` was removed from all types
-            if key == "allowsMissingRelationships" {
-                continue
-            }
-
-            // Tags were changed from a Transformable array of strings to a set
-            // of OCKCDTags.
-            if key == "tags" {
-                guard let tagsValue = sInstance.value(forKey: key) else {
-                    continue
-                }
-
-                var tagObjects = Set<NSManagedObject>()
-
-                for tag in tagsValue as! [String] {
-
-                    let request = NSFetchRequest<NSManagedObject>(entityName: "OCKCDTag")
-                    request.predicate = NSPredicate(format: "title == %@", tag)
-                    request.fetchLimit = 1
-
-                    let fetched = try manager.destinationContext.fetch(request)
-
-                    if let existing = fetched.first {
-
-                        tagObjects.insert(existing)
-
-                    } else {
-
-                        let object = NSEntityDescription.insertNewObject(
-                            forEntityName: "OCKCDTag",
-                            into: manager.destinationContext
-                        )
-
-                        object.setValue(tag, forKey: "title")
-
-                        tagObjects.insert(object)
-                    }
-                }
-
-                dInstance.setValue(tagObjects, forKey: "tags")
-            }
-
-            // Update the schema version to 3.0
+            // Update the schema version to 3.0.0
             if key == "schemaVersion" {
                 dInstance.setValue("3.0.0", forKey: key)
                 continue
             }
 
-            // OCKCDOutcome's `date` was renamed to `startDate`, and new
-            // `endDate` and `deletedDate` attributes were added. The start
-            // and end dates must be retrieved from the event associated with
-            // the outcome. The deleted date will always be nil.
-            if sInstance.entity.name == "OCKCDOutcome" && key == "date" {
+            // OCKCDHealthKitLinkage's `quantityIdentifier` was renamed to `sampleIdentifier`.
+            if sInstance.entity.name == "OCKCDHealthKitLinkage" && key == "quantityIdentifier" {
 
-                let task = sInstance.value(forKey: "task") as! NSManagedObject
-                let elements = task.value(forKey: "scheduleElements") as! Set<NSManagedObject>
-                let schedule = OCKSchedule(composing: elements.map(element))
-                let occurrence = sInstance.value(forKey: "taskOccurrenceIndex") as! Int64
-                let event = schedule[Int(occurrence)]
-
-                dInstance.setValue(event.start, forKey: "startDate")
-                dInstance.setValue(event.start, forKey: "effectiveDate")
-                dInstance.setValue(event.end, forKey: "endDate")
-                dInstance.setValue(nil, forKey: "deletedDate")
-
-            } else if sInstance.entity.name == "OCKCDHealthKitLinkage" && key == "quantityIdentifier" {
-
-                // OCKCDHealthKitLinkage's `quantityIdentifier` was renamed to `sampleIdentifier`.
                 let quantityIdentifier = sInstance.value(forKey: key) as! String
                 dInstance.setValue(quantityIdentifier, forKey: "sampleIdentifier")
 
@@ -134,19 +75,6 @@ class OCKStoreMigration2_0To3_0Policy: NSEntityMigrationPolicy {
                 let value = sInstance.value(forKey: key)
                 dInstance.setValue(value, forKey: key)
             }
-        }
-
-        // A `logicalClock` attribute was added to many of the objects.
-        // For migration purposes, we set `logicalClock` to 0 to indicate
-        // that they were the first items added to the database.
-        if dInstance.entity.attributesByName.keys.contains("logicalClock") {
-            dInstance.setValue(0, forKey: "logicalClock")
-        }
-
-        // A `uuid` attribute was added to many of the objects.
-        // For migration purposes, we set `uuid` to a random value.
-        if dInstance.entity.attributesByName.keys.contains("uuid") {
-            dInstance.setValue(UUID(), forKey: "uuid")
         }
     }
 
@@ -195,17 +123,6 @@ class OCKStoreMigration2_0To3_0Policy: NSEntityMigrationPolicy {
             let relationEntity = "\(relationship.destinationEntity!.name!)"
             let relationMapping = "\(relationEntity)To\(relationEntity)"
 
-            // Previous and next were upgraded from 1-to-1 to many-to-many.
-            if key == "next" || key == "previous" {
-                let sRelation = sValue as! NSManagedObject
-                let dRelation = manager.destinationInstances(
-                    forEntityMappingName: relationMapping,
-                    sourceInstances: [sRelation]
-                )
-                dInstance.setValue(Set(dRelation), forKey: key)
-                continue
-            }
-
             if relationship.isToMany {
                 let sRelations = sValue as! Set<NSManagedObject>
                 let dRelations = manager.destinationInstances(
@@ -222,49 +139,6 @@ class OCKStoreMigration2_0To3_0Policy: NSEntityMigrationPolicy {
                 dInstance.setValue(dRelation, forKey: key)
             }
         }
-
-        // An `id` property was added on to OCKCDOutcome
-        if dInstance.entity.name == "OCKCDOutcome" {
-            let task = dInstance.value(forKey: "task") as! NSManagedObject
-            let taskUUID = task.value(forKey: "uuid") as! UUID
-            let index = dInstance.value(forKey: "taskOccurrenceIndex") as! Int64
-            let id = taskUUID.uuidString + "_\(index)"
-            dInstance.setValue(id, forKey: "id")
-        }
-    }
-
-
-    private func element(from object: NSManagedObject) -> OCKScheduleElement {
-
-        // We're only using these elements date extraction purposes, so we don't
-        // need to bother with populating fields like text or target values.
-
-        let start = object.primitiveValue(forKey: "startDate") as! Date
-
-        let end = object.primitiveValue(forKey: "endDate") as? Date
-
-        let duration = object.primitiveValue(forKey: "durationInSeconds") as! Double
-
-        let interval = DateComponents(
-            year: Int(object.primitiveValue(forKey: "yearsInterval") as! Int64),
-            month: Int(object.primitiveValue(forKey: "monthsInterval") as! Int64),
-            day: Int(object.primitiveValue(forKey: "daysInterval") as! Int64),
-            hour: Int(object.primitiveValue(forKey: "hoursInterval") as! Int64),
-            minute: Int(object.primitiveValue(forKey: "minutesInterval") as! Int64),
-            second: Int(object.primitiveValue(forKey: "secondsInterval") as! Int64),
-            weekOfYear: Int(object.primitiveValue(forKey: "weeksInterval") as! Int64)
-        )
-        
-        let element = OCKScheduleElement(
-            start: start,
-            end: end,
-            interval: interval,
-            text: nil,
-            targetValues: [],
-            duration: .seconds(duration)
-        )
-
-        return element
     }
 }
 

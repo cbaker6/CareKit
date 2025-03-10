@@ -44,20 +44,46 @@ public extension OCKHealthKitPassthroughStore {
                     else { throw OCKStoreError.addFailed(reason: "Cannot persist an OCKHealthKitOutcome that is not owned by this app!") }
                 guard outcome.values.count == 1
                     else { throw OCKStoreError.addFailed(reason: "OCKHealthKitOutcomes must have exactly 1 value, but got \(outcome.values.count).") }
-                guard let value = outcome.values.first?.doubleValue
-                    else { throw OCKStoreError.addFailed(reason: "OCKHealthKitOutcome's value must be of type Double, but was not.") }
                 guard let task = tasks.first(where: { $0.uuid == outcome.taskUUID })
                     else { throw OCKStoreError.addFailed(reason: "No task could be for outcome") }
 
-                let unit = task.healthKitLinkage.unit
-                let quantity = HKQuantity(unit: unit, doubleValue: value)
-                let type = HKObjectType.quantityType(forIdentifier: task.healthKitLinkage.quantityIdentifier)!
                 let event = task.schedule.event(forOccurrenceIndex: outcome.taskOccurrenceIndex)!
                 let eventInterval = DateInterval(start: event.start, end: event.end)
                 let currentTime = Date()
                 let sampleTime = eventInterval.contains(currentTime) ? currentTime : eventInterval.start
-                let sample = HKQuantitySample(type: type, quantity: quantity, start: sampleTime, end: sampleTime.advanced(by: 1))
-                return sample
+                let advancedSampleTime = sampleTime.advanced(by: 1)
+
+                if let quantityType = try? extractQuantityType(from: task) {
+
+                    guard let value = outcome.values.first?.doubleValue
+                        else { throw OCKStoreError.addFailed(reason: "OCKHealthKitOutcome's value must be of type Double, but was not.") }
+
+                    guard let unit = task.healthKitLinkage.unit else {
+                        throw OCKStoreError.addFailed(
+                            reason: "OCKHealthKitOutcome's value must be of type Double, but was not."
+                        )
+                    }
+
+                    // Create HKQuantitySample
+
+                    let quantity = HKQuantity(unit: unit, doubleValue: value)
+                    let sample = HKQuantitySample(type: quantityType, quantity: quantity, start: sampleTime, end: advancedSampleTime)
+
+                    return sample
+
+                } else if let categoryType = try? extractCategoryType(from: task) {
+                    // Create HKCategorySample
+
+                    guard let value = outcome.values.first?.integerValue
+                        else { throw OCKStoreError.addFailed(reason: "OCKHealthKitOutcome's value must be of type Integer, but was not.") }
+
+                    let sample = HKCategorySample(type: categoryType, value: value, start: sampleTime, end: advancedSampleTime)
+
+                    return sample
+                }
+
+                throw OCKStoreError.addFailed(reason: "No quantity or category identifier found for task")
+
             }
 
             healthStore.save(samples) { _, error in
@@ -100,11 +126,15 @@ public extension OCKHealthKitPassthroughStore {
 
             let tasks = try fetchTasks(for: outcomes)
 
-            let objectTypes = tasks.map {
-                HKObjectType.quantityType(forIdentifier: $0.healthKitLinkage.quantityIdentifier)!
+            let quantityObjectTypes = tasks.compactMap { task -> HKQuantityType? in
+                try? extractQuantityType(from: task)
             }
 
-            let uniqueObjectTypes = Set(objectTypes)
+            let categoryObjectTypes = tasks.compactMap { task -> HKCategoryType? in
+                try? extractCategoryType(from: task)
+            }
+
+            let uniqueObjectTypes = Set(quantityObjectTypes + categoryObjectTypes)
 
             guard
                 let objectTypeToDelete = uniqueObjectTypes.first,

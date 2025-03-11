@@ -264,8 +264,9 @@ extension OCKHealthKitPassthroughStore {
     ) throws -> OCKOutcomeValue {
 
         if let quantitySample = sample as? QuantitySample {
+
             guard let unit = event.task.healthKitLinkage.unit else {
-                throw OCKStoreError.invalidValue(reason: "Quantity type specified but unit not")
+                throw OCKStoreError.invalidValue(reason: "Quantity type should have a unit specified")
             }
             let doubleValue = quantitySample
                 .quantity
@@ -284,11 +285,11 @@ extension OCKHealthKitPassthroughStore {
             )
 
             return outcomeValue
+
         } else if let categorySample = sample as? CategorySample {
-            let integerValue = categorySample.value
 
             let outcomeValue = OCKOutcomeValue(
-                integerValue,
+                categorySample.value,
                 units: nil,
                 createdDate: Date(),
                 kind: nil,
@@ -300,10 +301,12 @@ extension OCKHealthKitPassthroughStore {
             )
 
             return outcomeValue
+
         } else {
             throw OCKStoreError.invalidValue(reason: "Unsupported sample type")
         }
     }
+
     /// Convert a sample to an outcome value and store it on the event's outcome. We also
     /// store the sample ID on the outcome so that we can locate this outcome value later on.
     private func appendSample(

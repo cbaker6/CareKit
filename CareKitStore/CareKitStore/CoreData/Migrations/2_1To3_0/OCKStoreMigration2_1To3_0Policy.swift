@@ -64,17 +64,9 @@ class OCKStoreMigration2_1To3_0Policy: NSEntityMigrationPolicy {
                 continue
             }
 
-            // OCKCDHealthKitLinkage's `quantityIdentifier` was renamed to `sampleIdentifier`.
-            if sInstance.entity.name == "OCKCDHealthKitLinkage" && key == "quantityIdentifier" {
+            let value = sInstance.value(forKey: key)
+            dInstance.setValue(value, forKey: key)
 
-                let quantityIdentifier = sInstance.value(forKey: key) as! String
-                dInstance.setValue(quantityIdentifier, forKey: "sampleIdentifier")
-
-            } else {
-
-                let value = sInstance.value(forKey: key)
-                dInstance.setValue(value, forKey: key)
-            }
         }
     }
 
@@ -132,10 +124,12 @@ class OCKStoreMigration2_1To3_0Policy: NSEntityMigrationPolicy {
                 dInstance.setValue(Set(dRelations), forKey: key)
             } else {
                 let sRelation = sValue as! NSManagedObject
-                let dRelation = manager.destinationInstances(
+                guard let dRelation = manager.destinationInstances(
                     forEntityMappingName: relationMapping,
                     sourceInstances: [sRelation]
-                ).first!
+                ).first else {
+                    continue
+                }
                 dInstance.setValue(dRelation, forKey: key)
             }
         }

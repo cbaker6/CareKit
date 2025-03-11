@@ -200,49 +200,45 @@ class TestHealthKitPassthroughStoreOutcomes: XCTestCase {
         let stepQuantityType = OCKHealthKitLinkage.QuantityType.cumulative
         let unit = HKUnit.count()
         let stepLinkage = OCKHealthKitLinkage(
-            categoryIdentifier: nil,
             quantityIdentifier: stepIdentifier,
             quantityType: stepQuantityType,
             unit: unit
         )
-        XCTAssertEqual(stepLinkage?.quantityIdentifier, stepIdentifier)
+        XCTAssertEqual(stepLinkage.quantityIdentifier, stepIdentifier)
         // Currently HKCategoryTypeIdentifier will create an instance
         // of itself even when it's rawValue isn't a real HKCategoryTypeIdentifier
         // which seems like a bug. We account for the bug by attempting
         // to create a category type from the identifier which should
         // return nil. The else will test properly if the bug is ever
         // corrected in the future.
-        if let categoryIdentifier = stepLinkage?.categoryIdentifier {
+        if let categoryIdentifier = stepLinkage.categoryIdentifier {
             XCTAssertNil(HKObjectType.categoryType(forIdentifier: categoryIdentifier))
         } else {
-            XCTAssertNil(stepLinkage?.categoryIdentifier)
+            XCTAssertNil(stepLinkage.categoryIdentifier)
         }
-        XCTAssertEqual(stepLinkage?.quantityType, stepQuantityType)
-        XCTAssertEqual(stepLinkage?.unit, unit)
+        XCTAssertEqual(stepLinkage.quantityType, stepQuantityType)
+        XCTAssertEqual(stepLinkage.unit, unit)
     }
 
     func testCreatingHealthKitLinkageWithCategoryIdentifier() throws {
         let acneIdentifier = HKCategoryTypeIdentifier.acne
         let acneLinkage = OCKHealthKitLinkage(
-            categoryIdentifier: acneIdentifier,
-            quantityIdentifier: nil,
-            quantityType: .cumulative,
-            unit: .count()
+            categoryIdentifier: acneIdentifier
         )
-        XCTAssertEqual(acneLinkage?.categoryIdentifier, acneIdentifier)
+        XCTAssertEqual(acneLinkage.categoryIdentifier, acneIdentifier)
         // Currently HKQuantityTypeIdentifier will create an instance
         // of itself even when it's rawValue isn't a real HKQuantityTypeIdentifier
         // which seems like a bug. We account for the bug by attempting
         // to create a quantity type from the identifier which should
         // return nil. The else will test properly if the bug is ever
         // corrected in the future.
-        if let quantityIdentifier = acneLinkage?.quantityIdentifier {
+        if let quantityIdentifier = acneLinkage.quantityIdentifier {
             XCTAssertNil(HKObjectType.quantityType(forIdentifier: quantityIdentifier))
         } else {
-            XCTAssertNil(acneLinkage?.quantityIdentifier)
+            XCTAssertNil(acneLinkage.quantityIdentifier)
         }
-        XCTAssertNil(acneLinkage?.quantityType)
-        XCTAssertNil(acneLinkage?.unit)
+        XCTAssertNil(acneLinkage.quantityType)
+        XCTAssertNil(acneLinkage.unit)
     }
 
     // MARK: - Utilities

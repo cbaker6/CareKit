@@ -87,25 +87,7 @@ public struct OCKHealthKitLinkage: Equatable, Codable {
     /// Initialize by specifying HealthKit types.
     ///
     /// - Parameter categoryIdentifier: A HealthKitCategoryIdentifier that describes the outcome's data type.
-    /// - Parameter quantityIdentifier: A HealthKitQuantityIdentifier that describes the outcome's data type.
-    /// - Parameter quantityType: Determines what kind of query will be used to fetch data from HealthKit.
-    /// - Parameter unit: A HealthKit unit that will be associated with outcomes saved to and fetched from HealthKit.
-    public init?(
-        categoryIdentifier: HKCategoryTypeIdentifier?,
-        quantityIdentifier: HKQuantityTypeIdentifier?,
-        quantityType: QuantityType?,
-        unit: HKUnit?
-    ) {
-        if let quantityIdentifier = quantityIdentifier,
-           let quantityType = quantityType,
-           let unit = unit {
-            self.sampleIdentifier = quantityIdentifier.rawValue
-            self.quantityType = quantityType
-            self.unitString = unit.unitString
-        } else if let categoryIdentifier = categoryIdentifier {
-            self.sampleIdentifier = categoryIdentifier.rawValue
-        } else {
-            return nil
-        }
+    public init(categoryIdentifier: HKCategoryTypeIdentifier) {
+        self.sampleIdentifier = categoryIdentifier.rawValue
     }
 }

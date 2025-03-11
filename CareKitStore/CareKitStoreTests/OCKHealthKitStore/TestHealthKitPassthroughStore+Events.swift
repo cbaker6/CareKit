@@ -886,10 +886,7 @@ private extension OCKHealthKitTask {
     static func makeDailyAcneTask(startHour: Int = 7) throws -> OCKHealthKitTask {
         let link = try XCTUnwrap(
             OCKHealthKitLinkage(
-                categoryIdentifier: .acne,
-                quantityIdentifier: nil,
-                quantityType: nil,
-                unit: nil
+                categoryIdentifier: .acne
             )
         )
         let task = OCKHealthKitTask(

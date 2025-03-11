@@ -61,12 +61,18 @@ class OCKCDHealthKitLinkage: NSManagedObject {
             )
             let quantityType: OCKHealthKitLinkage.QuantityType? = quantityType != nil ? OCKHealthKitLinkage.QuantityType(rawValue: quantityType!)! : nil
             let unit: HKUnit? = unitString != nil ? HKUnit(from: unitString!) : nil
-            healthKitLinkage = OCKHealthKitLinkage(
-                categoryIdentifier: categoryIdentifier,
-                quantityIdentifier: quantityIdentifier,
-                quantityType: quantityType,
-                unit: unit
-            )
+            if let quantityType = quantityType,
+               let unit = unit {
+                healthKitLinkage = OCKHealthKitLinkage(
+                    quantityIdentifier: quantityIdentifier,
+                    quantityType: quantityType,
+                    unit: unit
+                )
+            } else {
+                healthKitLinkage = OCKHealthKitLinkage(
+                    categoryIdentifier: categoryIdentifier
+                )
+            }
         }
 
         return healthKitLinkage

@@ -31,9 +31,6 @@
 import Foundation
 import HealthKit
 
-extension HKQuantityTypeIdentifier: Codable {}
-extension HKCategoryTypeIdentifier: Codable {}
-
 /// Describes how a task outcome values should be retrieved from HealthKit.
 public struct OCKHealthKitLinkage: Equatable, Codable {
 
@@ -49,12 +46,14 @@ public struct OCKHealthKitLinkage: Equatable, Codable {
 
     /// A HealthKitQuantityIdentifier that describes the outcome's data type.
     public var quantityIdentifier: HKQuantityTypeIdentifier? {
-        HKQuantityTypeIdentifier(rawValue: sampleIdentifier)
+        get { HKQuantityTypeIdentifier(rawValue: sampleIdentifier) }
+        set { sampleIdentifier = newValue?.rawValue ?? "" }
     }
 
     /// A HKCategoryTypeIdentifier that describes the outcome's data type.
     public var categoryIdentifier: HKCategoryTypeIdentifier? {
-        HKCategoryTypeIdentifier(rawValue: sampleIdentifier)
+        get { HKCategoryTypeIdentifier(rawValue: sampleIdentifier) }
+        set { sampleIdentifier = newValue?.rawValue ?? "" }
     }
 
     /// Determines what kind of query will be used to fetch data from HealthKit.

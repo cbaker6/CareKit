@@ -456,7 +456,7 @@ extension OCKHealthKitPassthroughStore {
               let quantityType = HKObjectType.quantityType(forIdentifier: quantityID) else {
             let error = OCKStoreError.invalidValue(
                 reason: "Task \(task) does not have a valid healthKitLinkage.quantityIdentifier"
-                )
+            )
             throw error
         }
 
@@ -468,7 +468,7 @@ extension OCKHealthKitPassthroughStore {
               let categoryType = HKObjectType.categoryType(forIdentifier: categoryID) else {
             let error = OCKStoreError.invalidValue(
                 reason: "Task \(task) does not have a valid healthKitLinkage.categoryIdentifier"
-                )
+            )
             throw error
         }
 

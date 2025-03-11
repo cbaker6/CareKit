@@ -34,9 +34,9 @@ import HealthKit
 
 @objc(OCKCDHealthKitLinkage)
 class OCKCDHealthKitLinkage: NSManagedObject {
-    @NSManaged var quantityIdentifier: String
-    @NSManaged var quantityType: String
-    @NSManaged var unitString: String
+    @NSManaged var sampleIdentifier: String
+    @NSManaged var quantityType: String?
+    @NSManaged var unitString: String?
 
     convenience init(context: NSManagedObjectContext) {
         self.init(entity: Self.entity(), insertInto: context)
@@ -44,19 +44,28 @@ class OCKCDHealthKitLinkage: NSManagedObject {
     
     convenience init(link: OCKHealthKitLinkage, context: NSManagedObjectContext) {
         self.init(entity: Self.entity(), insertInto: context)
-        self.quantityIdentifier = link.quantityIdentifier.rawValue
-        self.quantityType = link.quantityType.rawValue
-        self.unitString = link.unit.unitString
+        self.sampleIdentifier = link.sampleIdentifier
+        self.quantityType = link.quantityType?.rawValue
+        self.unitString = link.unit?.unitString
     }
 
     func makeValue() -> OCKHealthKitLinkage {
 
         var healthKitLinkage: OCKHealthKitLinkage!
         self.managedObjectContext!.performAndWait {
+            let categoryIdentifier = HKCategoryTypeIdentifier(
+                rawValue: sampleIdentifier
+            )
+            let quantityIdentifier = HKQuantityTypeIdentifier(
+                rawValue: sampleIdentifier
+            )
+            let quantityType: OCKHealthKitLinkage.QuantityType? = quantityType != nil ? OCKHealthKitLinkage.QuantityType(rawValue: quantityType!)! : nil
+            let unit: HKUnit? = unitString != nil ? HKUnit(from: unitString!) : nil
             healthKitLinkage = OCKHealthKitLinkage(
-                quantityIdentifier: HKQuantityTypeIdentifier(rawValue: quantityIdentifier),
-                quantityType: OCKHealthKitLinkage.QuantityType(rawValue: quantityType)!,
-                unit: HKUnit(from: unitString)
+                categoryIdentifier: categoryIdentifier,
+                quantityIdentifier: quantityIdentifier,
+                quantityType: quantityType,
+                unit: unit
             )
         }
 

@@ -123,6 +123,12 @@ class OCKStoreMigration2_0To3_0Policy: NSEntityMigrationPolicy {
                 dInstance.setValue(event.end, forKey: "endDate")
                 dInstance.setValue(nil, forKey: "deletedDate")
 
+            } else if sInstance.entity.name == "OCKCDHealthKitLinkage" && key == "quantityIdentifier" {
+
+                // OCKCDHealthKitLinkage's `quantityIdentifier` was renamed to `sampleIdentifier`.
+                let quantityIdentifier = sInstance.value(forKey: key) as! String
+                dInstance.setValue(quantityIdentifier, forKey: "sampleIdentifier")
+
             } else {
 
                 let value = sInstance.value(forKey: key)

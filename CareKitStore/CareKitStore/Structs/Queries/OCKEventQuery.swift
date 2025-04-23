@@ -45,6 +45,9 @@ public struct OCKEventQuery: Equatable {
     /// The tags of tasks to match events against.
     public var taskTags: [String] = []
 
+	/// Determines if tasks with no events should be included in the query results or not. False be default.
+	public var excludesTasksWithNoEvents = false
+
     /// Initialize a new `OCKEventQuery` by specifying the start and end dates.
     ///
     /// - Parameters:
@@ -68,6 +71,7 @@ public struct OCKEventQuery: Equatable {
         taskQuery.ids = taskIDs
         taskQuery.groupIdentifiers = taskGroupIdentifiers
         taskQuery.tags = taskTags
+		taskQuery.excludesTasksWithNoEvents = excludesTasksWithNoEvents
         return taskQuery
     }
 

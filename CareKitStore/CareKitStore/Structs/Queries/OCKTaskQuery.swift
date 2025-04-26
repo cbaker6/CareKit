@@ -31,10 +31,10 @@
 import Foundation
 
 /// A query that limits which tasks will be returned when fetching.
-public struct OCKTaskQuery: Equatable, OCKQueryProtocol {
+public struct OCKTaskQuery: Hashable, OCKQueryProtocol {
 
     /// Specifies the order in which query results will be sorted.
-    public enum SortDescriptor: Equatable {
+    public enum SortDescriptor: Hashable {
         case effectiveDate(ascending: Bool)
         case groupIdentifier(ascending: Bool)
         case title(ascending: Bool)

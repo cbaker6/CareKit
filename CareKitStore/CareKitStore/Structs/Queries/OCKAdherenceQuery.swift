@@ -31,7 +31,7 @@
 import Foundation
 
 /// `OCKAdherenceQuery` is used to constrain the results returned when fetching adherence from a store.
-public struct OCKAdherenceQuery {
+public struct OCKAdherenceQuery: Hashable {
 
     /// The IDs of the tasks for which adherence should be calculated.
     public var taskIDs: [String]
@@ -92,4 +92,16 @@ public struct OCKAdherenceQuery {
         }
         return dates
     }
+}
+
+extension OCKAdherenceQuery {
+	public static func == (lhs: OCKAdherenceQuery, rhs: OCKAdherenceQuery) -> Bool {
+		lhs.taskIDs == rhs.taskIDs
+		&& lhs.dateInterval == rhs.dateInterval
+	}
+
+	public func hash(into hasher: inout Hasher) {
+		hasher.combine(taskIDs)
+		hasher.combine(dateInterval)
+	}
 }

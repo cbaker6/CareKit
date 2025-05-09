@@ -88,13 +88,12 @@ class TestStoreOutcomes: XCTestCase {
         let metadata = ["key": "value"]
         let value = OCKOutcomeValue(
             42,
-            createdDate: Date(),
+            createdDate: dateInterval.start,
+			endDate: dateInterval.end,
             kind: "number",
             sourceRevision: sourceRevision,
             device: device,
-            metadata: metadata,
-            startDate: dateInterval.start,
-            endDate: dateInterval.end
+            metadata: metadata
         )
 
         var outcome = OCKOutcome(taskUUID: taskUUID, taskOccurrenceIndex: 0, values: [value])

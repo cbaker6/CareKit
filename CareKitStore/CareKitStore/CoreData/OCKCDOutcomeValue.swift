@@ -35,7 +35,6 @@ class OCKCDOutcomeValue: NSManagedObject {
     @NSManaged var kind: String? // blood sugar, body weight, etc.
     @NSManaged var units: String?
     @NSManaged var createdDate: Date
-    @NSManaged var startDate: Date?
     @NSManaged var endDate: Date?
     @NSManaged var outcome: OCKCDOutcome?
     @NSManaged var sourceRevision: OCKCDSourceRevision?
@@ -61,7 +60,6 @@ class OCKCDOutcomeValue: NSManagedObject {
         self.units = value.units
         self.kind = value.kind
         self.createdDate = value.createdDate
-        self.startDate = value.dateInterval?.start
         self.endDate = value.dateInterval?.end
         self.metadata = value.metadata
         if let sourceRevision = value.sourceRevision {
@@ -87,12 +85,11 @@ class OCKCDOutcomeValue: NSManagedObject {
                 self.value,
                 units: units,
                 createdDate: createdDate,
+				endDate: endDate,
                 kind: kind,
                 sourceRevision: sourceRevision?.makeValue(),
                 device: device?.makeValue(),
-                metadata: metadata,
-                startDate: startDate,
-                endDate: endDate
+                metadata: metadata
             )
         }
 

@@ -169,16 +169,18 @@ class TestHealthKitPassthroughStoreEvents: XCTestCase {
             case stepsTask.id:
                 XCTAssertEqual(outcomeValues.count, 1)
                 XCTAssertEqual(outcomeValues.first?.doubleValue, -1)
-
+                
             case heartRateTask.id:
                 XCTAssertEqual(outcomeValues.count, 2)
                 XCTAssertEqual(outcomeValues.first?.doubleValue, 70)
                 XCTAssertEqual(outcomeValues.first?.dateInterval, heartRateDateInterval)
+                XCTAssertEqual(outcomeValues.first?.createdDate, heartRateDateInterval.start)
                 XCTAssertEqual(outcomeValues.first?.sourceRevision, heartRateSourceRevision)
                 XCTAssertEqual(outcomeValues.first?.device, heartRateDevice)
                 XCTAssertEqual(outcomeValues.first?.metadata, heartRateMetadata)
                 XCTAssertEqual(outcomeValues.last?.doubleValue, 80)
                 XCTAssertEqual(outcomeValues.last?.dateInterval, heartRateDateInterval)
+                XCTAssertEqual(outcomeValues.last?.createdDate, heartRateDateInterval.start)
                 XCTAssertEqual(outcomeValues.last?.sourceRevision, heartRateSourceRevision)
                 XCTAssertEqual(outcomeValues.last?.device, heartRateDevice)
                 XCTAssertEqual(outcomeValues.last?.metadata, heartRateMetadata)

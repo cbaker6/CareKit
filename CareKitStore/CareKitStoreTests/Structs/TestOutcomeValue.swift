@@ -137,7 +137,6 @@ class TestOutcomeValue: XCTestCase {
 
     func testCodingAllEntries() throws {
         let createdDate = Date().addingTimeInterval(-200)
-        let startDate = Date().addingTimeInterval(-100)
         let endDate = Date().addingTimeInterval(-50)
         let sourceRevision = OCKSourceRevision(
             source: .init(
@@ -168,12 +167,11 @@ class TestOutcomeValue: XCTestCase {
             10,
             units: "m/s",
             createdDate: createdDate,
+			endDate: endDate,
             kind: "whale",
             sourceRevision: sourceRevision,
             device: device,
-            metadata: metadata,
-            startDate: startDate,
-            endDate: endDate
+            metadata: metadata
         )
 
         let encoded = try JSONEncoder().encode(value)

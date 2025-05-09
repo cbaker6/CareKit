@@ -140,12 +140,12 @@
 		7098B6062D78741800A098DD /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098B6052D78741100A098DD /* Sample.swift */; };
 		70B8768E2D7F7179009180E8 /* OCKStoreMigration2_1To3_0Policy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B8768D2D7F7179009180E8 /* OCKStoreMigration2_1To3_0Policy.swift */; };
 		70B876902D7F8604009180E8 /* 2.0_3.0_Mapping.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 70B8768F2D7F8604009180E8 /* 2.0_3.0_Mapping.xcmappingmodel */; };
-		70B876922D7F8632009180E8 /* 2.1_3.0_Mapping.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 70B876912D7F8632009180E8 /* 2.1_3.0_Mapping.xcmappingmodel */; };
 		70C4A7042C61B3AE00A83FC4 /* SampleStore2.1.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 70C4A7012C61B3AE00A83FC4 /* SampleStore2.1.sqlite */; };
 		70C4A7052C61B3AE00A83FC4 /* SampleStore2.1.sqlite-wal in Resources */ = {isa = PBXBuildFile; fileRef = 70C4A7022C61B3AE00A83FC4 /* SampleStore2.1.sqlite-wal */; };
 		70C4A7062C61B3AE00A83FC4 /* SampleStore2.1.sqlite-shm in Resources */ = {isa = PBXBuildFile; fileRef = 70C4A7032C61B3AE00A83FC4 /* SampleStore2.1.sqlite-shm */; };
 		70C4A70D2C61B42200A83FC4 /* OCKStoreMigration2_0To3_0Policy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C4A7082C61B42200A83FC4 /* OCKStoreMigration2_0To3_0Policy.swift */; };
 		70C4A7112C61C63500A83FC4 /* CareKitStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 70C4A6FC2C61B33F00A83FC4 /* CareKitStore.xcdatamodeld */; };
+		70E55D4C2DCE762400FA85DD /* 2.1_3.0_Mapping.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 70E55D4B2DCE762400FA85DD /* 2.1_3.0_Mapping.xcmappingmodel */; };
 		70FCCED92D73BFE8008A1BF8 /* OperatingSystemVersion+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FCCED72D73BFE8008A1BF8 /* OperatingSystemVersion+Codable.swift */; };
 		70FCCEDA2D73BFE8008A1BF8 /* OperatingSystemVersion+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FCCED82D73BFE8008A1BF8 /* OperatingSystemVersion+Hashable.swift */; };
 		70FCCEDC2D73C2AD008A1BF8 /* OCKCDDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FCCEDB2D73C2A5008A1BF8 /* OCKCDDevice.swift */; };
@@ -357,13 +357,13 @@
 		7098B6052D78741100A098DD /* Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
 		70B8768D2D7F7179009180E8 /* OCKStoreMigration2_1To3_0Policy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCKStoreMigration2_1To3_0Policy.swift; sourceTree = "<group>"; };
 		70B8768F2D7F8604009180E8 /* 2.0_3.0_Mapping.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = 2.0_3.0_Mapping.xcmappingmodel; sourceTree = "<group>"; };
-		70B876912D7F8632009180E8 /* 2.1_3.0_Mapping.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = 2.1_3.0_Mapping.xcmappingmodel; sourceTree = "<group>"; };
 		70C4A6FD2C61B33F00A83FC4 /* CareKitStore2.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CareKitStore2.1.xcdatamodel; sourceTree = "<group>"; };
 		70C4A6FF2C61B33F00A83FC4 /* CareKitStore2.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CareKitStore2.0.xcdatamodel; sourceTree = "<group>"; };
 		70C4A7012C61B3AE00A83FC4 /* SampleStore2.1.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = SampleStore2.1.sqlite; sourceTree = "<group>"; };
 		70C4A7022C61B3AE00A83FC4 /* SampleStore2.1.sqlite-wal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "SampleStore2.1.sqlite-wal"; sourceTree = "<group>"; };
 		70C4A7032C61B3AE00A83FC4 /* SampleStore2.1.sqlite-shm */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SampleStore2.1.sqlite-shm"; sourceTree = "<group>"; };
 		70C4A7082C61B42200A83FC4 /* OCKStoreMigration2_0To3_0Policy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OCKStoreMigration2_0To3_0Policy.swift; sourceTree = "<group>"; };
+		70E55D4B2DCE762400FA85DD /* 2.1_3.0_Mapping.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = 2.1_3.0_Mapping.xcmappingmodel; sourceTree = "<group>"; };
 		70FCCED62D73A47E008A1BF8 /* CareKitStore3.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CareKitStore3.0.xcdatamodel; sourceTree = "<group>"; };
 		70FCCED72D73BFE8008A1BF8 /* OperatingSystemVersion+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OperatingSystemVersion+Codable.swift"; sourceTree = "<group>"; };
 		70FCCED82D73BFE8008A1BF8 /* OperatingSystemVersion+Hashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OperatingSystemVersion+Hashable.swift"; sourceTree = "<group>"; };
@@ -750,7 +750,7 @@
 		70C4A70B2C61B42200A83FC4 /* 2_1To3_0 */ = {
 			isa = PBXGroup;
 			children = (
-				70B876912D7F8632009180E8 /* 2.1_3.0_Mapping.xcmappingmodel */,
+				70E55D4B2DCE762400FA85DD /* 2.1_3.0_Mapping.xcmappingmodel */,
 				70B8768D2D7F7179009180E8 /* OCKStoreMigration2_1To3_0Policy.swift */,
 			);
 			path = 2_1To3_0;
@@ -1074,7 +1074,7 @@
 				51D2F63D2878FBE900D19C2D /* PartialEvent.swift in Sources */,
 				E7AE85502232F24600AF7C32 /* OCKTask.swift in Sources */,
 				E7AE855A2232F24600AF7C32 /* OCKCDPatient.swift in Sources */,
-				70B876922D7F8632009180E8 /* 2.1_3.0_Mapping.xcmappingmodel in Sources */,
+				70E55D4C2DCE762400FA85DD /* 2.1_3.0_Mapping.xcmappingmodel in Sources */,
 				51DF5B2A287C84A10067795E /* OCKReadOnlyEventStore+VersioningUtilities.swift in Sources */,
 				E7AE85472232F24600AF7C32 /* OCKStoreProtocol.swift in Sources */,
 				70FCCEDC2D73C2AD008A1BF8 /* OCKCDDevice.swift in Sources */,

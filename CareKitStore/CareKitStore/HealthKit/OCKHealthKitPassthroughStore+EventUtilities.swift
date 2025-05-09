@@ -276,12 +276,11 @@ extension OCKHealthKitPassthroughStore {
                 doubleValue,
                 units: unit.unitString,
                 createdDate: sample.dateInterval.start,
+				endDate: sample.dateInterval.end,
                 kind: nil,
                 sourceRevision: sample.sourceRevision,
                 device: sample.device,
-                metadata: sample.metadata,
-                startDate: sample.dateInterval.start,
-                endDate: sample.dateInterval.end
+                metadata: sample.metadata
             )
 
             return outcomeValue
@@ -292,12 +291,11 @@ extension OCKHealthKitPassthroughStore {
                 categorySample.value,
                 units: nil,
                 createdDate: sample.dateInterval.start,
+				endDate: sample.dateInterval.end,
                 kind: nil,
                 sourceRevision: sample.sourceRevision,
                 device: sample.device,
-                metadata: sample.metadata,
-                startDate: sample.dateInterval.start,
-                endDate: sample.dateInterval.end
+                metadata: sample.metadata
             )
 
             return outcomeValue

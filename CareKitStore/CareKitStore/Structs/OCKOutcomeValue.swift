@@ -134,12 +134,11 @@ public struct OCKOutcomeValue: Codable, Equatable, CustomStringConvertible {
         _ value: OCKOutcomeValueUnderlyingType,
         units: String? = nil,
         createdDate: Date,
+		endDate: Date?,
         kind: String?,
         sourceRevision: OCKSourceRevision?,
         device: OCKDevice?,
-        metadata: [String: String]?,
-        startDate: Date?,
-        endDate: Date?
+        metadata: [String: String]?
     ) {
         self.init(value, units: units)
         self.createdDate = createdDate
@@ -147,14 +146,14 @@ public struct OCKOutcomeValue: Codable, Equatable, CustomStringConvertible {
         self.sourceRevision = sourceRevision
         self.device = device
         self.metadata = metadata
-        if let startDate = startDate,
-           let endDate = endDate {
+        if let endDate = endDate {
             self.dateInterval = DateInterval(
-                start: startDate,
+                start: createdDate,
                 end: endDate
             )
         }
     }
+
     /// Checks if two `OCKOutcomeValue`s have equal value properties, without checking their other properties.
     private func hasSameValueAs(_ other: OCKOutcomeValue) -> Bool {
         switch type {

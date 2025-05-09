@@ -170,7 +170,6 @@ class TestHealthKitPassthroughStoreEvents: XCTestCase {
                 XCTAssertEqual(outcomeValues.count, 1)
                 XCTAssertEqual(outcomeValues.first?.doubleValue, -1)
                 
-
             case heartRateTask.id:
                 XCTAssertEqual(outcomeValues.count, 2)
                 XCTAssertEqual(outcomeValues.first?.doubleValue, 70)

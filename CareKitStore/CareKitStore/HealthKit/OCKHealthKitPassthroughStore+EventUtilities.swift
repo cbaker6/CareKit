@@ -188,7 +188,7 @@ extension OCKHealthKitPassthroughStore {
 
             case .cumulative:
                 intersectingSamples.forEach { sample in
-                    updatedEvent = invalidateCumulativeOutcome(addedSampleID: sample.id, event: updatedEvent)
+                    updatedEvent = invalidateCumulativeOutcome(addedSample: sample, event: updatedEvent)
                 }
             }
         } else {
@@ -386,10 +386,11 @@ extension OCKHealthKitPassthroughStore {
     /// that will affect the sum value. We do store the sample ID for the new sample, but set the outcome
     /// value to -1 to indicate that the sum needs to be recomputed.
     private func invalidateCumulativeOutcome(
-        addedSampleID: UUID,
+        addedSample: any Sample,
         event: Event
     ) -> Event {
 
+		let addedSampleID = addedSample.id
         var updatedEvent = event
 
         // Create an outcome if one doesn't already exist
@@ -397,12 +398,23 @@ extension OCKHealthKitPassthroughStore {
 
         // If there are no outcome values yet, create a new one
         guard
+
             event.outcome?.values.first != nil &&
             event.outcome?.healthKitUUIDs.first != nil
         else {
 
+			let value = -1
             let units = event.task.healthKitLinkage.unit?.unitString
-            let outcomeValue = OCKOutcomeValue(-1, units: units)
+			let outcomeValue = OCKOutcomeValue(
+				value,
+				units: units,
+				createdDate: addedSample.dateInterval.start,
+				endDate: addedSample.dateInterval.end,
+				kind: nil,
+				sourceRevision: addedSample.sourceRevision,
+				device: addedSample.device,
+				metadata: addedSample.metadata
+			)
 
             updatedEvent.outcome?.values.append(outcomeValue)
             updatedEvent.outcome?.healthKitUUIDs.append([addedSampleID])
@@ -659,7 +671,9 @@ extension OCKHealthKitPassthroughStore {
         updatedEvent.outcome = event.outcome ?? makeOutcome(for: event)
 
         let units = event.task.healthKitLinkage.unit?.unitString
-        let outcomeValue = OCKOutcomeValue(newSum, units: units)
+        var outcomeValue = event.outcome?.values.first ?? OCKOutcomeValue(newSum, units: units)
+		outcomeValue.value = newSum
+		outcomeValue.units = units
 
         updatedEvent.outcome!.values = [outcomeValue]
 

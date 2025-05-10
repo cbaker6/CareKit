@@ -70,16 +70,16 @@ public struct OCKOutcomeValue: Codable, Equatable, CustomStringConvertible {
     public var createdDate = Date()
 
     /// The start date and end date when this value represents a HealthKit sample.
-    public private(set) var dateInterval: DateInterval?
+    public internal(set) var dateInterval: DateInterval?
 
     /// An object indicating the source when this value represents a HealthKit sample.
-    public private(set) var sourceRevision: OCKSourceRevision?
+    public internal(set) var sourceRevision: OCKSourceRevision?
 
     /// A device that generates data for HealthKit when this value represents a HealthKit sample.
-    public private(set) var device: OCKDevice?
+    public internal(set) var device: OCKDevice?
 
     /// The metadata when this value represents a HealthKit sample.
-    public private(set) var metadata: [String: String]?
+    public internal(set) var metadata: [String: String]?
 
     /// The underlying value.
     public var value: OCKOutcomeValueUnderlyingType

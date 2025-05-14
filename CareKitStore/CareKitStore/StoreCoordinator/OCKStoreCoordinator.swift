@@ -326,18 +326,14 @@ open class OCKStoreCoordinator: OCKAnyStoreProtocol {
     ///   - task: The task that needs to be written.
     open func taskStore(_ store: OCKAnyReadOnlyTaskStore, shouldHandleWritingTask task: OCKAnyTask) -> Bool {
 
-        #if os(iOS)
         if #available(iOS 15, watchOS 8, macOS 13.0, *) {
 
             // HealthKit stores should only respond to HealthKit tasks
             if store is OCKHealthKitPassthroughStore && !(task is OCKHealthKitTask) { return false }
         }
-        #endif
 
         // OCKStore should not respond to HealthKit tasks
-        #if os(iOS)
         if store is OCKStore && task is OCKHealthKitTask { return false }
-        #endif
 
         return true
     }
@@ -366,7 +362,6 @@ open class OCKStoreCoordinator: OCKAnyStoreProtocol {
                 return store is OCKHealthKitPassthroughStore && outcome is OCKHealthKitOutcome
             }
         }
-
         return true
     }
 }

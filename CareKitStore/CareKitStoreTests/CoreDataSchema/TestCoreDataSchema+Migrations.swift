@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2021, Apple Inc. All rights reserved.
+ Copyright (c) 2016-2025, Apple Inc. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -58,7 +58,12 @@ class TestCoreDataSchemaMigrations: XCTestCase {
         let dir = URL(fileURLWithPath: tempDir).appendingPathComponent(folder, isDirectory: true)
     
 
-        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true, attributes: [:])
+        let attributes: [FileAttributeKey: Any] = [
+            FileAttributeKey(kCFURLIsExcludedFromBackupKey as String): true,
+            FileAttributeKey.protectionKey: FileProtectionType.complete
+        ]
+
+        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true, attributes: attributes)
 
         try FileManager.default.copyItem(
             at: testsBundle.url(forResource: "SampleStore2.0", withExtension: "sqlite")!,

@@ -32,7 +32,7 @@ import Foundation
 import HealthKit
 
 
-@available(iOS 15, watchOS 8, *)
+@available(iOS 15, watchOS 8, macOS 13.0, *)
 extension OCKHealthKitPassthroughStore {
 
     // Element == SampleChange
@@ -513,11 +513,11 @@ extension OCKHealthKitPassthroughStore {
         do {
             let descriptors = try makeQueryDescriptors(for: events)
 
-            // Only perform query if there are one or more descriptors.
-            guard descriptors.count > 0 else {
-                completion(.success([]))
-                return
-            }
+			// Only perform query if there are one or more descriptors.
+			guard descriptors.isEmpty == false else {
+				completion(.success([]))
+				return
+			}
 
             // We're not storing the query anchor because we're only fetching the
             // initial samples, and aren't concerned with changes that occur to the samples

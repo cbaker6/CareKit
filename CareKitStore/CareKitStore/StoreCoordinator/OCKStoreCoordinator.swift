@@ -360,14 +360,13 @@ open class OCKStoreCoordinator: OCKAnyStoreProtocol {
     ///   - outcome: The outcome that needs to be written.
     open func outcomeStore(_ store: OCKAnyReadOnlyOutcomeStore, shouldHandleWritingOutcome outcome: OCKAnyOutcome) -> Bool {
 
-        #if os(iOS) || os(macOS)
         if #available(iOS 15, watchOS 8, macOS 13.0, *) {
             // Only the HK passthrough store should handle HK outcomes
             if outcome is OCKHealthKitOutcome || store is OCKHealthKitPassthroughStore {
                 return store is OCKHealthKitPassthroughStore && outcome is OCKHealthKitOutcome
             }
         }
-        #endif
+
         return true
     }
 }

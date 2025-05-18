@@ -50,31 +50,29 @@ class OCKCDHealthKitLinkage: NSManagedObject {
     }
 
     func makeValue() -> OCKHealthKitLinkage {
-
         var healthKitLinkage: OCKHealthKitLinkage!
         self.managedObjectContext!.performAndWait {
-            let categoryIdentifier = HKCategoryTypeIdentifier(
-                rawValue: sampleIdentifier
-            )
-            let quantityIdentifier = HKQuantityTypeIdentifier(
-                rawValue: sampleIdentifier
-            )
             let quantityType: OCKHealthKitLinkage.QuantityType? = quantityType != nil ? OCKHealthKitLinkage.QuantityType(rawValue: quantityType!)! : nil
             let unit: HKUnit? = unitString != nil ? HKUnit(from: unitString!) : nil
             if let quantityType = quantityType,
                let unit = unit {
+                let quantityIdentifier = HKQuantityTypeIdentifier(
+                    rawValue: sampleIdentifier
+                )
                 healthKitLinkage = OCKHealthKitLinkage(
                     quantityIdentifier: quantityIdentifier,
                     quantityType: quantityType,
                     unit: unit
                 )
             } else {
+                let categoryIdentifier = HKCategoryTypeIdentifier(
+                    rawValue: sampleIdentifier
+                )
                 healthKitLinkage = OCKHealthKitLinkage(
                     categoryIdentifier: categoryIdentifier
                 )
             }
         }
-
         return healthKitLinkage
     }
 }

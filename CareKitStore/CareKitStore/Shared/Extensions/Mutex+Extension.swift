@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Apple Inc. All rights reserved.
+ Copyright (c) 2016-2025, Apple Inc. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -28,15 +28,15 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import Foundation
-import HealthKit
+import Synchronization
 
+extension Mutex where Value: Sendable {
 
-extension HealthKitQueryMonitor {
+    func value() -> Value {
+        return withLock { $0 }
+    }
 
-    struct QueryResult: Sendable {
-
-        var samples: [HKSample]
-        var deletedObjects: [HKDeletedObject]
+    func setValue(_ value: Value) {
+        withLock { $0 = value }
     }
 }

@@ -31,7 +31,7 @@
 import Foundation
 import HealthKit
 
-protocol Sample {
+protocol Sample: Sendable {
     var id: UUID { get set }
     var type: HKSampleType { get }
     var dateInterval: DateInterval { get set }

@@ -32,17 +32,11 @@ import Foundation
 import HealthKit
 
 
-@available(iOS 15, watchOS 8, macOS 13.0, *)
 extension OCKHealthKitPassthroughStore {
 
-    // Element == SampleChange
-    typealias SampleChanges = AsyncMapSequence<
-        AsyncThrowingStream<HealthKitQueryMonitor.QueryResult, Error>, SampleChange
-    >
-
-    typealias UpdateCumulativeSumOfSamples = (
+    typealias UpdateCumulativeSumOfSamples = @Sendable (
         _ events: [Event],
-        _ completion: @escaping (Result<[Event], Error>) -> Void
+        _ completion: @Sendable @escaping (Result<[Event], Error>) -> Void
     ) -> Void
 
     // This method will update the outcomes for the provided events based on the provided
@@ -81,7 +75,7 @@ extension OCKHealthKitPassthroughStore {
         _ events: [Event],
         applyingChange change: SampleChange,
         updateCumulativeSumOfSamples: UpdateCumulativeSumOfSamples,
-        completion: @escaping (Result<[Event], Error>) -> Void
+        completion: @Sendable @escaping (Result<[Event], Error>) -> Void
     ) {
 
         // Process deleted samples
@@ -507,7 +501,7 @@ extension OCKHealthKitPassthroughStore {
 
     func fetchHealthKitSamples(
         events: [Event],
-        completion: @escaping (Result<[Sample], Error>) -> Void
+        completion: @escaping @Sendable (Result<[Sample], Error>) -> Void
     ) {
 
         do {
@@ -519,9 +513,9 @@ extension OCKHealthKitPassthroughStore {
 				return
 			}
 
-            // We're not storing the query anchor because we're only fetching the
-            // initial samples, and aren't concerned with changes that occur to the samples
-            // in the HK store.
+			// We're not storing the query anchor because we're only fetching the
+			// initial samples, and aren't concerned with changes that occur to the samples
+			// in the HK store.
 
             let query = HKAnchoredObjectQuery(
                 queryDescriptors: descriptors,
@@ -556,52 +550,22 @@ extension OCKHealthKitPassthroughStore {
     }
 
     /// A constant stream of changes to HK samples matching the provided event dates.
-    func healthKitSampleChanges(matching events: [Event]) throws -> SampleChanges {
+    func healthKitSampleChanges(matching events: [Event]) throws -> some AsyncSequence<SampleChange, Error> & Sendable {
 
         // Create a live query that fetches HealthKit sample changes
 
         let queryDescriptors = try makeQueryDescriptors(for: events)
-
-        let monitor = HealthKitQueryMonitor(
-            queryDescriptors: queryDescriptors,
-            store: healthStore
-        )
-
-        // Wrap the live query in an async stream
-
-        let queryResults = AsyncThrowingStream(HealthKitQueryMonitor.QueryResult.self) { continuation in
-
-            // If there are no events, we won't be able to create query descriptors
-            // for the HK query which leads to a runtime crash. We'll need to finish early
-            // to avoid that crash. We could arguable have returned earlier above when the
-            // descriptors were created, but it's not possible to return an empty stream
-            // because the return type won't match `SampleChangeStream`. The query hasn't been
-            // started yet, so there's no harm waiting until now to finish the stream.
-            guard queryDescriptors.isEmpty == false else {
-                continuation.finish()
-                return
-            }
-
-            monitor.resultHandler = { result in
-                continuation.yield(with: result)
-            }
-
-            continuation.onTermination = { _ in
-                monitor.stopQuery()
-            }
-
-            monitor.startQuery()
-        }
+        let queryResults = AsyncStreamFactory.healthKitResults(queryDescriptors: queryDescriptors, store: healthStore)
 
         let sampleChanges = queryResults
-            .map { SampleChange($0) }
+			.map { SampleChange($0) }
 
         return sampleChanges
     }
 
     func updateCumulativeSumOfHealthKitSamples(
         events: [Event],
-        completion: @escaping (Result<[Event], Error>) -> Void
+        completion: @escaping @Sendable (Result<[Event], Error>) -> Void
     ) {
 
         let updateClosures = events.map { event in
@@ -620,7 +584,7 @@ extension OCKHealthKitPassthroughStore {
     /// calling this method.
     private func updateCumulativeSumOfSamples(
         event: Event,
-        completion: @escaping (Result<Event, Error>) -> Void
+        completion: @escaping @Sendable (Result<Event, Error>) -> Void
     ) {
 
         let predicate = makePredicate(for: event.scheduleEvent)

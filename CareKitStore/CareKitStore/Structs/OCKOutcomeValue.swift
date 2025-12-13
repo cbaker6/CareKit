@@ -52,7 +52,7 @@ public enum OCKOutcomeValueType: String, Codable {
 
 /// An `OCKOutcomeValue` is a representation of any response of measurement that a user gives in response to a task. The underlying type could be
 /// any of a number of types including integers, booleans, dates, text, and binary data, among others.
-public struct OCKOutcomeValue: Codable, Equatable, Sendable, CustomStringConvertible {
+public struct OCKOutcomeValue: Codable, Hashable, Sendable, CustomStringConvertible {
 
     public static func == (lhs: OCKOutcomeValue, rhs: OCKOutcomeValue) -> Bool {
         lhs.hasSameValueAs(rhs) &&
@@ -64,6 +64,21 @@ public struct OCKOutcomeValue: Codable, Equatable, Sendable, CustomStringConvert
 		lhs.sourceRevision == rhs.sourceRevision &&
 		lhs.device == rhs.device &&
 		lhs.metadata == rhs.metadata
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        switch type {
+        case .binary: hasher.combine(dataValue)
+        case .boolean: hasher.combine(booleanValue)
+        case .date: hasher.combine(dateValue)
+        case .double: hasher.combine(doubleValue)
+        case .integer: hasher.combine(integerValue)
+        case .text: hasher.combine(stringValue)
+        }
+        hasher.combine(type)
+        hasher.combine(kind)
+        hasher.combine(units)
+        hasher.combine(createdDate)
     }
 
     /// An optional property that can be used to specify what kind of value this is (e.g. blood pressure, qualitative stress, weight)

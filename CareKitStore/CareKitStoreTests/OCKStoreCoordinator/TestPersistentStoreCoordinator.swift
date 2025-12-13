@@ -253,7 +253,6 @@ class TestPersistentStoreCoordinator: XCTestCase {
         XCTAssertEqual(tasks.compactMap { $0 as? OCKHealthKitTask }.count, 1)
     }
 
-	@available(iOS 15, watchOS 8, macOS 13.0, *)
 	func testStoreCoordinatorDoesNotSendNormalTasksToOCKStore() {
 		let coordinator = OCKStoreCoordinator()
 		let store = OCKStore(name: UUID().uuidString, type: .inMemory)

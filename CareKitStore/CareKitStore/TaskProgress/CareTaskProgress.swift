@@ -50,22 +50,9 @@ extension CareTaskProgress {
         // the value is typically an indicator that there's an issue in their implementation of
         // `fractionCompleted`.
         if isClampingRequired {
-
-            if #available(iOS 14, watchOS 7, *) {
-
-                Logger.store?.error(
-                    "Clamping progress value of \(fractionCompleted, privacy: .public) to be within range [0, 1]."
-                )
-
-            } else {
-
-                os_log(
-                    "Clamping progress value of %{public}@ to be within range [0, 1].",
-                    log: .store,
-                    type: .error,
-                    fractionCompleted
-                )
-            }
+            Logger.store?.error(
+                "Clamping progress value of \(fractionCompleted, privacy: .public) to be within range [0, 1]."
+            )
         }
 
         return min(max(fractionCompleted, 0), 1)

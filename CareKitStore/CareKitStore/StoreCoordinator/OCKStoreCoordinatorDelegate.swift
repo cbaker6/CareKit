@@ -215,12 +215,10 @@ public extension OCKStoreCoordinatorDelegate {
     ///   - outcome: The outcome that needs to be written.
     func outcomeStore(_ store: OCKAnyReadOnlyOutcomeStore, shouldHandleWritingOutcome outcome: OCKAnyOutcome) -> Bool {
 
-        #if os(iOS) || os(macOS)
         // Only the HK passthrough store should handle HK outcomes
         if outcome is OCKHealthKitOutcome || store is OCKHealthKitPassthroughStore {
             return store is OCKHealthKitPassthroughStore && outcome is OCKHealthKitOutcome
         }
-        #endif
         return true
     }
 }

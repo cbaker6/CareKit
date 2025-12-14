@@ -287,7 +287,6 @@ class TestPersistentStoreCoordinator: XCTestCase {
         }
     }
 
-    #if !os(watchOS)
     func testStoreCoordinatorDoesNotSendNormalOutcomesToHealthKit() throws {
         let coordinator = OCKStoreCoordinator()
         let store = OCKStore(name: UUID().uuidString, type: .inMemory)
@@ -307,7 +306,6 @@ class TestPersistentStoreCoordinator: XCTestCase {
         let willHandle = try XCTUnwrap(coordinator.delegate?.outcomeStore(store, shouldHandleWritingOutcome: outcome))
         XCTAssertFalse(willHandle)
     }
-    #endif
     
     func testCanAssociateHealthKitTaskWithCarePlan() async throws {
         let store = OCKStore(name: UUID().uuidString, type: .inMemory)

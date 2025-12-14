@@ -1,21 +1,21 @@
 /*
  Copyright (c) 2016-2025, Apple Inc. All rights reserved.
-
+ 
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
-
+ 
  1.  Redistributions of source code must retain the above copyright notice, this
  list of conditions and the following disclaimer.
-
+ 
  2.  Redistributions in binary form must reproduce the above copyright notice,
  this list of conditions and the following disclaimer in the documentation and/or
  other materials provided with the distribution.
-
+ 
  3. Neither the name of the copyright holder(s) nor the names of any contributors
  may be used to endorse or promote products derived from this software without
  specific prior written permission. No license is granted to the trademarks of
  the copyright holders even if such marks are included in this software.
-
+ 
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -28,31 +28,15 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import Foundation
+import Synchronization
 
-/// `OCKNote` can be attached to all other CareKit objects and values. Use cases may include a physician leaving a note on a task when it is modified
-/// to explain why a medication dose was changed, or a note left from a patient to a care provider explaining why they weren't able to complete a
-/// task on a certain occasion.
-public struct OCKNote: Codable, Hashable, Sendable {
+extension Mutex where Value: Sendable {
 
-    /// The person who created this note.
-    public var author: String?
+    func value() -> Value {
+        return withLock { $0 }
+    }
 
-    /// A title for the note.
-    public var title: String?
-
-    /// The note content.
-    public var content: String?
-
-    /// Initialize a new note with an optional author, title, and content.
-    ///
-    /// - Parameters:
-    ///   - author: The person who created the note.
-    ///   - title: The title of the note.
-    ///   - content: The note's text content.
-    public init(author: String?, title: String?, content: String?) {
-        self.author = author
-        self.title = title
-        self.content = content
+    func setValue(_ value: Value) {
+        withLock { $0 = value }
     }
 }

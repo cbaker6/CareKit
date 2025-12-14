@@ -90,7 +90,9 @@ public struct OCKDevice: Codable, Hashable, Sendable {
 extension OCKDevice {
 
     init(device: HKDevice) {
-        self.name = device.name
+		if device.name != nil {
+			self.name = "Redacted"
+		}
         self.manufacturer = device.manufacturer
         self.model = device.model
         self.hardwareVersion = device.hardwareVersion

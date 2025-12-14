@@ -191,10 +191,8 @@ public extension OCKStoreCoordinatorDelegate {
     ///   - task: The task that needs to be written.
     func taskStore(_ store: OCKAnyReadOnlyTaskStore, shouldHandleWritingTask task: OCKAnyTask) -> Bool {
 
-        #if os(iOS)
         if store is OCKHealthKitPassthroughStore && !(task is OCKHealthKitTask) { return false }
         if store is OCKStore && task is OCKHealthKitTask { return false }
-        #endif
 
         return true
     }

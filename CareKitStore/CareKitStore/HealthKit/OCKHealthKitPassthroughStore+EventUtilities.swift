@@ -307,7 +307,6 @@ extension OCKHealthKitPassthroughStore {
     ) throws -> Event {
 
         // Convert the sample to an outcome value
-
         let outcomeValue = try createOutcomeValueFromSample(
             sample,
             event: event

@@ -64,23 +64,6 @@ extension NSManagedObjectContext {
         knowledgeVector.clock(for: clockID)
     }
 
-    func performAndWait<T>(_ work: () throws -> T) throws -> T {
-        var result = Result<T, Error>.failure(OCKStoreError.invalidValue(reason: "timeout"))
-        performAndWait {
-            result = Result(catching: work)
-        }
-        let value = try result.get()
-        return value
-    }
-
-    func performAndWait<T>(_ work: () -> T) -> T {
-        var value: T!
-        performAndWait {
-            value = work()
-        }
-        return value
-    }
-
     func fetchObjects<T: OCKCDObject>(withUUIDs uuids: Set<UUID>) throws -> [T] {
 
         guard let entityName = T.entity().name else {

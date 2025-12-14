@@ -31,7 +31,6 @@
 import Foundation
 import HealthKit
 
-
 public extension OCKHealthKitPassthroughStore {
 
     func tasks(matching query: OCKTaskQuery) -> CareStoreQueryResults<OCKHealthKitTask> {

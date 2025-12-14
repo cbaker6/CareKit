@@ -15,7 +15,11 @@ jobs:
     runs-on: macos-15
     strategy:
       matrix:
+<<<<<<< HEAD
         destination: ['platform=iOS\ Simulator,OS=18.4,name=iPhone\ 16\ Pro\ Max', 'platform=watchOS\ Simulator,OS=11.4,name=Apple\ Watch\ Series\ 10\ \(46mm\)', 'platform=macOS CODE_SIGN_IDENTITY=""']
+=======
+        destination: ['platform=iOS\ Simulator,OS=18.2,name=iPhone\ 16\ Pro\ Max', 'platform=watchOS\ Simulator,OS=11.2,name=Apple\ Watch\ Series\ 10\ \(46mm\)']
+>>>>>>> main
         scheme: ['CareKit', 'CareKitStore', 'CareKitUI', 'CareKitFHIR']
         exclude:
           - destination: 'platform=macOS'
@@ -25,6 +29,12 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Set Xcode Version
+<<<<<<< HEAD
         run: sudo xcode-select -s /Applications/Xcode_16.4.app
       - name: Build
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -verbose -workspace CKWorkspace.xcworkspace -scheme ${{ matrix.scheme }} -destination ${{ matrix.destination }} clean build test 2>&1 | xcbeautify --renderer github-actions
+=======
+        run: sudo xcode-select -s /Applications/Xcode_16.2.app
+      - name: Build
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -verbose -workspace CKWorkspace.xcworkspace -scheme ${{ matrix.scheme }} -destination ${{ matrix.destination }} build test 2>&1 | xcbeautify --renderer github-actions
+>>>>>>> main

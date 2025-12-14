@@ -32,7 +32,6 @@ import Foundation
 import HealthKit
 import os.log
 
-
 public extension OCKHealthKitPassthroughStore {
 
     func addOutcomes(

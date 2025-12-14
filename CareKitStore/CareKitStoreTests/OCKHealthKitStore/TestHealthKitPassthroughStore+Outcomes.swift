@@ -33,7 +33,6 @@
 import HealthKit
 import XCTest
 
-
 class TestHealthKitPassthroughStoreOutcomes: XCTestCase {
 
     private let cdStore = OCKStore(

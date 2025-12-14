@@ -86,7 +86,6 @@
 		03FE69812345618D00F3318C /* OCKHealthKitTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FE69802345618D00F3318C /* OCKHealthKitTask.swift */; };
 		510638E22885B86E00FDC9F5 /* OCKHealthKitPassthroughStore+OutcomesStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510638E12885B86E00FDC9F5 /* OCKHealthKitPassthroughStore+OutcomesStream.swift */; };
 		510638E42885B8ED00FDC9F5 /* OCKHealthKitPassthroughStore+EventsStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510638E32885B8ED00FDC9F5 /* OCKHealthKitPassthroughStore+EventsStream.swift */; };
-		5111EDC6293A4ABA0071A701 /* AsyncAlgorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 5111EDC5293A4ABA0071A701 /* AsyncAlgorithms */; };
 		5121407D240043E200B035F6 /* TestEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5121407C240043E200B035F6 /* TestEvent.swift */; };
 		5122A2B929523218003B0B57 /* CareTaskProgressStrategy+CheckingOutcomesExist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5122A2B829523218003B0B57 /* CareTaskProgressStrategy+CheckingOutcomesExist.swift */; };
 		5122A2BB2952323E003B0B57 /* BinaryCareTaskProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5122A2BA2952323E003B0B57 /* BinaryCareTaskProgress.swift */; };
@@ -147,6 +146,7 @@
 		70FCCEDE2D73C2C0008A1BF8 /* OCKCDSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FCCEDD2D73C2BA008A1BF8 /* OCKCDSource.swift */; };
 		70FCCEE02D73C2CC008A1BF8 /* OCKCDSourceRevision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FCCEDF2D73C2C5008A1BF8 /* OCKCDSourceRevision.swift */; };
 		70FCCEE22D73C87B008A1BF8 /* OCKCDOperatingSystemVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FCCEE12D73C86F008A1BF8 /* OCKCDOperatingSystemVersion.swift */; };
+		70FE85B92EEE4B2300A1AA07 /* AsyncAlgorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 70FE85B82EEE4B2300A1AA07 /* AsyncAlgorithms */; };
 		E7131DC12241FAA80001861B /* OCKTaskQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7131DC02241FAA80001861B /* OCKTaskQuery.swift */; };
 		E7131DC5224200640001861B /* OCKOutcomeQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7131DC4224200640001861B /* OCKOutcomeQuery.swift */; };
 		E7131DCB22420A520001861B /* OCKPatientQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7131DCA22420A520001861B /* OCKPatientQuery.swift */; };
@@ -444,7 +444,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5111EDC6293A4ABA0071A701 /* AsyncAlgorithms in Frameworks */,
+				70FE85B92EEE4B2300A1AA07 /* AsyncAlgorithms in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -741,6 +741,13 @@
 			path = 2_1To3_0;
 			sourceTree = "<group>";
 		};
+		70FE85B72EEE4B2300A1AA07 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E746048E22385B5200A1B16B /* Structs */ = {
 			isa = PBXGroup;
 			children = (
@@ -768,6 +775,7 @@
 				51CD578E29788807005711EA /* CareKitStore.docc */,
 				E784B8FA2232EED600736CA5 /* CareKitStore */,
 				E784B9052232EED600736CA5 /* CareKitStoreTests */,
+				70FE85B72EEE4B2300A1AA07 /* Frameworks */,
 				E784B8F92232EED600736CA5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -966,7 +974,7 @@
 			);
 			name = CareKitStore;
 			packageProductDependencies = (
-				5111EDC5293A4ABA0071A701 /* AsyncAlgorithms */,
+				70FE85B82EEE4B2300A1AA07 /* AsyncAlgorithms */,
 			);
 			productName = CareKitCarePlanStore;
 			productReference = E784B8F82232EED600736CA5 /* CareKitStore.framework */;
@@ -1020,7 +1028,7 @@
 			);
 			mainGroup = E784B8EE2232EED600736CA5;
 			packageReferences = (
-				5111EDC4293A4ABA0071A701 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */,
+				70FE85A42EEE4AEC00A1AA07 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */,
 			);
 			productRefGroup = E784B8F92232EED600736CA5 /* Products */;
 			projectDirPath = "";
@@ -1342,8 +1350,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = "$(VERSION_NUMBER)";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1358,8 +1366,8 @@
 				SWIFT_VERSION = 6.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				WATCHOS_DEPLOYMENT_TARGET = 7.0;
-				XROS_DEPLOYMENT_TARGET = 1.0;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
+				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -1430,8 +1438,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = "$(VERSION_NUMBER)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -1447,8 +1455,8 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				WATCHOS_DEPLOYMENT_TARGET = 7.0;
-				XROS_DEPLOYMENT_TARGET = 1.0;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
+				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
@@ -1623,20 +1631,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5111EDC4293A4ABA0071A701 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */ = {
+		70FE85A42EEE4AEC00A1AA07 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-async-algorithms";
+			repositoryURL = "https://github.com/apple/swift-async-algorithms.git";
 			requirement = {
-				kind = exactVersion;
-				version = 1.0.4;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.4;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5111EDC5293A4ABA0071A701 /* AsyncAlgorithms */ = {
+		70FE85B82EEE4B2300A1AA07 /* AsyncAlgorithms */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5111EDC4293A4ABA0071A701 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */;
+			package = 70FE85A42EEE4AEC00A1AA07 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */;
 			productName = AsyncAlgorithms;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -43,7 +43,6 @@ extension OCKStoreCoordinator {
         let outcomes = combineMany(
             sequences: outcomesStreams,
             makeSortDescriptors: {
-
 				let sortDescriptors = query
 					.sortDescriptors
 					.map(\.nsSortDescriptor)

@@ -31,7 +31,6 @@
 import Foundation
 import HealthKit
 
-
 extension HealthKitQueryMonitor {
 
     struct QueryResult: Sendable {

@@ -35,7 +35,6 @@ public struct OCKContactQuery: Hashable, Sendable, OCKQueryProtocol {
 
     /// Specifies the order in which query results will be sorted.
     public enum SortDescriptor: Hashable, Sendable {
-
         case givenName(ascending: Bool)
         case familyName(ascending: Bool)
         case effectiveDate(ascending: Bool)

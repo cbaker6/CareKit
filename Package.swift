@@ -45,11 +45,11 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/apple/FHIRModels.git",
-            exact: Version(0, 7, 0)
+			.upToNextMajor(from: Version(0, 7, 0))
         ),
         .package(
             url: "https://github.com/apple/swift-async-algorithms",
-            exact: Version(1, 0, 4)
+			.upToNextMajor(from: Version(1, 0, 4))
         )
     ],
     targets: [

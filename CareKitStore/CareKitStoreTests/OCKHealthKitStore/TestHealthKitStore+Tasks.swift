@@ -31,7 +31,6 @@
 @testable import CareKitStore
 import XCTest
 
-
 class TestHealthKitStoreTasks: XCTestCase {
     var store: OCKHealthKitPassthroughStore!
     let link = OCKHealthKitLinkage(quantityIdentifier: .stepCount, quantityType: .cumulative, unit: .count())

@@ -328,9 +328,7 @@ public final class OCKStore: OCKStoreProtocol, Equatable {
 		#if os(macOS)
 		// Currently only needed for macOS, other OS's set through CoreData.
 		let fileManager = FileManager.default
-		var attributes = try fileManager.attributesOfItem(atPath: url.path)
-		attributes[.protectionKey] = storeType.securityClass
-		try fileManager.setAttributes(attributes, ofItemAtPath: url.path)
+		try fileManager.setAttributes([.protectionKey: storeType.securityClass], ofItemAtPath: url.path)
 		#endif
 	}
 

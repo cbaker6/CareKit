@@ -34,7 +34,7 @@ import Foundation
 public struct OCKOutcomeQuery: Equatable, Sendable, OCKQueryProtocol {
 
     /// Specifies the order in which query results will be sorted.
-    public enum SortDescriptor: Equatable {
+	public enum SortDescriptor: Equatable, Sendable {
 
         case effectiveDate(ascending: Bool)
         case groupIdentifier(ascending: Bool)

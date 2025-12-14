@@ -78,11 +78,12 @@ class TestStore: XCTestCase {
         }
 		XCTAssertNoThrow(try store.delete())
     }
-/*
+
     #if os(macOS)
-    func checkStoreProtection(_ protection: FileProtectionType) throws {
-        let store = OCKStore(name: UUID().uuidString, type: .onDisk(protection: protection))
-        _ = store.context // Storage is created lazily. Access context to force file creation.
+	func checkStore(
+		_ store: OCKStore,
+		protection: FileProtectionType
+	) throws {
         let fileManager = FileManager.default
 
         let storePath = store.storeURL.path
@@ -103,21 +104,32 @@ class TestStore: XCTestCase {
     }
 
     func testStoreOnDiskComplete() throws {
-        try checkStoreProtection(.complete)
+		let protection = FileProtectionType.complete
+		let store = OCKStore(name: UUID().uuidString, type: .onDisk(protection: protection))
+		_ = store.context // Storage is created lazily. Access context to force file creation.
+		try checkStore(store, protection: protection)
     }
 
     func testStoreOnDiskCompleteUnlessOpen() throws {
-        try checkStoreProtection(.completeUnlessOpen)
+		let protection = FileProtectionType.completeUnlessOpen
+		let store = OCKStore(name: UUID().uuidString, type: .onDisk(protection: protection))
+		_ = store.context // Storage is created lazily. Access context to force file creation.
+		try checkStore(store, protection: protection)
     }
 
     func testStoreOnDiskCompleteUntilFirstUserAuthentication() throws {
-        try checkStoreProtection(.completeUntilFirstUserAuthentication)
+		let protection = FileProtectionType.completeUntilFirstUserAuthentication
+		let store = OCKStore(name: UUID().uuidString, type: .onDisk(protection: protection))
+		_ = store.context // Storage is created lazily. Access context to force file creation.
+		try checkStore(store, protection: protection)
     }
 
     func testStoreOnDiskNone() throws {
-        try checkStoreProtection(.none)
+		let protection = FileProtectionType.none
+		let store = OCKStore(name: UUID().uuidString, type: .onDisk(protection: protection))
+		_ = store.context // Storage is created lazily. Access context to force file creation.
+		try checkStore(store, protection: protection)
     }
-
     #endif
-*/
+
 }

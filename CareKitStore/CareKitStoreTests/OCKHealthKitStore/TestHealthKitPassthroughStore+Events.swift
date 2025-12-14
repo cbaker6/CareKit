@@ -32,12 +32,12 @@
 
 import AsyncAlgorithms
 import HealthKit
+import Synchronization
 import XCTest
 
 // Note, we test the event stream and not the outcome stream because the outcome stream
 // calls into the event stream. Testing the outcome stream is unnecessary.
 
-@available(iOS 15, watchOS 8, macOS 13.0, *)
 class TestHealthKitPassthroughStoreEvents: XCTestCase {
 
     private let cdStore = OCKStore(
@@ -64,7 +64,7 @@ class TestHealthKitPassthroughStoreEvents: XCTestCase {
     // There are pretty extensive tests for the event stream in this file, so we can lightly test
     // the fetch logic with some minor sanity checks.
 
-    func testFetchEvents() throws {
+    func testFetchEvents() async throws {
 
         // Add tasks to the store
 
@@ -76,7 +76,7 @@ class TestHealthKitPassthroughStoreEvents: XCTestCase {
         let heartRateUnit = try XCTUnwrap(heartRateTask.healthKitLinkage.unit)
         let acneTask = try OCKHealthKitTask.makeDailyAcneTask()
         let acneCategoryIdentifier = try XCTUnwrap(acneTask.healthKitLinkage.categoryIdentifier)
-        try passthroughStore.addTasksAndWait([stepsTask, heartRateTask, acneTask])
+        try await passthroughStore.addTasks([stepsTask, heartRateTask, acneTask])
 
         // Generate samples that match the event date
 
@@ -145,8 +145,7 @@ class TestHealthKitPassthroughStoreEvents: XCTestCase {
         // Fetch the events from the store
 
         let didFetchEvents = XCTestExpectation(description: "Fetched events")
-
-        var result: Result<[OCKHealthKitPassthroughStore.Event], Error>!
+        let result: Mutex<Result<[OCKHealthKitPassthroughStore.Event], Error>?> = Mutex(nil)
 
         passthroughStore.fetchEvents(
             query: OCKTaskQuery(for: Date()),
@@ -154,16 +153,19 @@ class TestHealthKitPassthroughStoreEvents: XCTestCase {
             fetchSamples: { _, completion in
                 completion(.success(samples))
             },
-            updateCumulativeSumOfSamples: updateCumulativeSumOfSamples,
-            completion: {
-                result = $0
+            updateCumulativeSumOfSamples: Self.updateCumulativeSumOfSamples,
+            completion: { newResult in
+                result.setValue(newResult)
                 didFetchEvents.fulfill()
             }
         )
 
-        wait(for: [didFetchEvents], timeout: 2)
+        await fulfillment(of: [didFetchEvents], timeout: 2)
 
-        let events = try result.get()
+        let events = try result
+            .value()?
+            .get() ?? []
+
         XCTAssertEqual(events.count, 3)
 
         events.forEach { event in
@@ -213,7 +215,7 @@ class TestHealthKitPassthroughStoreEvents: XCTestCase {
         let events = passthroughStore.events(
             matching: query,
             applyingChanges: { _ in noChanges },
-            updateCumulativeSumOfSamples: updateCumulativeSumOfSamples
+            updateCumulativeSumOfSamples: Self.updateCumulativeSumOfSamples
         )
 
         let accumulatedEvents = try await accumulate(events, expectedCount: 1)
@@ -243,7 +245,7 @@ class TestHealthKitPassthroughStoreEvents: XCTestCase {
         let events = passthroughStore.events(
             matching: query,
             applyingChanges: { _ in noChanges },
-            updateCumulativeSumOfSamples: updateCumulativeSumOfSamples
+            updateCumulativeSumOfSamples: Self.updateCumulativeSumOfSamples
         )
 
         let accumulatedEvents = try await accumulate(events, expectedCount: 1)
@@ -289,7 +291,7 @@ class TestHealthKitPassthroughStoreEvents: XCTestCase {
         let events = passthroughStore.events(
             matching: query,
             applyingChanges: { _ in noChanges },
-            updateCumulativeSumOfSamples: updateCumulativeSumOfSamples
+            updateCumulativeSumOfSamples: Self.updateCumulativeSumOfSamples
         )
 
         let accumulatedEvents = try await accumulate(events, expectedCount: 1)
@@ -377,7 +379,7 @@ class TestHealthKitPassthroughStoreEvents: XCTestCase {
         let events = passthroughStore.events(
             matching: query,
             applyingChanges: { _ in sampleChanges },
-            updateCumulativeSumOfSamples: updateCumulativeSumOfSamples
+            updateCumulativeSumOfSamples: Self.updateCumulativeSumOfSamples
         )
 
         let accumulatedEvents = try await accumulate(events, expectedCount: 2)
@@ -513,7 +515,7 @@ class TestHealthKitPassthroughStoreEvents: XCTestCase {
         let events = passthroughStore.events(
             matching: query,
             applyingChanges: { _ in sampleChanges },
-            updateCumulativeSumOfSamples: updateCumulativeSumOfSamples
+            updateCumulativeSumOfSamples: Self.updateCumulativeSumOfSamples
         )
 
         let accumulatedEvents = try await accumulate(events, expectedCount: 2)
@@ -595,7 +597,7 @@ class TestHealthKitPassthroughStoreEvents: XCTestCase {
         let events = passthroughStore.events(
             matching: query,
             applyingChanges: { _ in sampleChanges },
-            updateCumulativeSumOfSamples: updateCumulativeSumOfSamples
+            updateCumulativeSumOfSamples: Self.updateCumulativeSumOfSamples
         )
 
         let accumulatedEvents = try await accumulate(events, expectedCount: 2)
@@ -711,7 +713,7 @@ class TestHealthKitPassthroughStoreEvents: XCTestCase {
         let events = passthroughStore.events(
             matching: query,
             applyingChanges: { _ in sampleChanges },
-            updateCumulativeSumOfSamples: updateCumulativeSumOfSamples
+            updateCumulativeSumOfSamples: Self.updateCumulativeSumOfSamples
         )
 
         let accumulatedEvents = try await accumulate(events, expectedCount: 5)
@@ -840,9 +842,9 @@ class TestHealthKitPassthroughStoreEvents: XCTestCase {
 
     // MARK: - Helpers
 
-    private func updateCumulativeSumOfSamples(
+    private static func updateCumulativeSumOfSamples(
         events: [OCKHealthKitPassthroughStore.Event],
-        completion: @escaping (Result<[OCKHealthKitPassthroughStore.Event], Error>) -> Void
+        completion: @escaping @Sendable (Result<[OCKHealthKitPassthroughStore.Event], Error>) -> Void
     ) {
         let updatedEvents = events.map { event -> OCKHealthKitPassthroughStore.Event in
 
@@ -962,7 +964,6 @@ private struct Event: Equatable {
     var outcome: OCKHealthKitOutcome?
 }
 
-@available(iOS 15, watchOS 8, macOS 13.0, *)
 private extension Event {
 
     init(_ event: OCKHealthKitPassthroughStore.Event) {

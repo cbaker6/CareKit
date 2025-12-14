@@ -31,10 +31,10 @@
 import Foundation
 
 /// A query that limits which care plans will be returned when fetching.
-public struct OCKCarePlanQuery: Hashable, OCKQueryProtocol {
+public struct OCKCarePlanQuery: Hashable, Sendable, OCKQueryProtocol {
 
     /// Specifies the order in which query results will be sorted.
-    public enum SortDescriptor: Hashable {
+    public enum SortDescriptor: Hashable, Sendable {
 
         case title(ascending: Bool)
         case effectiveDate(ascending: Bool)

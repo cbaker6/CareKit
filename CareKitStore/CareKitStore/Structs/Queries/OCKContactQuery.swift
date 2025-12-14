@@ -31,10 +31,10 @@
 import Foundation
 
 /// A query that limits which contacts will be returned when fetching.
-public struct OCKContactQuery: Hashable, OCKQueryProtocol {
+public struct OCKContactQuery: Hashable, Sendable, OCKQueryProtocol {
 
     /// Specifies the order in which query results will be sorted.
-    public enum SortDescriptor: Hashable {
+    public enum SortDescriptor: Hashable, Sendable {
 
         case givenName(ascending: Bool)
         case familyName(ascending: Bool)

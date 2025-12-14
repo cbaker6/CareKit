@@ -30,7 +30,7 @@
 
 import HealthKit
 
-public struct OCKDevice: Codable, Hashable {
+public struct OCKDevice: Codable, Hashable, Sendable {
 
     /**
      The name of the receiver.

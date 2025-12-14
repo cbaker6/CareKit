@@ -31,23 +31,23 @@
 import Foundation
 
 /// A query that limits which outcomes will be returned when fetching.
-public struct OCKOutcomeQuery: Hashable, OCKQueryProtocol {
+public struct OCKOutcomeQuery: Hashable, Sendable, OCKQueryProtocol {
 
-    /// Specifies the order in which query results will be sorted.
-    public enum SortDescriptor: Hashable {
+	/// Specifies the order in which query results will be sorted.
+	public enum SortDescriptor: Hashable, Sendable {
 
-        case effectiveDate(ascending: Bool)
-        case groupIdentifier(ascending: Bool)
+		case effectiveDate(ascending: Bool)
+		case groupIdentifier(ascending: Bool)
 
-        var nsSortDescriptor: NSSortDescriptor {
-            switch self {
-            case let .effectiveDate(ascending):
-                return NSSortDescriptor(keyPath: \OCKCDOutcome.effectiveDate, ascending: ascending)
-            case let .groupIdentifier(ascending):
-                return NSSortDescriptor(keyPath: \OCKCDOutcome.groupIdentifier, ascending: ascending)
-            }
-        }
-    }
+		var nsSortDescriptor: NSSortDescriptor {
+			switch self {
+			case let .effectiveDate(ascending):
+				return NSSortDescriptor(keyPath: \OCKCDOutcome.effectiveDate, ascending: ascending)
+			case let .groupIdentifier(ascending):
+				return NSSortDescriptor(keyPath: \OCKCDOutcome.groupIdentifier, ascending: ascending)
+			}
+		}
+	}
 
     /// An array of task identifiers to match against.
     public var taskIDs: [String] = []

@@ -31,7 +31,7 @@
 import Foundation
 
 /// A query that limits which events will be returned when fetching.
-public struct OCKEventQuery: Hashable {
+public struct OCKEventQuery: Hashable, Sendable {
 
     /// The date interval in which events should be returned.
     public var dateInterval: DateInterval

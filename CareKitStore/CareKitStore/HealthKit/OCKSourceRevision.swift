@@ -30,7 +30,7 @@
 
 import HealthKit
 
-public struct OCKSourceRevision: Codable, Hashable {
+public struct OCKSourceRevision: Codable, Hashable, Sendable {
     /**
      The HKSource of the receiver.
      */

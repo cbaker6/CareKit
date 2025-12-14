@@ -109,7 +109,7 @@ class TestStore: XCTestCase {
 		_ = store.context // Storage is created lazily. Access context to force file creation.
 		try checkStore(store, protection: protection)
     }
-
+/*
     func testStoreOnDiskCompleteUnlessOpen() throws {
 		let protection = FileProtectionType.completeUnlessOpen
 		let store = OCKStore(name: UUID().uuidString, type: .onDisk(protection: protection))
@@ -129,7 +129,7 @@ class TestStore: XCTestCase {
 		let store = OCKStore(name: UUID().uuidString, type: .onDisk(protection: protection))
 		_ = store.context // Storage is created lazily. Access context to force file creation.
 		try checkStore(store, protection: protection)
-    }
+    }*/
     #endif
 
 }

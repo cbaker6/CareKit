@@ -76,6 +76,7 @@ class TestStore: XCTestCase {
             store.context.rollback()
             XCTAssertEqual(store.context.clockTime, 2)
         }
+		XCTAssertNoThrow(try store.delete())
     }
 
     #if os(macOS)

@@ -257,7 +257,7 @@ class TestStoreContacts: XCTestCase {
         let versionB = try await store.updateContact(OCKContact(id: "contact", givenName: "B", familyName: "", carePlanUUID: nil))
 
         let fetched = try await store.fetchContact(withID: versionA.id)
-		    XCTAssertEqual(fetched.name.givenName, versionB.name.givenName)
+		XCTAssertEqual(fetched.name.givenName, versionB.name.givenName)
     }
 
     func testAnyContactQueryByIdConvenienceMethodReturnsLatestVersionOfAContact() async throws {
@@ -265,7 +265,7 @@ class TestStoreContacts: XCTestCase {
         let versionB = try await store.updateContact(OCKContact(id: "contact", givenName: "B", familyName: "", carePlanUUID: nil))
 
         let fetched = try await store.fetchContact(withID: versionA.id)
-		    XCTAssertEqual(fetched.name.givenName, versionB.name.givenName)
+		XCTAssertEqual(fetched.name.givenName, versionB.name.givenName)
     }
 
     func testContactQueryWithDateOnlyReturnsLatestVersionOfAContact() async throws {

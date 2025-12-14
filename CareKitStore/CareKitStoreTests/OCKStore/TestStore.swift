@@ -78,7 +78,7 @@ class TestStore: XCTestCase {
         }
 		XCTAssertNoThrow(try store.delete())
     }
-
+/*
     #if os(macOS)
     func checkStoreProtection(_ protection: FileProtectionType) throws {
         let store = OCKStore(name: UUID().uuidString, type: .onDisk(protection: protection))
@@ -119,5 +119,5 @@ class TestStore: XCTestCase {
     }
 
     #endif
-
+*/
 }

@@ -80,10 +80,9 @@ class TestStore: XCTestCase {
     }
 
     #if os(macOS)
-	func checkStore(
-		_ store: OCKStore,
-		protection: FileProtectionType
-	) throws {
+    func checkStoreProtection(_ protection: FileProtectionType) throws {
+        let store = OCKStore(name: UUID().uuidString, type: .onDisk(protection: protection))
+        _ = store.context // Storage is created lazily. Access context to force file creation.
         let fileManager = FileManager.default
 
         let storePath = store.storeURL.path
@@ -104,32 +103,21 @@ class TestStore: XCTestCase {
     }
 
     func testStoreOnDiskComplete() throws {
-		let protection = FileProtectionType.complete
-		let store = OCKStore(name: UUID().uuidString, type: .onDisk(protection: protection))
-		_ = store.context // Storage is created lazily. Access context to force file creation.
-		try checkStore(store, protection: protection)
+        try checkStoreProtection(.complete)
     }
-/*
+
     func testStoreOnDiskCompleteUnlessOpen() throws {
-		let protection = FileProtectionType.completeUnlessOpen
-		let store = OCKStore(name: UUID().uuidString, type: .onDisk(protection: protection))
-		_ = store.context // Storage is created lazily. Access context to force file creation.
-		try checkStore(store, protection: protection)
+        try checkStoreProtection(.completeUnlessOpen)
     }
 
     func testStoreOnDiskCompleteUntilFirstUserAuthentication() throws {
-		let protection = FileProtectionType.completeUntilFirstUserAuthentication
-		let store = OCKStore(name: UUID().uuidString, type: .onDisk(protection: protection))
-		_ = store.context // Storage is created lazily. Access context to force file creation.
-		try checkStore(store, protection: protection)
+        try checkStoreProtection(.completeUntilFirstUserAuthentication)
     }
 
     func testStoreOnDiskNone() throws {
-		let protection = FileProtectionType.none
-		let store = OCKStore(name: UUID().uuidString, type: .onDisk(protection: protection))
-		_ = store.context // Storage is created lazily. Access context to force file creation.
-		try checkStore(store, protection: protection)
-    }*/
+        try checkStoreProtection(.none)
+    }
+
     #endif
 
 }

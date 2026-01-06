@@ -106,8 +106,8 @@ private final class MockRemote: OCKRemoteSynchronizable {
 
     func pullRevisions(
         since knowledgeVector: OCKRevisionRecord.KnowledgeVector,
-        mergeRevision: @escaping (OCKRevisionRecord) -> Void,
-        completion: @escaping (Error?) -> Void) {
+        mergeRevision: @escaping @Sendable (OCKRevisionRecord) -> Void,
+        completion: @escaping @Sendable (Error?) -> Void) {
 
         completion(nil)
     }
@@ -115,7 +115,7 @@ private final class MockRemote: OCKRemoteSynchronizable {
     func pushRevisions(
         deviceRevisions: [OCKRevisionRecord],
         deviceKnowledge: OCKRevisionRecord.KnowledgeVector,
-        completion: @escaping (Error?) -> Void) {
+        completion: @escaping @Sendable (Error?) -> Void) {
 
         completion(nil)
     }

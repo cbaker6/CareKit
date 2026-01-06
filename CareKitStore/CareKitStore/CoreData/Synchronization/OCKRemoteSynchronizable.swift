@@ -66,7 +66,7 @@ public protocol OCKRemoteSynchronizable: AnyObject, Sendable {
     ///   - completion: A closure that should be called with the results of the pull.
     func pullRevisions(
         since knowledgeVector: OCKRevisionRecord.KnowledgeVector,
-        mergeRevision: @escaping (OCKRevisionRecord) -> Void,
+        mergeRevision: @escaping @Sendable (OCKRevisionRecord) -> Void,
         completion: @escaping @Sendable (Error?) -> Void)
 
     /// Push a revision from a device up to the server.

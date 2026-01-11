@@ -39,7 +39,7 @@ let package = Package(
 
         .library(
             name: "CareKitFHIR",
-            targets: ["CareKitFHIR"]),
+            targets: ["CareKitFHIR"])
 
     ],
     dependencies: [
@@ -81,7 +81,7 @@ let package = Package(
                 .process("CoreData/Migrations/2_1To3_0/2.1_3.0_Mapping.xcmappingmodel"),
                 .process("CoreData/Migrations/2_0To2_1/2.0_2.1_Mapping.xcmappingmodel")
             ],
-            swiftSettings: sharedSwiftSettings,
+            swiftSettings: sharedSwiftSettings
         ),
         .target(
             name: "CareKitFHIR",

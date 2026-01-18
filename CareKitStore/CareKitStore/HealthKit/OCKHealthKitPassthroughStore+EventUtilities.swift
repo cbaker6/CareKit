@@ -636,7 +636,6 @@ extension OCKHealthKitPassthroughStore {
         let units = event.task.healthKitLinkage.unit?.unitString
         var outcomeValue = event.outcome?.values.first ?? OCKOutcomeValue(newSum, units: units)
 		outcomeValue.value = newSum
-		outcomeValue.units = units
 		outcomeValue.createdDate = event.scheduleEvent.start
 		outcomeValue.dateInterval = DateInterval(
 			start: event.scheduleEvent.start,

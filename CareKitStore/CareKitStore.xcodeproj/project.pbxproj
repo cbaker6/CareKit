@@ -127,13 +127,13 @@
 		51E663282887205C006197D3 /* OCKHealthKitPassthroughStore+FetchOutcomes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E663262887205C006197D3 /* OCKHealthKitPassthroughStore+FetchOutcomes.swift */; };
 		51EB47532901AA2C00734820 /* CareTaskProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EB47522901AA2C00734820 /* CareTaskProgress.swift */; };
 		51EB9F152E0A26C600A363A1 /* TestPostalAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EB9F142E0A26C200A363A1 /* TestPostalAddress.swift */; };
+		7004807F2F1D5B4800E810F3 /* 2.0_3.0_Mapping.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 70B8768F2D7F8604009180E8 /* 2.0_3.0_Mapping.xcmappingmodel */; };
 		7007A0DA2D6CFA2800C1B9B5 /* OCKDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7007A0D92D6CFA2800C1B9B5 /* OCKDevice.swift */; };
 		7007A0DC2D6CFB0C00C1B9B5 /* OCKSourceRevision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7007A0DB2D6CFB0600C1B9B5 /* OCKSourceRevision.swift */; };
 		7007A0DE2D6CFC5500C1B9B5 /* OCKSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7007A0DD2D6CFC5000C1B9B5 /* OCKSource.swift */; };
 		7098B6042D77C60500A098DD /* CategorySample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098B6012D77C60500A098DD /* CategorySample.swift */; };
 		7098B6062D78741800A098DD /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098B6052D78741100A098DD /* Sample.swift */; };
 		70B8768E2D7F7179009180E8 /* OCKStoreMigration2_1To3_0Policy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B8768D2D7F7179009180E8 /* OCKStoreMigration2_1To3_0Policy.swift */; };
-		70B876902D7F8604009180E8 /* 2.0_3.0_Mapping.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 70B8768F2D7F8604009180E8 /* 2.0_3.0_Mapping.xcmappingmodel */; };
 		70C4A7042C61B3AE00A83FC4 /* SampleStore2.1.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 70C4A7012C61B3AE00A83FC4 /* SampleStore2.1.sqlite */; };
 		70C4A7052C61B3AE00A83FC4 /* SampleStore2.1.sqlite-wal in Resources */ = {isa = PBXBuildFile; fileRef = 70C4A7022C61B3AE00A83FC4 /* SampleStore2.1.sqlite-wal */; };
 		70C4A7062C61B3AE00A83FC4 /* SampleStore2.1.sqlite-shm in Resources */ = {isa = PBXBuildFile; fileRef = 70C4A7032C61B3AE00A83FC4 /* SampleStore2.1.sqlite-shm */; };
@@ -567,7 +567,7 @@
 		039FDF3425AFC345008F3684 /* Migrations */ = {
 			isa = PBXGroup;
 			children = (
-				70C4A7092C61B42200A83FC4 /* 2_0To_3_0 */,
+				70C4A7092C61B42200A83FC4 /* 2_0To3_0 */,
 				039FDF3525AFC351008F3684 /* 2_0To2_1 */,
 				70C4A70B2C61B42200A83FC4 /* 2_1To3_0 */,
 			);
@@ -723,13 +723,13 @@
 			path = Sample;
 			sourceTree = "<group>";
 		};
-		70C4A7092C61B42200A83FC4 /* 2_0To_3_0 */ = {
+		70C4A7092C61B42200A83FC4 /* 2_0To3_0 */ = {
 			isa = PBXGroup;
 			children = (
 				70B8768F2D7F8604009180E8 /* 2.0_3.0_Mapping.xcmappingmodel */,
 				70C4A7082C61B42200A83FC4 /* OCKStoreMigration2_0To3_0Policy.swift */,
 			);
-			path = 2_0To_3_0;
+			path = 2_0To3_0;
 			sourceTree = "<group>";
 		};
 		70C4A70B2C61B42200A83FC4 /* 2_1To3_0 */ = {
@@ -1068,6 +1068,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7004807F2F1D5B4800E810F3 /* 2.0_3.0_Mapping.xcmappingmodel in Sources */,
 				70C4A7112C61C63500A83FC4 /* CareKitStore.xcdatamodeld in Sources */,
 				51D2F63D2878FBE900D19C2D /* PartialEvent.swift in Sources */,
 				E7AE85502232F24600AF7C32 /* OCKTask.swift in Sources */,
@@ -1087,7 +1088,6 @@
 				510638E42885B8ED00FDC9F5 /* OCKHealthKitPassthroughStore+EventsStream.swift in Sources */,
 				03459E7123393D1E001EB323 /* OCKCDHealthKitLinkage.swift in Sources */,
 				034C4EDF23D8BE7F005CDD0C /* OCKLog.swift in Sources */,
-				70B876902D7F8604009180E8 /* 2.0_3.0_Mapping.xcmappingmodel in Sources */,
 				E7E6FF6222372B3600782246 /* OCKStore+CarePlans.swift in Sources */,
 				03503C0E2310A52400BEE859 /* OCKCarePlanStore.swift in Sources */,
 				51E663272887205C006197D3 /* OCKHealthKitPassthroughStore+FetchEvents.swift in Sources */,

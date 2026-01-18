@@ -417,12 +417,6 @@ extension OCKHealthKitPassthroughStore {
 
         // Invalidate the first outcome value
         updatedEvent.outcome?.values[0].value = -1
-		updatedEvent.outcome?.values[0].createdDate = addedSample.dateInterval.start
-		updatedEvent.outcome?.values[0].dateInterval?.start = addedSample.dateInterval.start
-		updatedEvent.outcome?.values[0].dateInterval?.end = addedSample.dateInterval.end
-		updatedEvent.outcome?.values[0].sourceRevision = addedSample.sourceRevision
-		updatedEvent.outcome?.values[0].device = addedSample.device
-		updatedEvent.outcome?.values[0].metadata = addedSample.metadata
 
         // Track the new sample ID
         updatedEvent.outcome?.healthKitUUIDs[0].append(addedSampleID)
@@ -643,7 +637,11 @@ extension OCKHealthKitPassthroughStore {
         var outcomeValue = event.outcome?.values.first ?? OCKOutcomeValue(newSum, units: units)
 		outcomeValue.value = newSum
 		outcomeValue.units = units
-
+		outcomeValue.createdDate = event.scheduleEvent.start
+		outcomeValue.dateInterval = DateInterval(
+			start: event.scheduleEvent.start,
+			end: event.scheduleEvent.end
+		)
         updatedEvent.outcome!.values = [outcomeValue]
 
         // The healthKitUUIDs should be up to date with the samples that generated the

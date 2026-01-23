@@ -132,8 +132,8 @@ public final class OCKWatchConnectivityPeer: OCKRemoteSynchronizable {
 
     public func pullRevisions(
         since knowledgeVector: OCKRevisionRecord.KnowledgeVector,
-        mergeRevision: @escaping (OCKRevisionRecord) -> Void,
-        completion: @escaping (Error?) -> Void) {
+        mergeRevision: @escaping @Sendable (OCKRevisionRecord) -> Void,
+        completion: @escaping @Sendable (Error?) -> Void) {
 
         do {
 

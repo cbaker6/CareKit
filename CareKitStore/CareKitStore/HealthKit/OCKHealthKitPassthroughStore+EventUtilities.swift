@@ -86,54 +86,66 @@ extension OCKHealthKitPassthroughStore {
             updateEvent(event, deletedSampleIDs: change.deletedIDs)
         }
 
-        // Process new samples. We partition samples and events by their HK quantity type ensure we
-        // can match up samples and events correctly.
+        do {
+            // Process new samples. We partition samples and events by their HK quantity type ensure we
+            // can match up samples and events correctly.
 
-        let eventsGroupedByQuantityType = Dictionary(grouping: updatedEvents) {
-            extractQuantityType(from: $0.task)
-        }
-
-        let addedSamplesGroupedByQuantityType = Dictionary(
-            grouping: change.addedSamples,
-            by: \.type
-        )
-
-        updatedEvents = eventsGroupedByQuantityType.flatMap { quantityType, events -> [Event] in
-
-            let addedSamples = addedSamplesGroupedByQuantityType[quantityType] ?? []
-
-            return events.map { event in
-                updateEvent(event, applyingNewSamples: addedSamples)
-            }
-        }
-
-        // Now that we have processed newly added and deleted samples, we can check
-        // which outcomes are stale and update them accordingly
-
-        let eventsWithStaleOutcomes = updatedEvents.filter {
-            isOutcomeStale($0.outcome)
-        }
-
-        let eventsWithNonStaleOutcomes = updatedEvents.filter {
-            isOutcomeStale($0.outcome) == false
-        }
-
-        updateCumulativeSumOfSamples(eventsWithStaleOutcomes) { result in
-
-            let allEventsResult = result.map {
-
-                // Combine and sort the events by task effective date then event start date
-
-                let events = eventsWithNonStaleOutcomes + $0
-
-                let eventsSortedByEffectiveThenStart = events
-                    .sorted { $0.task.effectiveDate < $1.task.effectiveDate }
-                    .sorted { $0.scheduleEvent.start < $1.scheduleEvent.start }
-
-                return eventsSortedByEffectiveThenStart
+            let eventsGroupedBySampleType = try Dictionary(grouping: updatedEvents) {
+                try extractSampleType(from: $0.task)
             }
 
-            completion(allEventsResult)
+            let addedSamplesGroupedBySampleType = Dictionary(
+                grouping: change.addedSamples,
+                by: \.type
+            )
+
+            updatedEvents = try eventsGroupedBySampleType.flatMap { sampleType, events -> [Event] in
+
+                let addedSamples = addedSamplesGroupedBySampleType[sampleType] ?? []
+
+                return try events.map { event in
+                    try updateEvent(event, applyingNewSamples: addedSamples)
+                }
+            }
+
+            // Now that we have processed newly added and deleted samples, we can check
+            // which outcomes are stale and update them accordingly
+
+            let eventsWithStaleOutcomes = updatedEvents.filter {
+                isOutcomeStale($0.outcome) && (try? extractSampleType(from: $0.task)) != nil
+            }
+
+            let eventsWithNonStaleOutcomes = updatedEvents.filter {
+                isOutcomeStale($0.outcome) == false
+            }
+
+            let filteredEventCount = eventsWithStaleOutcomes.count + eventsWithNonStaleOutcomes.count
+            if filteredEventCount != updatedEvents.count {
+                let eventsWithStaleOutcomesThatAreNotQuantityEvents = updatedEvents.filter {
+                    isOutcomeStale($0.outcome) && (try? extractSampleType(from: $0.task)) == nil
+                }
+                fatalError("Total filtered events(\(filteredEventCount)) should always match updated events(\(updatedEvents.count). Check the following events: \(eventsWithStaleOutcomesThatAreNotQuantityEvents))")
+            }
+
+            updateCumulativeSumOfSamples(eventsWithStaleOutcomes) { result in
+
+                let allEventsResult = result.map {
+
+                    // Combine and sort the events by task effective date then event start date
+
+                    let events = eventsWithNonStaleOutcomes + $0
+
+                    let eventsSortedByEffectiveThenStart = events
+                        .sorted { $0.task.effectiveDate < $1.task.effectiveDate }
+                        .sorted { $0.scheduleEvent.start < $1.scheduleEvent.start }
+
+                    return eventsSortedByEffectiveThenStart
+                }
+
+                completion(allEventsResult)
+            }
+        } catch {
+            completion(.failure(error))
         }
     }
 
@@ -141,7 +153,7 @@ extension OCKHealthKitPassthroughStore {
     private func updateEvent(
         _ event: Event,
         applyingNewSamples samples: [Sample]
-    ) -> Event {
+    ) throws -> Event {
 
         // A sample only affects an event if their date intervals intersect
 
@@ -157,18 +169,25 @@ extension OCKHealthKitPassthroughStore {
 
         var updatedEvent = event
 
-        let type = event.task.healthKitLinkage.quantityType
-
-        switch type {
-
-        case .discrete:
-            intersectingSamples.forEach { sample in
-                updatedEvent = appendSample(sample, event: updatedEvent)
+        if (try? extractQuantityType(from: event.task)) != nil {
+            guard let type = event.task.healthKitLinkage.quantityType else {
+                throw OCKStoreError.invalidValue(reason: "A quantity event must have a quantity type")
             }
+            switch type {
 
-        case .cumulative:
-            intersectingSamples.forEach { sample in
-                updatedEvent = invalidateCumulativeOutcome(addedSampleID: sample.id, event: updatedEvent)
+            case .discrete:
+                try intersectingSamples.forEach { sample in
+                    updatedEvent = try appendSample(sample, event: updatedEvent)
+                }
+
+            case .cumulative:
+                intersectingSamples.forEach { sample in
+                    updatedEvent = invalidateCumulativeOutcome(addedSample: sample, event: updatedEvent)
+                }
+            }
+        } else {
+            try intersectingSamples.forEach { sample in
+                updatedEvent = try appendSample(sample, event: updatedEvent)
             }
         }
 
@@ -182,18 +201,23 @@ extension OCKHealthKitPassthroughStore {
     ) -> Event {
 
         var updatedEvent = event
-        let type = event.task.healthKitLinkage.quantityType
+        if let type = event.task.healthKitLinkage.quantityType {
 
-        switch type {
+            switch type {
 
-        case .discrete:
+            case .discrete:
+                deletedSampleIDs.forEach { id in
+                    updatedEvent = removeSample(withID: id, from: updatedEvent)
+                }
+
+            case .cumulative:
+                deletedSampleIDs.forEach { id in
+                    updatedEvent = invalidateCumulativeOutcome(deletedSampleID: id, event: updatedEvent)
+                }
+            }
+        } else {
             deletedSampleIDs.forEach { id in
                 updatedEvent = removeSample(withID: id, from: updatedEvent)
-            }
-
-        case .cumulative:
-            deletedSampleIDs.forEach { id in
-                updatedEvent = invalidateCumulativeOutcome(deletedSampleID: id, event: updatedEvent)
             }
         }
 
@@ -228,25 +252,65 @@ extension OCKHealthKitPassthroughStore {
         return updatedEvent
     }
 
+    private func createOutcomeValueFromSample(
+        _ sample: Sample,
+        event: Event
+    ) throws -> OCKOutcomeValue {
+
+        if let quantitySample = sample as? QuantitySample {
+
+            guard let unit = event.task.healthKitLinkage.unit else {
+                throw OCKStoreError.invalidValue(reason: "Quantity type should have a unit specified")
+            }
+            let doubleValue = quantitySample
+                .quantity
+                .doubleValue(for: unit)
+
+            let outcomeValue = OCKOutcomeValue(
+                doubleValue,
+                units: unit.unitString,
+                createdDate: sample.dateInterval.start,
+				endDate: sample.dateInterval.end,
+                kind: nil,
+                sourceRevision: sample.sourceRevision,
+                device: sample.device,
+                metadata: sample.metadata
+            )
+
+            return outcomeValue
+
+        } else if let categorySample = sample as? CategorySample {
+
+            let outcomeValue = OCKOutcomeValue(
+                categorySample.value,
+                units: nil,
+                createdDate: sample.dateInterval.start,
+				endDate: sample.dateInterval.end,
+                kind: nil,
+                sourceRevision: sample.sourceRevision,
+                device: sample.device,
+                metadata: sample.metadata
+            )
+
+            return outcomeValue
+
+        } else {
+            throw OCKStoreError.invalidValue(reason: "Unsupported sample type")
+        }
+    }
+
     /// Convert a sample to an outcome value and store it on the event's outcome. We also
     /// store the sample ID on the outcome so that we can locate this outcome value later on.
     private func appendSample(
         _ sample: Sample,
         event: Event
-    ) -> Event {
+    ) throws -> Event {
 
         // Convert the sample to an outcome value
-
-        let doubleValue = sample
-            .quantity
-            .doubleValue(for: event.task.healthKitLinkage.unit)
-
-        var outcomeValue = OCKOutcomeValue(
-            doubleValue,
-            units: event.task.healthKitLinkage.unit.unitString
+        let outcomeValue = try createOutcomeValueFromSample(
+            sample,
+            event: event
         )
-
-        outcomeValue.createdDate = now
 
         var updatedEvent = event
 
@@ -315,10 +379,11 @@ extension OCKHealthKitPassthroughStore {
     /// that will affect the sum value. We do store the sample ID for the new sample, but set the outcome
     /// value to -1 to indicate that the sum needs to be recomputed.
     private func invalidateCumulativeOutcome(
-        addedSampleID: UUID,
+        addedSample: any Sample,
         event: Event
     ) -> Event {
 
+		let addedSampleID = addedSample.id
         var updatedEvent = event
 
         // Create an outcome if one doesn't already exist
@@ -326,13 +391,23 @@ extension OCKHealthKitPassthroughStore {
 
         // If there are no outcome values yet, create a new one
         guard
+
             event.outcome?.values.first != nil &&
             event.outcome?.healthKitUUIDs.first != nil
         else {
 
-            let units = event.task.healthKitLinkage.unit.unitString
-            var outcomeValue = OCKOutcomeValue(-1, units: units)
-            outcomeValue.createdDate = now
+			let value = -1
+            let units = event.task.healthKitLinkage.unit?.unitString
+			let outcomeValue = OCKOutcomeValue(
+				value,
+				units: units,
+				createdDate: addedSample.dateInterval.start,
+				endDate: addedSample.dateInterval.end,
+				kind: nil,
+				sourceRevision: addedSample.sourceRevision,
+				device: addedSample.device,
+				metadata: addedSample.metadata
+			)
 
             updatedEvent.outcome?.values.append(outcomeValue)
             updatedEvent.outcome?.healthKitUUIDs.append([addedSampleID])
@@ -366,10 +441,41 @@ extension OCKHealthKitPassthroughStore {
         return doesIntersect
     }
 
-    private func extractQuantityType(from task: Task) -> HKQuantityType {
-        let quantityID = task.healthKitLinkage.quantityIdentifier
-        let quantityType = HKObjectType.quantityType(forIdentifier: quantityID)!
+    private func extractSampleType(from task: Task) throws -> HKSampleType {
+        if let quantityType = try? extractQuantityType(from: task) {
+            return quantityType
+        } else if let categoryType = try? extractCategoryType(from: task) {
+            return categoryType
+        } else {
+            let error = OCKStoreError.invalidValue(
+                reason: "Task \(task) does not have a valid sample type"
+                )
+            throw error
+        }
+    }
+
+    func extractQuantityType(from task: Task) throws -> HKQuantityType {
+        guard let quantityID = task.healthKitLinkage.quantityIdentifier,
+              let quantityType = HKObjectType.quantityType(forIdentifier: quantityID) else {
+            let error = OCKStoreError.invalidValue(
+                reason: "Task \(task) does not have a valid healthKitLinkage.quantityIdentifier"
+            )
+            throw error
+        }
+
         return quantityType
+    }
+
+    func extractCategoryType(from task: Task) throws -> HKCategoryType {
+        guard let categoryID = task.healthKitLinkage.categoryIdentifier,
+              let categoryType = HKObjectType.categoryType(forIdentifier: categoryID) else {
+            let error = OCKStoreError.invalidValue(
+                reason: "Task \(task) does not have a valid healthKitLinkage.categoryIdentifier"
+            )
+            throw error
+        }
+
+        return categoryType
     }
 
     /// An outcome is considered stale one of its values is -1, indicating that the outcome
@@ -391,51 +497,61 @@ extension OCKHealthKitPassthroughStore {
         completion: @escaping @Sendable (Result<[Sample], Error>) -> Void
     ) {
 
-        let descriptors = makeQueryDescriptors(for: events)
+        do {
+            let descriptors = try makeQueryDescriptors(for: events)
 
-        // Only perform query if there are one or more descriptors.
-        guard descriptors.isEmpty == false else {
-            completion(.success([]))
-            return
-        }
+			// Only perform query if there are one or more descriptors.
+			guard descriptors.isEmpty == false else {
+				completion(.success([]))
+				return
+			}
 
-        // We're not storing the query anchor because we're only fetching the
-        // initial samples, and aren't concerned with changes that occur to the samples
-        // in the HK store.
+			// We're not storing the query anchor because we're only fetching the
+			// initial samples, and aren't concerned with changes that occur to the samples
+			// in the HK store.
 
-        let query = HKAnchoredObjectQuery(
-            queryDescriptors: descriptors,
-            anchor: nil,
-            limit: HKObjectQueryNoLimit
-        ) { _, hkSamples, _, _, error in
+            let query = HKAnchoredObjectQuery(
+                queryDescriptors: descriptors,
+                anchor: nil,
+                limit: HKObjectQueryNoLimit
+            ) { _, hkSamples, _, _, error in
 
-            // Catch errors
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
+                // Catch errors
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
 
-            let samples = hkSamples?
-                .compactMap { $0 as? HKQuantitySample }
-                .map(Sample.init)
+                let quantitySamples = hkSamples?
+                    .compactMap { $0 as? HKQuantitySample }
+                    .map(QuantitySample.init)
                 ?? []
 
-            completion(.success(samples))
-        }
+                let categorySamples = hkSamples?
+                    .compactMap { $0 as? HKCategorySample }
+                    .map(CategorySample.init)
+                ?? []
 
-        healthStore.execute(query)
+                let samples: [Sample]  = quantitySamples + categorySamples
+                completion(.success(samples))
+            }
+
+            healthStore.execute(query)
+        } catch {
+            completion(.failure(error))
+        }
     }
 
     /// A constant stream of changes to HK samples matching the provided event dates.
-    func healthKitSampleChanges(matching events: [Event]) -> some AsyncSequence<SampleChange, Error> & Sendable {
+    func healthKitSampleChanges(matching events: [Event]) throws -> some AsyncSequence<SampleChange, Error> & Sendable {
 
         // Create a live query that fetches HealthKit sample changes
 
-        let queryDescriptors = makeQueryDescriptors(for: events)
+        let queryDescriptors = try makeQueryDescriptors(for: events)
         let queryResults = AsyncStreamFactory.healthKitResults(queryDescriptors: queryDescriptors, store: healthStore)
 
         let sampleChanges = queryResults
-            .map { SampleChange($0) }
+			.map { SampleChange($0) }
 
         return sampleChanges
     }
@@ -465,7 +581,17 @@ extension OCKHealthKitPassthroughStore {
     ) {
 
         let predicate = makePredicate(for: event.scheduleEvent)
-        let quantityType = extractQuantityType(from: event.task)
+        guard let quantityType = try? extractQuantityType(from: event.task) else {
+            let error = OCKStoreError.invalidValue(reason: "Only quantity types can be cumulative")
+            completion(.failure(error))
+            return
+        }
+
+        guard let unit = event.task.healthKitLinkage.unit else {
+            let error = OCKStoreError.invalidValue(reason: "Quantity types should have a unit")
+            completion(.failure(error))
+            return
+        }
 
         let query = HKStatisticsQuery(
             quantityType: quantityType,
@@ -480,7 +606,7 @@ extension OCKHealthKitPassthroughStore {
 
             let newSum = statistics?
                 .sumQuantity()?
-                .doubleValue(for: event.task.healthKitLinkage.unit)
+                .doubleValue(for: unit)
 
             let updatedEvent = self.updateCumulativeSumOfSamples(newSum: newSum, event: event)
             completion(.success(updatedEvent))
@@ -507,10 +633,14 @@ extension OCKHealthKitPassthroughStore {
 
         updatedEvent.outcome = event.outcome ?? makeOutcome(for: event)
 
-        let units = event.task.healthKitLinkage.unit.unitString
-        var outcomeValue = OCKOutcomeValue(newSum, units: units)
-        outcomeValue.createdDate = now
-
+        let units = event.task.healthKitLinkage.unit?.unitString
+        var outcomeValue = event.outcome?.values.first ?? OCKOutcomeValue(newSum, units: units)
+		outcomeValue.value = newSum
+		outcomeValue.createdDate = event.scheduleEvent.start
+		outcomeValue.dateInterval = DateInterval(
+			start: event.scheduleEvent.start,
+			end: event.scheduleEvent.end
+		)
         updatedEvent.outcome!.values = [outcomeValue]
 
         // The healthKitUUIDs should be up to date with the samples that generated the
@@ -530,26 +660,36 @@ extension OCKHealthKitPassthroughStore {
 
     func makeTaskQuery(from outcomeQuery: OCKOutcomeQuery) -> OCKTaskQuery {
 
-        let dateInterval = Calendar.current.dateInterval(of: .day, for: Date())!
+        // Search over the interval provided by OCKOutcomeQuery if present
+        // or else constrain sample query over the current day.
+        let dateInterval = outcomeQuery.dateInterval ?? Calendar.current.dateInterval(of: .day, for: Date())!
 
         var taskQuery = OCKTaskQuery(dateInterval: dateInterval)
         taskQuery.ids = outcomeQuery.taskIDs
         taskQuery.remoteIDs = outcomeQuery.taskRemoteIDs
         taskQuery.uuids = outcomeQuery.taskUUIDs
+        taskQuery.sortDescriptors = outcomeQuery.sortDescriptors.map { descriptor in
+            switch descriptor {
+            case .effectiveDate(ascending: let ascending):
+                return OCKTaskQuery.SortDescriptor.effectiveDate(ascending: ascending)
+            case .groupIdentifier(ascending: let ascending):
+                return OCKTaskQuery.SortDescriptor.groupIdentifier(ascending: ascending)
+            }
+        }
 
         return taskQuery
     }
 
-    func makeQueryDescriptors(for events: [Event]) -> [HKQueryDescriptor] {
+    func makeQueryDescriptors(for events: [Event]) throws -> [HKQueryDescriptor] {
 
         // Create a lookup table to quickly locate all events for a specific sample type
-        let eventsGroupedByQuantityType = Dictionary(grouping: events) {
-            extractQuantityType(from: $0.task)
+        let eventsGroupedBySampleType = try Dictionary(grouping: events) {
+            try extractSampleType(from: $0.task)
         }
 
         // Create a single query descriptor for each quantity type. The date interval
         // for the query descriptor predicate is determined by the events for the quantity type.
-        let queryDescriptors = eventsGroupedByQuantityType.map { sampleType, events -> HKQueryDescriptor in
+        let queryDescriptors = eventsGroupedBySampleType.map { sampleType, events -> HKQueryDescriptor in
 
             let predicates = events.map { makePredicate(for: $0.scheduleEvent) }
             let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: predicates)

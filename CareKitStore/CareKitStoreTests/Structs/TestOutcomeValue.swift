@@ -232,12 +232,43 @@ class TestOutcomeValue: XCTestCase {
     }
 
     func testCodingAllEntries() throws {
-        var value = OCKOutcomeValue(10)
+        let createdDate = Date().addingTimeInterval(-200)
+        let endDate = Date().addingTimeInterval(-50)
+        let sourceRevision = OCKSourceRevision(
+            source: .init(
+                name: "name",
+                bundleIdentifier: "bundle"
+            ),
+            version: "version",
+            productType: "productType",
+            operatingSystemVersion: .init(
+                majorVersion: 1,
+                minorVersion: 0,
+                patchVersion: 2
+            )
+        )
+        let device = OCKDevice(
+            name: "deviceName",
+            manufacturer: "manufacturer",
+            model: "model",
+            hardwareVersion: "hardwareVersion",
+            firmwareVersion: "firmwareVersion",
+            softwareVersion: "softwareVersion",
+            localIdentifier: "localIdentifier",
+            udiDeviceIdentifier: "udiDeviceIdentifier"
+        )
+        let metadata = ["key": "value"]
 
-        // Value
-        value.kind = "whale"
-        value.units = "m/s"
-        value.createdDate = Date().addingTimeInterval(-200)
+        let value = OCKOutcomeValue(
+            10,
+            units: "m/s",
+            createdDate: createdDate,
+			endDate: endDate,
+            kind: "whale",
+            sourceRevision: sourceRevision,
+            device: device,
+            metadata: metadata
+        )
 
         let encoded = try JSONEncoder().encode(value)
         let decoded = try JSONDecoder().decode(OCKOutcomeValue.self, from: encoded)
@@ -245,6 +276,10 @@ class TestOutcomeValue: XCTestCase {
         XCTAssertEqual(decoded.kind, value.kind)
         XCTAssertEqual(decoded.units, value.units)
         XCTAssertEqual(decoded.createdDate, value.createdDate)
+        XCTAssertEqual(decoded.dateInterval, value.dateInterval)
+        XCTAssertEqual(decoded.sourceRevision, value.sourceRevision)
+        XCTAssertEqual(decoded.device, value.device)
+        XCTAssertEqual(decoded.metadata, value.metadata)
 
         if let decodedUnderValue = decoded.value as? Int,
             let currentUnderValue = value.value as? Int {

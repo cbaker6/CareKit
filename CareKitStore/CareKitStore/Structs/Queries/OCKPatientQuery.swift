@@ -31,10 +31,10 @@
 import Foundation
 
 /// A query that limits which patients will be returned when fetching.
-public struct OCKPatientQuery: Equatable, Sendable, OCKQueryProtocol {
+public struct OCKPatientQuery: Hashable, Sendable, OCKQueryProtocol {
 
     /// Specifies the order in which query results will be sorted.
-    public enum SortDescriptor: Equatable, Sendable {
+    public enum SortDescriptor: Hashable, Sendable {
 
         case groupIdentifier(ascending: Bool)
         case givenName(ascending: Bool)

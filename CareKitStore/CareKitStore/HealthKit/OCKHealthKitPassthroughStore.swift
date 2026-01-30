@@ -87,8 +87,20 @@ public final class OCKHealthKitPassthroughStore: OCKEventStore, Sendable {
     public func requestHealthKitPermissionsForAllTasksInStore(completion: @escaping @Sendable (Error?) -> Void = { _ in }) {
         do {
             let tasks = try store.fetchHealthKitTasks(query: OCKTaskQuery())
-            let quantities = tasks.map { HKQuantityType.quantityType(forIdentifier: $0.healthKitLinkage.quantityIdentifier)! }
-            proxy.requestPermissionIfNecessary(writeTypes: Set(quantities)) { error in
+            let quantities = tasks.compactMap { task -> HKQuantityType? in
+                guard let quantityType = try? extractQuantityType(from: task) else {
+                    return nil
+                }
+                return quantityType
+            }
+            let categories = tasks.compactMap { task -> HKCategoryType? in
+                guard let categoryType = try? extractCategoryType(from: task) else {
+                    return nil
+                }
+                return categoryType
+            }
+            let healthKitTypes = Set(quantities + categories)
+            proxy.requestPermissionIfNecessary(writeTypes: healthKitTypes) { error in
                 completion(error)
             }
         } catch {

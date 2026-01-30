@@ -34,7 +34,7 @@ import os.log
 import Synchronization
 
 /// An enumerator specifying the type of stores that may be chosen.
-public enum OCKCoreDataStoreType: Equatable, Sendable {
+public enum OCKCoreDataStoreType: Hashable, Sendable {
 
     /// An in memory store runs in RAM. It is fast and is not persisted between app launches.
     /// Its primary use case is for testing.
@@ -306,6 +306,13 @@ public final class OCKStore: OCKStoreProtocol, Equatable {
                 loadError = error
                 return
             }
+			if case .onDisk = self.storeType {
+				do {
+					try self.updateFileProtectionPathAtURL(self.storeURL)
+				} catch {
+					loadError = error
+				}
+			}
         })
 
         if let error = loadError {
@@ -316,6 +323,14 @@ public final class OCKStore: OCKStoreProtocol, Equatable {
 
         return true
     }
+
+	private func updateFileProtectionPathAtURL(_ url: URL) throws {
+		#if os(macOS)
+		// Currently only needed for macOS, other OS's set through CoreData.
+		let fileManager = FileManager.default
+		try fileManager.setAttributes([.protectionKey: storeType.securityClass], ofItemAtPath: url.path)
+		#endif
+	}
 
     @objc
     private func contextDidSave(_ notification: Notification) {
@@ -328,4 +343,12 @@ public final class OCKStore: OCKStoreProtocol, Equatable {
             autoSynchronizeIfRequired()
         }
     }
+}
+
+extension OCKStore: Hashable {
+	public func hash(into hasher: inout Hasher) {
+		hasher.combine(name)
+		hasher.combine(securityApplicationGroupIdentifier)
+		hasher.combine(storeType)
+	}
 }

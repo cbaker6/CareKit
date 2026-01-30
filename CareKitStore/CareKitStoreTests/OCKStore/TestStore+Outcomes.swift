@@ -56,8 +56,45 @@ class TestStoreOutcomes: XCTestCase {
         let task = try await store.addTask(OCKTask(id: "A", title: "A", carePlanUUID: nil, schedule: schedule))
         let taskUUID = task.uuid
 
-        var value = OCKOutcomeValue(42)
-        value.kind = "number"
+        let startDate = Date()
+        let endDate = startDate + 1
+        let dateInterval = DateInterval(
+            start: startDate,
+            end: endDate
+        )
+        let sourceRevision = OCKSourceRevision(
+            source: .init(
+                name: "name",
+                bundleIdentifier: "bundle"
+            ),
+            version: "version",
+            productType: "productType",
+            operatingSystemVersion: .init(
+                majorVersion: 1,
+                minorVersion: 0,
+                patchVersion: 2
+            )
+        )
+        let device = OCKDevice(
+            name: "deviceName",
+            manufacturer: "manufacturer",
+            model: "model",
+            hardwareVersion: "hardwareVersion",
+            firmwareVersion: "firmwareVersion",
+            softwareVersion: "softwareVersion",
+            localIdentifier: "localIdentifier",
+            udiDeviceIdentifier: "udiDeviceIdentifier"
+        )
+        let metadata = ["key": "value"]
+        let value = OCKOutcomeValue(
+            42,
+            createdDate: dateInterval.start,
+			endDate: dateInterval.end,
+            kind: "number",
+            sourceRevision: sourceRevision,
+            device: device,
+            metadata: metadata
+        )
 
         var outcome = OCKOutcome(taskUUID: taskUUID, taskOccurrenceIndex: 0, values: [value])
         outcome = try await store.addOutcome(outcome)
@@ -67,6 +104,10 @@ class TestStoreOutcomes: XCTestCase {
         XCTAssertEqual(outcomes.first?.values.first?.kind, "number")
         XCTAssertNotNil(outcomes.first?.taskUUID)
         XCTAssertNotNil(outcomes.first?.schemaVersion)
+        XCTAssertEqual(outcomes.first?.values.first?.dateInterval, dateInterval)
+        XCTAssertEqual(outcomes.first?.values.first?.sourceRevision, sourceRevision)
+        XCTAssertEqual(outcomes.first?.values.first?.device, device)
+        XCTAssertEqual(outcomes.first?.values.first?.metadata, metadata)
     }
 
     func testAddOutcomeToTask() async throws {

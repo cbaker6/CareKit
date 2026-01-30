@@ -31,13 +31,14 @@
 import Foundation
 
 /// A query that limits which care plans will be returned when fetching.
-public struct OCKCarePlanQuery: Equatable, Sendable, OCKQueryProtocol {
+public struct OCKCarePlanQuery: Hashable, Sendable, OCKQueryProtocol {
 
     /// Specifies the order in which query results will be sorted.
-    public enum SortDescriptor: Equatable, Sendable {
+    public enum SortDescriptor: Hashable, Sendable {
 
         case title(ascending: Bool)
         case effectiveDate(ascending: Bool)
+        case groupIdentifier(ascending: Bool)
 
         var nsSortDescriptor: NSSortDescriptor {
             switch self {
@@ -45,6 +46,8 @@ public struct OCKCarePlanQuery: Equatable, Sendable, OCKQueryProtocol {
                 return NSSortDescriptor(keyPath: \OCKCDCarePlan.effectiveDate, ascending: ascending)
             case let .title(ascending):
                 return NSSortDescriptor(keyPath: \OCKCDCarePlan.title, ascending: ascending)
+            case let .groupIdentifier(ascending):
+                return NSSortDescriptor(keyPath: \OCKCDCarePlan.groupIdentifier, ascending: ascending)
             }
         }
     }

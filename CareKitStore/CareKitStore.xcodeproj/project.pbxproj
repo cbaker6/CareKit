@@ -46,7 +46,6 @@
 		03678DF02343B21F00E27926 /* OCKAnyEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03678DEF2343B21F00E27926 /* OCKAnyEvent.swift */; };
 		03678DF22343B23400E27926 /* OCKAnyEventStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03678DF12343B23400E27926 /* OCKAnyEventStore.swift */; };
 		03903A5B2317308A006061D2 /* OCKHealthKitProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03903A5A2317308A006061D2 /* OCKHealthKitProxy.swift */; };
-		039FDEFE25AF6601008F3684 /* CareKitStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 039FDEFB25AF6601008F3684 /* CareKitStore.xcdatamodeld */; };
 		039FDF3725AFC393008F3684 /* OCKStoreMigration2_0To2_1Policy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039FDF3625AFC393008F3684 /* OCKStoreMigration2_0To2_1Policy.swift */; };
 		03A0549C232ADE7D001ADF16 /* OCKPersistentStoreCoordinator+Patients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0549B232ADE7D001ADF16 /* OCKPersistentStoreCoordinator+Patients.swift */; };
 		03A0549E232ADF3B001ADF16 /* OCKPersistentStoreCoordinator+CarePlans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0549D232ADF3B001ADF16 /* OCKPersistentStoreCoordinator+CarePlans.swift */; };
@@ -87,7 +86,6 @@
 		03FE69812345618D00F3318C /* OCKHealthKitTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FE69802345618D00F3318C /* OCKHealthKitTask.swift */; };
 		510638E22885B86E00FDC9F5 /* OCKHealthKitPassthroughStore+OutcomesStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510638E12885B86E00FDC9F5 /* OCKHealthKitPassthroughStore+OutcomesStream.swift */; };
 		510638E42885B8ED00FDC9F5 /* OCKHealthKitPassthroughStore+EventsStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510638E32885B8ED00FDC9F5 /* OCKHealthKitPassthroughStore+EventsStream.swift */; };
-		5111EDC6293A4ABA0071A701 /* AsyncAlgorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 5111EDC5293A4ABA0071A701 /* AsyncAlgorithms */; };
 		5121407D240043E200B035F6 /* TestEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5121407C240043E200B035F6 /* TestEvent.swift */; };
 		5122A2B929523218003B0B57 /* CareTaskProgressStrategy+CheckingOutcomesExist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5122A2B829523218003B0B57 /* CareTaskProgressStrategy+CheckingOutcomesExist.swift */; };
 		5122A2BB2952323E003B0B57 /* BinaryCareTaskProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5122A2BA2952323E003B0B57 /* BinaryCareTaskProgress.swift */; };
@@ -121,7 +119,7 @@
 		51DF5B2A287C84A10067795E /* OCKReadOnlyEventStore+VersioningUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DF5B29287C84A10067795E /* OCKReadOnlyEventStore+VersioningUtilities.swift */; };
 		51DF5B2E287DCE1F0067795E /* OCKHealthKitPassthroughStore+EventUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DF5B2D287DCE1F0067795E /* OCKHealthKitPassthroughStore+EventUtilities.swift */; };
 		51DF5B30287DE8F90067795E /* SampleChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DF5B2F287DE8F90067795E /* SampleChange.swift */; };
-		51DF5B32287DE9210067795E /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DF5B31287DE9210067795E /* Sample.swift */; };
+		51DF5B32287DE9210067795E /* QuantitySample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DF5B31287DE9210067795E /* QuantitySample.swift */; };
 		51DF5B34287DEB770067795E /* TestHealthKitPassthroughStore+Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DF5B33287DEB770067795E /* TestHealthKitPassthroughStore+Events.swift */; };
 		51E6632128871F83006197D3 /* OCKReadOnlyEventStore+PartialEventsStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E6631F28871F83006197D3 /* OCKReadOnlyEventStore+PartialEventsStream.swift */; };
 		51E6632328871F83006197D3 /* OCKReadOnlyEventStore+FetchPartialEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E6632028871F83006197D3 /* OCKReadOnlyEventStore+FetchPartialEvents.swift */; };
@@ -129,6 +127,26 @@
 		51E663282887205C006197D3 /* OCKHealthKitPassthroughStore+FetchOutcomes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E663262887205C006197D3 /* OCKHealthKitPassthroughStore+FetchOutcomes.swift */; };
 		51EB47532901AA2C00734820 /* CareTaskProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EB47522901AA2C00734820 /* CareTaskProgress.swift */; };
 		51EB9F152E0A26C600A363A1 /* TestPostalAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EB9F142E0A26C200A363A1 /* TestPostalAddress.swift */; };
+		7004807F2F1D5B4800E810F3 /* 2.0_3.0_Mapping.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 70B8768F2D7F8604009180E8 /* 2.0_3.0_Mapping.xcmappingmodel */; };
+		7007A0DA2D6CFA2800C1B9B5 /* OCKDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7007A0D92D6CFA2800C1B9B5 /* OCKDevice.swift */; };
+		7007A0DC2D6CFB0C00C1B9B5 /* OCKSourceRevision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7007A0DB2D6CFB0600C1B9B5 /* OCKSourceRevision.swift */; };
+		7007A0DE2D6CFC5500C1B9B5 /* OCKSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7007A0DD2D6CFC5000C1B9B5 /* OCKSource.swift */; };
+		7098B6042D77C60500A098DD /* CategorySample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098B6012D77C60500A098DD /* CategorySample.swift */; };
+		7098B6062D78741800A098DD /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098B6052D78741100A098DD /* Sample.swift */; };
+		70B8768E2D7F7179009180E8 /* OCKStoreMigration2_1To3_0Policy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B8768D2D7F7179009180E8 /* OCKStoreMigration2_1To3_0Policy.swift */; };
+		70C4A7042C61B3AE00A83FC4 /* SampleStore2.1.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 70C4A7012C61B3AE00A83FC4 /* SampleStore2.1.sqlite */; };
+		70C4A7052C61B3AE00A83FC4 /* SampleStore2.1.sqlite-wal in Resources */ = {isa = PBXBuildFile; fileRef = 70C4A7022C61B3AE00A83FC4 /* SampleStore2.1.sqlite-wal */; };
+		70C4A7062C61B3AE00A83FC4 /* SampleStore2.1.sqlite-shm in Resources */ = {isa = PBXBuildFile; fileRef = 70C4A7032C61B3AE00A83FC4 /* SampleStore2.1.sqlite-shm */; };
+		70C4A70D2C61B42200A83FC4 /* OCKStoreMigration2_0To3_0Policy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C4A7082C61B42200A83FC4 /* OCKStoreMigration2_0To3_0Policy.swift */; };
+		70C4A7112C61C63500A83FC4 /* CareKitStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 70C4A6FC2C61B33F00A83FC4 /* CareKitStore.xcdatamodeld */; };
+		70E55D4C2DCE762400FA85DD /* 2.1_3.0_Mapping.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 70E55D4B2DCE762400FA85DD /* 2.1_3.0_Mapping.xcmappingmodel */; };
+		70FCCED92D73BFE8008A1BF8 /* OperatingSystemVersion+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FCCED72D73BFE8008A1BF8 /* OperatingSystemVersion+Codable.swift */; };
+		70FCCEDA2D73BFE8008A1BF8 /* OperatingSystemVersion+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FCCED82D73BFE8008A1BF8 /* OperatingSystemVersion+Hashable.swift */; };
+		70FCCEDC2D73C2AD008A1BF8 /* OCKCDDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FCCEDB2D73C2A5008A1BF8 /* OCKCDDevice.swift */; };
+		70FCCEDE2D73C2C0008A1BF8 /* OCKCDSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FCCEDD2D73C2BA008A1BF8 /* OCKCDSource.swift */; };
+		70FCCEE02D73C2CC008A1BF8 /* OCKCDSourceRevision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FCCEDF2D73C2C5008A1BF8 /* OCKCDSourceRevision.swift */; };
+		70FCCEE22D73C87B008A1BF8 /* OCKCDOperatingSystemVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FCCEE12D73C86F008A1BF8 /* OCKCDOperatingSystemVersion.swift */; };
+		70FE85B92EEE4B2300A1AA07 /* AsyncAlgorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 70FE85B82EEE4B2300A1AA07 /* AsyncAlgorithms */; };
 		E7131DC12241FAA80001861B /* OCKTaskQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7131DC02241FAA80001861B /* OCKTaskQuery.swift */; };
 		E7131DC5224200640001861B /* OCKOutcomeQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7131DC4224200640001861B /* OCKOutcomeQuery.swift */; };
 		E7131DCB22420A520001861B /* OCKPatientQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7131DCA22420A520001861B /* OCKPatientQuery.swift */; };
@@ -238,8 +256,6 @@
 		03678DEF2343B21F00E27926 /* OCKAnyEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCKAnyEvent.swift; sourceTree = "<group>"; };
 		03678DF12343B23400E27926 /* OCKAnyEventStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCKAnyEventStore.swift; sourceTree = "<group>"; };
 		03903A5A2317308A006061D2 /* OCKHealthKitProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCKHealthKitProxy.swift; sourceTree = "<group>"; };
-		039FDEFC25AF6601008F3684 /* CareKitStore2.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CareKitStore2.1.xcdatamodel; sourceTree = "<group>"; };
-		039FDEFD25AF6601008F3684 /* CareKitStore2.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CareKitStore2.0.xcdatamodel; sourceTree = "<group>"; };
 		039FDF3625AFC393008F3684 /* OCKStoreMigration2_0To2_1Policy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCKStoreMigration2_0To2_1Policy.swift; sourceTree = "<group>"; };
 		03A0549B232ADE7D001ADF16 /* OCKPersistentStoreCoordinator+Patients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OCKPersistentStoreCoordinator+Patients.swift"; sourceTree = "<group>"; };
 		03A0549D232ADF3B001ADF16 /* OCKPersistentStoreCoordinator+CarePlans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OCKPersistentStoreCoordinator+CarePlans.swift"; sourceTree = "<group>"; };
@@ -315,7 +331,7 @@
 		51DF5B29287C84A10067795E /* OCKReadOnlyEventStore+VersioningUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OCKReadOnlyEventStore+VersioningUtilities.swift"; sourceTree = "<group>"; };
 		51DF5B2D287DCE1F0067795E /* OCKHealthKitPassthroughStore+EventUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OCKHealthKitPassthroughStore+EventUtilities.swift"; sourceTree = "<group>"; };
 		51DF5B2F287DE8F90067795E /* SampleChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleChange.swift; sourceTree = "<group>"; };
-		51DF5B31287DE9210067795E /* Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
+		51DF5B31287DE9210067795E /* QuantitySample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantitySample.swift; sourceTree = "<group>"; };
 		51DF5B33287DEB770067795E /* TestHealthKitPassthroughStore+Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TestHealthKitPassthroughStore+Events.swift"; sourceTree = "<group>"; };
 		51E6631F28871F83006197D3 /* OCKReadOnlyEventStore+PartialEventsStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OCKReadOnlyEventStore+PartialEventsStream.swift"; sourceTree = "<group>"; };
 		51E6632028871F83006197D3 /* OCKReadOnlyEventStore+FetchPartialEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OCKReadOnlyEventStore+FetchPartialEvents.swift"; sourceTree = "<group>"; };
@@ -323,6 +339,27 @@
 		51E663262887205C006197D3 /* OCKHealthKitPassthroughStore+FetchOutcomes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OCKHealthKitPassthroughStore+FetchOutcomes.swift"; sourceTree = "<group>"; };
 		51EB47522901AA2C00734820 /* CareTaskProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareTaskProgress.swift; sourceTree = "<group>"; };
 		51EB9F142E0A26C200A363A1 /* TestPostalAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPostalAddress.swift; sourceTree = "<group>"; };
+		7007A0D92D6CFA2800C1B9B5 /* OCKDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCKDevice.swift; sourceTree = "<group>"; };
+		7007A0DB2D6CFB0600C1B9B5 /* OCKSourceRevision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCKSourceRevision.swift; sourceTree = "<group>"; };
+		7007A0DD2D6CFC5000C1B9B5 /* OCKSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCKSource.swift; sourceTree = "<group>"; };
+		7098B6012D77C60500A098DD /* CategorySample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySample.swift; sourceTree = "<group>"; };
+		7098B6052D78741100A098DD /* Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
+		70B8768D2D7F7179009180E8 /* OCKStoreMigration2_1To3_0Policy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCKStoreMigration2_1To3_0Policy.swift; sourceTree = "<group>"; };
+		70B8768F2D7F8604009180E8 /* 2.0_3.0_Mapping.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = 2.0_3.0_Mapping.xcmappingmodel; sourceTree = "<group>"; };
+		70C4A6FD2C61B33F00A83FC4 /* CareKitStore2.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CareKitStore2.1.xcdatamodel; sourceTree = "<group>"; };
+		70C4A6FF2C61B33F00A83FC4 /* CareKitStore2.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CareKitStore2.0.xcdatamodel; sourceTree = "<group>"; };
+		70C4A7012C61B3AE00A83FC4 /* SampleStore2.1.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = SampleStore2.1.sqlite; sourceTree = "<group>"; };
+		70C4A7022C61B3AE00A83FC4 /* SampleStore2.1.sqlite-wal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "SampleStore2.1.sqlite-wal"; sourceTree = "<group>"; };
+		70C4A7032C61B3AE00A83FC4 /* SampleStore2.1.sqlite-shm */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SampleStore2.1.sqlite-shm"; sourceTree = "<group>"; };
+		70C4A7082C61B42200A83FC4 /* OCKStoreMigration2_0To3_0Policy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OCKStoreMigration2_0To3_0Policy.swift; sourceTree = "<group>"; };
+		70E55D4B2DCE762400FA85DD /* 2.1_3.0_Mapping.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = 2.1_3.0_Mapping.xcmappingmodel; sourceTree = "<group>"; };
+		70FCCED62D73A47E008A1BF8 /* CareKitStore3.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CareKitStore3.0.xcdatamodel; sourceTree = "<group>"; };
+		70FCCED72D73BFE8008A1BF8 /* OperatingSystemVersion+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OperatingSystemVersion+Codable.swift"; sourceTree = "<group>"; };
+		70FCCED82D73BFE8008A1BF8 /* OperatingSystemVersion+Hashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OperatingSystemVersion+Hashable.swift"; sourceTree = "<group>"; };
+		70FCCEDB2D73C2A5008A1BF8 /* OCKCDDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCKCDDevice.swift; sourceTree = "<group>"; };
+		70FCCEDD2D73C2BA008A1BF8 /* OCKCDSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCKCDSource.swift; sourceTree = "<group>"; };
+		70FCCEDF2D73C2C5008A1BF8 /* OCKCDSourceRevision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCKCDSourceRevision.swift; sourceTree = "<group>"; };
+		70FCCEE12D73C86F008A1BF8 /* OCKCDOperatingSystemVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCKCDOperatingSystemVersion.swift; sourceTree = "<group>"; };
 		E7131DC02241FAA80001861B /* OCKTaskQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCKTaskQuery.swift; sourceTree = "<group>"; };
 		E7131DC4224200640001861B /* OCKOutcomeQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCKOutcomeQuery.swift; sourceTree = "<group>"; };
 		E7131DCA22420A520001861B /* OCKPatientQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCKPatientQuery.swift; sourceTree = "<group>"; };
@@ -407,7 +444,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5111EDC6293A4ABA0071A701 /* AsyncAlgorithms in Frameworks */,
+				70FE85B92EEE4B2300A1AA07 /* AsyncAlgorithms in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -506,19 +543,23 @@
 		03903A5C23198AAD006061D2 /* HealthKit */ = {
 			isa = PBXGroup;
 			children = (
+				7098B6072D7F566900A098DD /* Sample */,
+				7007A0D92D6CFA2800C1B9B5 /* OCKDevice.swift */,
+				03E76D1F23D22110003BF691 /* OCKHealthKitOutcome.swift */,
 				03CB6EBC2316EFEF0081AA7C /* OCKHealthKitPassthroughStore.swift */,
-				034C4EE023D8C560005CDD0C /* OCKHealthKitStore+Tasks.swift */,
-				034C4EE223D8C56D005CDD0C /* OCKHealthKitStore+Outcomes.swift */,
-				51E663252887205C006197D3 /* OCKHealthKitPassthroughStore+FetchEvents.swift */,
 				510638E32885B8ED00FDC9F5 /* OCKHealthKitPassthroughStore+EventsStream.swift */,
 				51DF5B2D287DCE1F0067795E /* OCKHealthKitPassthroughStore+EventUtilities.swift */,
+				51E663252887205C006197D3 /* OCKHealthKitPassthroughStore+FetchEvents.swift */,
 				51E663262887205C006197D3 /* OCKHealthKitPassthroughStore+FetchOutcomes.swift */,
 				510638E12885B86E00FDC9F5 /* OCKHealthKitPassthroughStore+OutcomesStream.swift */,
-				03FE69802345618D00F3318C /* OCKHealthKitTask.swift */,
-				03E76D1F23D22110003BF691 /* OCKHealthKitOutcome.swift */,
 				03903A5A2317308A006061D2 /* OCKHealthKitProxy.swift */,
-				51DF5B2F287DE8F90067795E /* SampleChange.swift */,
-				51DF5B31287DE9210067795E /* Sample.swift */,
+				034C4EE223D8C56D005CDD0C /* OCKHealthKitStore+Outcomes.swift */,
+				034C4EE023D8C560005CDD0C /* OCKHealthKitStore+Tasks.swift */,
+				03FE69802345618D00F3318C /* OCKHealthKitTask.swift */,
+				7007A0DD2D6CFC5000C1B9B5 /* OCKSource.swift */,
+				7007A0DB2D6CFB0600C1B9B5 /* OCKSourceRevision.swift */,
+				70FCCED72D73BFE8008A1BF8 /* OperatingSystemVersion+Codable.swift */,
+				70FCCED82D73BFE8008A1BF8 /* OperatingSystemVersion+Hashable.swift */,
 			);
 			path = HealthKit;
 			sourceTree = "<group>";
@@ -526,7 +567,9 @@
 		039FDF3425AFC345008F3684 /* Migrations */ = {
 			isa = PBXGroup;
 			children = (
+				70C4A7092C61B42200A83FC4 /* 2_0To3_0 */,
 				039FDF3525AFC351008F3684 /* 2_0To2_1 */,
+				70C4A70B2C61B42200A83FC4 /* 2_1To3_0 */,
 			);
 			path = Migrations;
 			sourceTree = "<group>";
@@ -579,6 +622,9 @@
 		03E48E4825B10E30005CBCB1 /* Migrations */ = {
 			isa = PBXGroup;
 			children = (
+				70C4A7012C61B3AE00A83FC4 /* SampleStore2.1.sqlite */,
+				70C4A7032C61B3AE00A83FC4 /* SampleStore2.1.sqlite-shm */,
+				70C4A7022C61B3AE00A83FC4 /* SampleStore2.1.sqlite-wal */,
 				03E48E4925B10E30005CBCB1 /* SampleStore2.0.sqlite-wal */,
 				03E48E4A25B10E30005CBCB1 /* SampleStore2.0.sqlite-shm */,
 				03E48E4C25B10E30005CBCB1 /* SampleStore2.0.sqlite */,
@@ -666,6 +712,42 @@
 			path = TaskProgress;
 			sourceTree = "<group>";
 		};
+		7098B6072D7F566900A098DD /* Sample */ = {
+			isa = PBXGroup;
+			children = (
+				7098B6012D77C60500A098DD /* CategorySample.swift */,
+				51DF5B31287DE9210067795E /* QuantitySample.swift */,
+				7098B6052D78741100A098DD /* Sample.swift */,
+				51DF5B2F287DE8F90067795E /* SampleChange.swift */,
+			);
+			path = Sample;
+			sourceTree = "<group>";
+		};
+		70C4A7092C61B42200A83FC4 /* 2_0To3_0 */ = {
+			isa = PBXGroup;
+			children = (
+				70B8768F2D7F8604009180E8 /* 2.0_3.0_Mapping.xcmappingmodel */,
+				70C4A7082C61B42200A83FC4 /* OCKStoreMigration2_0To3_0Policy.swift */,
+			);
+			path = 2_0To3_0;
+			sourceTree = "<group>";
+		};
+		70C4A70B2C61B42200A83FC4 /* 2_1To3_0 */ = {
+			isa = PBXGroup;
+			children = (
+				70E55D4B2DCE762400FA85DD /* 2.1_3.0_Mapping.xcmappingmodel */,
+				70B8768D2D7F7179009180E8 /* OCKStoreMigration2_1To3_0Policy.swift */,
+			);
+			path = 2_1To3_0;
+			sourceTree = "<group>";
+		};
+		70FE85B72EEE4B2300A1AA07 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E746048E22385B5200A1B16B /* Structs */ = {
 			isa = PBXGroup;
 			children = (
@@ -693,6 +775,7 @@
 				51CD578E29788807005711EA /* CareKitStore.docc */,
 				E784B8FA2232EED600736CA5 /* CareKitStore */,
 				E784B9052232EED600736CA5 /* CareKitStoreTests */,
+				70FE85B72EEE4B2300A1AA07 /* Frameworks */,
 				E784B8F92232EED600736CA5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -793,34 +876,38 @@
 		E7AE852E2232F24600AF7C32 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				70C4A6FC2C61B33F00A83FC4 /* CareKitStore.xcdatamodeld */,
 				039FDF3425AFC345008F3684 /* Migrations */,
-				039FDEFB25AF6601008F3684 /* CareKitStore.xcdatamodeld */,
-				03A156B824466B6800A3EEC0 /* Synchronization */,
-				E7AE853B2232F24600AF7C32 /* OCKStore.swift */,
-				03ADE71525CDFC98008507BE /* OCKStore+Transactions.swift */,
-				E7AE85362232F24600AF7C32 /* OCKStore+Patients.swift */,
-				E7E6FF6122372B3600782246 /* OCKStore+CarePlans.swift */,
-				E7D671C12281F7380089E4B7 /* OCKStore+Contacts.swift */,
-				E7AE85322232F24600AF7C32 /* OCKStore+Tasks.swift */,
-				E7AE85332232F24600AF7C32 /* OCKStore+Outcomes.swift */,
-				03ADE6F625CDCC00008507BE /* OCKStore+HealthKit.swift */,
-				E7AE85392232F24600AF7C32 /* OCKCDPatient.swift */,
 				E7E6FF56223716A900782246 /* OCKCDCarePlan.swift */,
+				0322ED19245752CE0018FCEB /* OCKCDClock.swift */,
 				E773748A228111BD00F31F94 /* OCKCDContact.swift */,
-				E7AE85382232F24600AF7C32 /* OCKCDTask.swift */,
-				E7AE852F2232F24600AF7C32 /* OCKCDScheduleElement.swift */,
+				70FCCEDB2D73C2A5008A1BF8 /* OCKCDDevice.swift */,
+				03459E7023393D1E001EB323 /* OCKCDHealthKitLinkage.swift */,
+				03ADE6CA25CDBD5A008507BE /* OCKCDHealthKitTask.swift */,
+				0326CE5C25C3903700C2553C /* OCKCDKnowledgeElement.swift */,
+				E7131DCE2242CF680001861B /* OCKCDNote.swift */,
+				E7AE85372232F24600AF7C32 /* OCKCDObject.swift */,
+				70FCCEE12D73C86F008A1BF8 /* OCKCDOperatingSystemVersion.swift */,
 				E7AE85302232F24600AF7C32 /* OCKCDOutcome.swift */,
 				E7AE85312232F24600AF7C32 /* OCKCDOutcomeValue.swift */,
-				E7AE85372232F24600AF7C32 /* OCKCDObject.swift */,
-				E7AE853A2232F24600AF7C32 /* OCKCDVersionedObject.swift */,
-				E7131DCE2242CF680001861B /* OCKCDNote.swift */,
+				E7AE85392232F24600AF7C32 /* OCKCDPatient.swift */,
 				E7844F2D2290DE7900EE2E1C /* OCKCDPersonName.swift */,
 				E7857A89229B5F1400FBEFAF /* OCKCDPostalAddress.swift */,
-				03459E7023393D1E001EB323 /* OCKCDHealthKitLinkage.swift */,
-				0322ED19245752CE0018FCEB /* OCKCDClock.swift */,
-				0326CE5C25C3903700C2553C /* OCKCDKnowledgeElement.swift */,
-				03ADE6CA25CDBD5A008507BE /* OCKCDHealthKitTask.swift */,
+				E7AE852F2232F24600AF7C32 /* OCKCDScheduleElement.swift */,
+				70FCCEDD2D73C2BA008A1BF8 /* OCKCDSource.swift */,
+				70FCCEDF2D73C2C5008A1BF8 /* OCKCDSourceRevision.swift */,
 				03A7841B25DB080E00D93EFB /* OCKCDTag.swift */,
+				E7AE85382232F24600AF7C32 /* OCKCDTask.swift */,
+				E7AE853A2232F24600AF7C32 /* OCKCDVersionedObject.swift */,
+				E7AE853B2232F24600AF7C32 /* OCKStore.swift */,
+				E7E6FF6122372B3600782246 /* OCKStore+CarePlans.swift */,
+				E7D671C12281F7380089E4B7 /* OCKStore+Contacts.swift */,
+				03ADE6F625CDCC00008507BE /* OCKStore+HealthKit.swift */,
+				E7AE85332232F24600AF7C32 /* OCKStore+Outcomes.swift */,
+				E7AE85362232F24600AF7C32 /* OCKStore+Patients.swift */,
+				E7AE85322232F24600AF7C32 /* OCKStore+Tasks.swift */,
+				03ADE71525CDFC98008507BE /* OCKStore+Transactions.swift */,
+				03A156B824466B6800A3EEC0 /* Synchronization */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -887,7 +974,7 @@
 			);
 			name = CareKitStore;
 			packageProductDependencies = (
-				5111EDC5293A4ABA0071A701 /* AsyncAlgorithms */,
+				70FE85B82EEE4B2300A1AA07 /* AsyncAlgorithms */,
 			);
 			productName = CareKitCarePlanStore;
 			productReference = E784B8F82232EED600736CA5 /* CareKitStore.framework */;
@@ -941,7 +1028,7 @@
 			);
 			mainGroup = E784B8EE2232EED600736CA5;
 			packageReferences = (
-				5111EDC4293A4ABA0071A701 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */,
+				70FE85A42EEE4AEC00A1AA07 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */,
 			);
 			productRefGroup = E784B8F92232EED600736CA5 /* Products */;
 			projectDirPath = "";
@@ -966,27 +1053,34 @@
 			buildActionMask = 2147483647;
 			files = (
 				03E48E4D25B10E30005CBCB1 /* SampleStore2.0.sqlite-wal in Resources */,
+				70C4A7042C61B3AE00A83FC4 /* SampleStore2.1.sqlite in Resources */,
 				03E48E5025B10E30005CBCB1 /* SampleStore2.0.sqlite in Resources */,
 				03E48E4E25B10E30005CBCB1 /* SampleStore2.0.sqlite-shm in Resources */,
+				70C4A7062C61B3AE00A83FC4 /* SampleStore2.1.sqlite-shm in Resources */,
+				70C4A7052C61B3AE00A83FC4 /* SampleStore2.1.sqlite-wal in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
 
 /* Begin PBXSourcesBuildPhase section */
 		E784B8F42232EED600736CA5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7004807F2F1D5B4800E810F3 /* 2.0_3.0_Mapping.xcmappingmodel in Sources */,
+				70C4A7112C61C63500A83FC4 /* CareKitStore.xcdatamodeld in Sources */,
 				51D2F63D2878FBE900D19C2D /* PartialEvent.swift in Sources */,
 				E7AE85502232F24600AF7C32 /* OCKTask.swift in Sources */,
 				E7AE855A2232F24600AF7C32 /* OCKCDPatient.swift in Sources */,
+				70E55D4C2DCE762400FA85DD /* 2.1_3.0_Mapping.xcmappingmodel in Sources */,
 				51DF5B2A287C84A10067795E /* OCKReadOnlyEventStore+VersioningUtilities.swift in Sources */,
 				E7AE85472232F24600AF7C32 /* OCKStoreProtocol.swift in Sources */,
-				51DF5B32287DE9210067795E /* Sample.swift in Sources */,
+				70FCCEDC2D73C2AD008A1BF8 /* OCKCDDevice.swift in Sources */,
+				51DF5B32287DE9210067795E /* QuantitySample.swift in Sources */,
 				51DF5B30287DE8F90067795E /* SampleChange.swift in Sources */,
 				51EB47532901AA2C00734820 /* CareTaskProgress.swift in Sources */,
+				7007A0DE2D6CFC5500C1B9B5 /* OCKSource.swift in Sources */,
 				51CD578F29788807005711EA /* CareKitStore.docc in Sources */,
 				E7BC32FE22332FD00055CA62 /* OCKScheduleElement.swift in Sources */,
 				51DF5B27287C82680067795E /* OCKReadOnlyEventStore+Utilities.swift in Sources */,
@@ -1012,6 +1106,7 @@
 				E7131DC5224200640001861B /* OCKOutcomeQuery.swift in Sources */,
 				03A156BE24466B6800A3EEC0 /* OCKRemoteSynchronizable.swift in Sources */,
 				E77374892280FB6100F31F94 /* OCKNote.swift in Sources */,
+				70FCCEE02D73C2CC008A1BF8 /* OCKCDSourceRevision.swift in Sources */,
 				E7B023B62241BF43001F9552 /* OCKCarePlanQuery.swift in Sources */,
 				03678DF02343B21F00E27926 /* OCKAnyEvent.swift in Sources */,
 				E77DD23222333D6B00E194A9 /* OCKSchedule.swift in Sources */,
@@ -1026,6 +1121,7 @@
 				E7AE85582232F24600AF7C32 /* OCKCDObject.swift in Sources */,
 				51988DD8297F1F7400D94E4A /* LogCategory.swift in Sources */,
 				03534C2B2342B95C00BA1C67 /* OCKAnyCarePlanStore.swift in Sources */,
+				70C4A70D2C61B42200A83FC4 /* OCKStoreMigration2_0To3_0Policy.swift in Sources */,
 				5122A2B929523218003B0B57 /* CareTaskProgressStrategy+CheckingOutcomesExist.swift in Sources */,
 				035FE17D23440E8900851723 /* OCKPersistentStoreCoordinator+Events.swift in Sources */,
 				034C4EE323D8C56D005CDD0C /* OCKHealthKitStore+Outcomes.swift in Sources */,
@@ -1048,9 +1144,9 @@
 				E7D671C02281E3F30089E4B7 /* OCKContactQuery.swift in Sources */,
 				E7131DCF2242CF680001861B /* OCKCDNote.swift in Sources */,
 				E7B2783A224468F100BF14BB /* OCKEventQuery.swift in Sources */,
+				70FCCEE22D73C87B008A1BF8 /* OCKCDOperatingSystemVersion.swift in Sources */,
 				E7844F2E2290DE7900EE2E1C /* OCKCDPersonName.swift in Sources */,
 				51988DFA297F239B00D94E4A /* Logger+Init.swift in Sources */,
-				039FDEFE25AF6601008F3684 /* CareKitStore.xcdatamodeld in Sources */,
 				5122A2BB2952323E003B0B57 /* BinaryCareTaskProgress.swift in Sources */,
 				51E6632328871F83006197D3 /* OCKReadOnlyEventStore+FetchPartialEvents.swift in Sources */,
 				E7B5C0162299E22400451AA5 /* OCKAdherence.swift in Sources */,
@@ -1062,12 +1158,15 @@
 				03ADE6F725CDCC00008507BE /* OCKStore+HealthKit.swift in Sources */,
 				51E6632128871F83006197D3 /* OCKReadOnlyEventStore+PartialEventsStream.swift in Sources */,
 				03534C1D2342917000BA1C67 /* OCKAnyOutcome.swift in Sources */,
+				70FCCEDE2D73C2C0008A1BF8 /* OCKCDSource.swift in Sources */,
 				03E88155234D077A00A28A13 /* OCKAnyVersionableTask.swift in Sources */,
 				03143264244F86C30025481A /* OCKWatchConnectivityPeer.swift in Sources */,
 				03A054A4232AE01F001ADF16 /* OCKPersistentStoreCoordinator+Outcomes.swift in Sources */,
 				03534C1B23427D0800BA1C67 /* OCKAnyTask.swift in Sources */,
 				03678DE42342C32800E27926 /* OCKAnyOutcomeStore.swift in Sources */,
+				7007A0DA2D6CFA2800C1B9B5 /* OCKDevice.swift in Sources */,
 				5173451528DA50DE006CA562 /* OCKEventAggregator.swift in Sources */,
+				7098B6042D77C60500A098DD /* CategorySample.swift in Sources */,
 				51DF5B2E287DCE1F0067795E /* OCKHealthKitPassthroughStore+EventUtilities.swift in Sources */,
 				E76FB6092267D89D00F5E1B8 /* OCKAdherenceQuery.swift in Sources */,
 				E7AE85512232F24600AF7C32 /* OCKCDScheduleElement.swift in Sources */,
@@ -1079,11 +1178,15 @@
 				03534C262342B92600BA1C67 /* OCKPatientStoreDelegate.swift in Sources */,
 				03A0549E232ADF3B001ADF16 /* OCKPersistentStoreCoordinator+CarePlans.swift in Sources */,
 				E7AE85522232F24600AF7C32 /* OCKCDOutcome.swift in Sources */,
+				7098B6062D78741800A098DD /* Sample.swift in Sources */,
+				70B8768E2D7F7179009180E8 /* OCKStoreMigration2_1To3_0Policy.swift in Sources */,
 				5122A2BF29523549003B0B57 /* CareTaskProgressStrategy+SummingOutcomeValues.swift in Sources */,
 				03ADE6CB25CDBD5A008507BE /* OCKCDHealthKitTask.swift in Sources */,
 				03678DE62342C55100E27926 /* OCKPostalAddress.swift in Sources */,
 				E773748F2281145600F31F94 /* OCKContact.swift in Sources */,
 				E7AE855D2232F24600AF7C32 /* OCKStoreError.swift in Sources */,
+				70FCCED92D73BFE8008A1BF8 /* OperatingSystemVersion+Codable.swift in Sources */,
+				70FCCEDA2D73BFE8008A1BF8 /* OperatingSystemVersion+Hashable.swift in Sources */,
 				E7131DCB22420A520001861B /* OCKPatientQuery.swift in Sources */,
 				E7131DC12241FAA80001861B /* OCKTaskQuery.swift in Sources */,
 				03E76D2023D22110003BF691 /* OCKHealthKitOutcome.swift in Sources */,
@@ -1106,6 +1209,7 @@
 				51988DFC297F24D000D94E4A /* OSLog+Init.swift in Sources */,
 				0322ED1A245752CE0018FCEB /* OCKCDClock.swift in Sources */,
 				03A156BD24466B6800A3EEC0 /* OCKStore+Synchronization.swift in Sources */,
+				7007A0DC2D6CFB0C00C1B9B5 /* OCKSourceRevision.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1263,6 +1367,7 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 				WATCHOS_DEPLOYMENT_TARGET = 11.0;
+				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -1351,6 +1456,7 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 				WATCHOS_DEPLOYMENT_TARGET = 11.0;
+				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
@@ -1371,11 +1477,13 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/CareKitStore/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				PRODUCT_BUNDLE_IDENTIFIER = org.carekit.CareKitStore;
@@ -1383,12 +1491,14 @@
 				RUN_DOCUMENTATION_COMPILER = YES;
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx watchos watchsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx watchos watchsimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_UIKITFORMAC = NO;
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = NO;
-				TARGETED_DEVICE_FAMILY = "1,2,4";
+				TARGETED_DEVICE_FAMILY = "1,2,4,7";
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
+				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -1409,11 +1519,13 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/CareKitStore/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				PRODUCT_BUNDLE_IDENTIFIER = org.carekit.CareKitStore;
@@ -1421,12 +1533,14 @@
 				RUN_DOCUMENTATION_COMPILER = YES;
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx watchos watchsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx watchos watchsimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_UIKITFORMAC = NO;
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = NO;
-				TARGETED_DEVICE_FAMILY = "1,2,4";
+				TARGETED_DEVICE_FAMILY = "1,2,4,7";
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
+				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
@@ -1434,21 +1548,26 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
 				INFOPLIST_FILE = CareKitStoreTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Apple.CareKitStoreTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx watchos watchsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx watchos watchsimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				TARGETED_DEVICE_FAMILY = "1,2,4";
+				TARGETED_DEVICE_FAMILY = "1,2,4,7";
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
+				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -1456,21 +1575,26 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
 				INFOPLIST_FILE = CareKitStoreTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Apple.CareKitStoreTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx watchos watchsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx watchos watchsimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				TARGETED_DEVICE_FAMILY = "1,2,4";
+				TARGETED_DEVICE_FAMILY = "1,2,4,7";
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
+				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
@@ -1507,32 +1631,33 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5111EDC4293A4ABA0071A701 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */ = {
+		70FE85A42EEE4AEC00A1AA07 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-async-algorithms";
+			repositoryURL = "https://github.com/apple/swift-async-algorithms.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.1;
+				minimumVersion = 1.0.4;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5111EDC5293A4ABA0071A701 /* AsyncAlgorithms */ = {
+		70FE85B82EEE4B2300A1AA07 /* AsyncAlgorithms */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5111EDC4293A4ABA0071A701 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */;
+			package = 70FE85A42EEE4AEC00A1AA07 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */;
 			productName = AsyncAlgorithms;
 		};
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		039FDEFB25AF6601008F3684 /* CareKitStore.xcdatamodeld */ = {
+		70C4A6FC2C61B33F00A83FC4 /* CareKitStore.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				039FDEFC25AF6601008F3684 /* CareKitStore2.1.xcdatamodel */,
-				039FDEFD25AF6601008F3684 /* CareKitStore2.0.xcdatamodel */,
+				70FCCED62D73A47E008A1BF8 /* CareKitStore3.0.xcdatamodel */,
+				70C4A6FD2C61B33F00A83FC4 /* CareKitStore2.1.xcdatamodel */,
+				70C4A6FF2C61B33F00A83FC4 /* CareKitStore2.0.xcdatamodel */,
 			);
-			currentVersion = 039FDEFC25AF6601008F3684 /* CareKitStore2.1.xcdatamodel */;
+			currentVersion = 70FCCED62D73A47E008A1BF8 /* CareKitStore3.0.xcdatamodel */;
 			path = CareKitStore.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

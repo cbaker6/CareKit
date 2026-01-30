@@ -31,7 +31,7 @@
 import Foundation
 
 /// A query that limits which events will be returned when fetching.
-public struct OCKEventQuery: Equatable, Sendable {
+public struct OCKEventQuery: Hashable, Sendable {
 
     /// The date interval in which events should be returned.
     public var dateInterval: DateInterval
@@ -44,6 +44,9 @@ public struct OCKEventQuery: Equatable, Sendable {
 
     /// The tags of tasks to match events against.
     public var taskTags: [String] = []
+
+	/// Determines if tasks with no events should be included in the query results or not. False by default.
+	public var excludesTasksWithNoEvents = false
 
     /// Initialize a new `OCKEventQuery` by specifying the start and end dates.
     ///
@@ -68,6 +71,7 @@ public struct OCKEventQuery: Equatable, Sendable {
         taskQuery.ids = taskIDs
         taskQuery.groupIdentifiers = taskGroupIdentifiers
         taskQuery.tags = taskTags
+		taskQuery.excludesTasksWithNoEvents = excludesTasksWithNoEvents
         return taskQuery
     }
 

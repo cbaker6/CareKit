@@ -65,3 +65,16 @@ public struct CareStoreFetchedResults<Result, Query>: RandomAccessCollection {
         return result
     }
 }
+
+extension CareStoreFetchedResults where Result: Hashable, Query: Hashable {
+
+	public static func == (lhs: CareStoreFetchedResults<Result, Query>, rhs: CareStoreFetchedResults<Result, Query>) -> Bool {
+		lhs.storage == rhs.storage
+		&& lhs.query == rhs.query
+	}
+
+	public func hash(into hasher: inout Hasher) {
+		hasher.combine(storage)
+		hasher.combine(query)
+	}
+}

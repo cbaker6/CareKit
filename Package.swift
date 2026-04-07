@@ -44,11 +44,11 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/apple/FHIRModels.git",
-            .upToNextMajor(from: Version(0, 5, 0))
+			.upToNextMajor(from: Version(0, 7, 0))
         ),
         .package(
             url: "https://github.com/apple/swift-async-algorithms",
-            .upToNextMajor(from: Version(1, 0, 1))
+			.upToNextMajor(from: Version(1, 0, 4))
         )
     ],
     targets: [
@@ -77,8 +77,10 @@ let package = Package(
             path: "CareKitStore/CareKitStore",
             exclude: ["Info.plist"],
             resources: [
-                .process("CoreData/CareKitStore.xcdatamodeld"),
-                .process("CoreData/Migrations/2_0To2_1/2.0_2.1_Mapping.xcmappingmodel")
+				.process("CoreData/CareKitStore.xcdatamodeld"),
+                .process("CoreData/Migrations/2_0To2_1/2.0_2.1_Mapping.xcmappingmodel"),
+				.process("CoreData/Migrations/2_0To3_0/2.0_3.0_Mapping.xcmappingmodel"),
+				.process("CoreData/Migrations/2_1To3_0/2.1_3.0_Mapping.xcmappingmodel")
             ],
             swiftSettings: sharedSwiftSettings
         ),

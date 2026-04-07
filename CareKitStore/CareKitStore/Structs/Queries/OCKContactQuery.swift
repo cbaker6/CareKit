@@ -31,23 +31,25 @@
 import Foundation
 
 /// A query that limits which contacts will be returned when fetching.
-public struct OCKContactQuery: Equatable, Sendable, OCKQueryProtocol {
+public struct OCKContactQuery: Hashable, Sendable, OCKQueryProtocol {
 
     /// Specifies the order in which query results will be sorted.
-    public enum SortDescriptor: Equatable, Sendable {
-
+    public enum SortDescriptor: Hashable, Sendable {
         case givenName(ascending: Bool)
         case familyName(ascending: Bool)
         case effectiveDate(ascending: Bool)
+        case groupIdentifier(ascending: Bool)
 
         var nsSortDescriptor: NSSortDescriptor {
             switch self {
-            case let .effectiveDate(ascending):
-                return NSSortDescriptor(keyPath: \OCKCDContact.effectiveDate, ascending: ascending)
             case let .givenName(ascending):
                 return NSSortDescriptor(keyPath: \OCKCDContact.name.givenName, ascending: ascending)
             case let .familyName(ascending):
                 return NSSortDescriptor(keyPath: \OCKCDContact.name.familyName, ascending: ascending)
+            case let .effectiveDate(ascending):
+                return NSSortDescriptor(keyPath: \OCKCDContact.effectiveDate, ascending: ascending)
+            case let .groupIdentifier(ascending):
+                return NSSortDescriptor(keyPath: \OCKCDContact.groupIdentifier, ascending: ascending)
             }
         }
     }

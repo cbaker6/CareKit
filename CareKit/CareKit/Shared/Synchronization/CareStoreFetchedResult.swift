@@ -39,7 +39,14 @@ public struct CareStoreFetchedResult<Result>: Identifiable {
     /// The underlying result fetched from the CareKit store.
     public var result: Result
 
-    var store: OCKAnyStoreProtocol
+    public var store: OCKAnyStoreProtocol
+
+    /// Creates a fetched result.
+    public init(id: String, result: Result, store: OCKAnyStoreProtocol) {
+        self.id = id
+        self.result = result
+        self.store = store
+    }
 }
 
 extension CareStoreFetchedResult: Equatable where Result: Equatable {

@@ -31,10 +31,10 @@
 import Foundation
 
 /// A query that limits which tasks will be returned when fetching.
-public struct OCKTaskQuery: Equatable, Sendable, OCKQueryProtocol {
+public struct OCKTaskQuery: Hashable, Sendable, OCKQueryProtocol {
 
     /// Specifies the order in which query results will be sorted.
-    public enum SortDescriptor: Equatable, Sendable {
+    public enum SortDescriptor: Hashable, Sendable {
         case effectiveDate(ascending: Bool)
         case groupIdentifier(ascending: Bool)
         case title(ascending: Bool)
@@ -72,7 +72,7 @@ public struct OCKTaskQuery: Equatable, Sendable, OCKQueryProtocol {
     /// The remote IDs of the care plans for which tasks should match.
     public var carePlanRemoteIDs: [String] = []
 
-    /// Determines if tasks with no events should be included in the query results or not. False be default.
+    /// Determines if tasks with no events should be included in the query results or not. False by default.
     public var excludesTasksWithNoEvents = false
 
     /// The order in which the results will be sorted when returned from the query.

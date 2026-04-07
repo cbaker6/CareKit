@@ -58,7 +58,7 @@ extension OCKHealthKitPassthroughStore {
     // Test seam. Allows us to abstract HK out of the business logic.
     func events<SampleChanges: AsyncSequence & Sendable>(
         matching query: OCKTaskQuery,
-        applyingChanges changes: @escaping @Sendable ([Event]) -> SampleChanges,
+        applyingChanges changes: @escaping @Sendable ([Event]) throws -> SampleChanges,
         updateCumulativeSumOfSamples: @escaping UpdateCumulativeSumOfSamples
     ) -> some AsyncSequence<[Event], Error> & Sendable where SampleChanges.Element == SampleChange {
 
@@ -74,7 +74,7 @@ extension OCKHealthKitPassthroughStore {
         let updatedEvents = events.flatMap { events in
 
             let initialChanges = [SampleChange()].async
-            let seededChanges = chain(initialChanges, changes(events))
+            let seededChanges = try chain(initialChanges, changes(events))
 
             // Continuously update the outcomes for the events when new HealthKit
             // sample changes are received. We seed the streaming changes in case there actually

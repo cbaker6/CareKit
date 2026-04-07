@@ -34,9 +34,9 @@ import HealthKit
 
 @objc(OCKCDHealthKitLinkage)
 class OCKCDHealthKitLinkage: NSManagedObject {
-    @NSManaged var quantityIdentifier: String
-    @NSManaged var quantityType: String
-    @NSManaged var unitString: String
+    @NSManaged var sampleIdentifier: String
+    @NSManaged var quantityType: String?
+    @NSManaged var unitString: String?
 
     convenience init(context: NSManagedObjectContext) {
         self.init(entity: Self.entity(), insertInto: context)
@@ -44,22 +44,35 @@ class OCKCDHealthKitLinkage: NSManagedObject {
     
     convenience init(link: OCKHealthKitLinkage, context: NSManagedObjectContext) {
         self.init(entity: Self.entity(), insertInto: context)
-        self.quantityIdentifier = link.quantityIdentifier.rawValue
-        self.quantityType = link.quantityType.rawValue
-        self.unitString = link.unit.unitString
+        self.sampleIdentifier = link.sampleIdentifier
+        self.quantityType = link.quantityType?.rawValue
+        self.unitString = link.unit?.unitString
     }
 
     func makeValue() -> OCKHealthKitLinkage {
-
         var healthKitLinkage: OCKHealthKitLinkage!
         self.managedObjectContext!.performAndWait {
-            healthKitLinkage = OCKHealthKitLinkage(
-                quantityIdentifier: HKQuantityTypeIdentifier(rawValue: quantityIdentifier),
-                quantityType: OCKHealthKitLinkage.QuantityType(rawValue: quantityType)!,
-                unit: HKUnit(from: unitString)
-            )
+            let quantityType: OCKHealthKitLinkage.QuantityType? = quantityType != nil ? OCKHealthKitLinkage.QuantityType(rawValue: quantityType!)! : nil
+            let unit: HKUnit? = unitString != nil ? HKUnit(from: unitString!) : nil
+            if let quantityType = quantityType,
+               let unit = unit {
+                let quantityIdentifier = HKQuantityTypeIdentifier(
+                    rawValue: sampleIdentifier
+                )
+                healthKitLinkage = OCKHealthKitLinkage(
+                    quantityIdentifier: quantityIdentifier,
+                    quantityType: quantityType,
+                    unit: unit
+                )
+            } else {
+                let categoryIdentifier = HKCategoryTypeIdentifier(
+                    rawValue: sampleIdentifier
+                )
+                healthKitLinkage = OCKHealthKitLinkage(
+                    categoryIdentifier: categoryIdentifier
+                )
+            }
         }
-
         return healthKitLinkage
     }
 }

@@ -35,7 +35,11 @@ class OCKCDOutcomeValue: NSManagedObject {
     @NSManaged var kind: String? // blood sugar, body weight, etc.
     @NSManaged var units: String?
     @NSManaged var createdDate: Date
+    @NSManaged var endDate: Date?
     @NSManaged var outcome: OCKCDOutcome?
+    @NSManaged var sourceRevision: OCKCDSourceRevision?
+    @NSManaged var device: OCKCDDevice?
+    @NSManaged var metadata: [String: String]?
 
     @NSManaged private var typeString: String
     var type: OCKOutcomeValueType {
@@ -56,6 +60,20 @@ class OCKCDOutcomeValue: NSManagedObject {
         self.units = value.units
         self.kind = value.kind
         self.createdDate = value.createdDate
+        self.endDate = value.dateInterval?.end
+        self.metadata = value.metadata
+        if let sourceRevision = value.sourceRevision {
+            self.sourceRevision = OCKCDSourceRevision(
+                sourceRevision: sourceRevision,
+                context: context
+            )
+        }
+        if let device = value.device {
+            self.device = OCKCDDevice(
+                device: device,
+                context: context
+            )
+        }
     }
 
     func makeValue() -> OCKOutcomeValue {
@@ -63,9 +81,16 @@ class OCKCDOutcomeValue: NSManagedObject {
         var value: OCKOutcomeValue!
         
         self.managedObjectContext!.performAndWait {
-            value = OCKOutcomeValue(self.value, units: units)
-            value.createdDate = createdDate
-            value.kind = kind
+            value = OCKOutcomeValue(
+                self.value,
+                units: units,
+                createdDate: createdDate,
+				endDate: endDate,
+                kind: kind,
+                sourceRevision: sourceRevision?.makeValue(),
+                device: device?.makeValue(),
+                metadata: metadata
+            )
         }
 
         return value

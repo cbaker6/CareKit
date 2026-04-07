@@ -36,7 +36,7 @@ public extension OCKHealthKitPassthroughStore {
     func fetchEvents(
         query: OCKEventQuery,
         callbackQueue: DispatchQueue = .main,
-        completion: @escaping OCKResultClosure<[Event]>
+		completion: @escaping OCKResultClosure<[Event]>
     ) {
 
         let taskQuery = query.taskQuery

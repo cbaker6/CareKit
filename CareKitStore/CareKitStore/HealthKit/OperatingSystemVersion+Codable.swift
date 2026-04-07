@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Apple Inc. All rights reserved.
+ Copyright (c) 2025, Apple Inc. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -29,23 +29,29 @@
  */
 
 import Foundation
-import HealthKit
 
-// Needed for testing because we can't create our own `HKSample`s
-struct Sample {
+extension OperatingSystemVersion: Codable {
 
-    var id: UUID
-    var type: HKSampleType
-    var quantity: HKQuantity
-    var dateInterval: DateInterval
-}
+    enum CodingKeys: String, CodingKey {
+        case majorVersion, minorVersion, patchVersion
+    }
 
-extension Sample {
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let majorVersion = try container.decode(Int.self, forKey: .majorVersion)
+        let minorVersion = try container.decode(Int.self, forKey: .minorVersion)
+        let patchVersion = try container.decode(Int.self, forKey: .patchVersion)
+        var osVersion = OperatingSystemVersion()
+        osVersion.majorVersion = majorVersion
+        osVersion.minorVersion = minorVersion
+        osVersion.patchVersion = patchVersion
+        self = osVersion
+    }
 
-    init(_ sample: HKQuantitySample) {
-        id = sample.uuid
-        type = sample.sampleType
-        quantity = sample.quantity
-        dateInterval = DateInterval(start: sample.startDate, end: sample.endDate)
+    public func encode(to encoder: any Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(majorVersion, forKey: .majorVersion)
+        try container.encode(minorVersion, forKey: .minorVersion)
+        try container.encode(patchVersion, forKey: .patchVersion)
     }
 }
